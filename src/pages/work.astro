@@ -1,0 +1,689 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import Slot from '../components/Slot.astro';
+import { url } from '../lib/url';
+import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES } from '../data/work';
+
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work', active: true }, { href: '/about', label: 'About' }];
+const pad = (n: number) => String(n).padStart(2, '0');
+const plats = (p: (typeof products)[number]) => p.tags.filter((t) => t === 'Web' || t === 'Mobile');
+const shortMeta = (m: string) => { const parts = m.split(' · '); return parts[0] + ' · ' + parts[parts.length - 1]; };
+const hrefOf = (p: (typeof products)[number]) => (LIVE_CASES.includes(p.slug) ? url('/work/' + p.slug) : null);
+
+const items = products.map((p, i) => ({ ...p, i, plat: plats(p).join(' '), href: hrefOf(p), short: shortMeta(p.m) }));
+const groups = industries.map((g) => ({ ...g, items: items.filter((p) => p.ind === g.key) }));
+const preview = items.map((p) => ({ t: p.t, r: p.r, d: p.d, m: p.m, tags: p.tags, img: p.img ? url(p.img) : '', href: p.href, ind: industries.find((x) => x.key === p.ind)!.label.toUpperCase() }));
+const Arrow = '→';
+---
+<Base title="Work — Viktoriia Seliverstova" description="25 products I designed for companies in 7 industries, 5 apps I build on my own, and the graphic work behind them." nav={nav}>
+<main id="top" class="page work g12" data-work data-section="all" data-view="rows">
+
+  <section class="console g12">
+    <h1 class="console-h">Work</h1>
+    <div class="console-count" aria-live="polite">
+      <div class="console-count-n"><span class="num" data-shown>44</span><span class="serif mist">/ 44</span></div>
+      <span class="label mist">PROJECTS SHOWN</span>
+    </div>
+    <p class="console-lead">25 products I designed for companies in 7 industries, 5 apps I build on my own, and the graphic work behind them.</p>
+    <div class="tabs" role="tablist" aria-label="Section">
+      {sections.map(([k, label, n]) => <button type="button" role="tab" class="tab" data-section-tab={k} aria-selected={k === 'all' ? 'true' : 'false'}><span>{label}</span><span class="num tab-n">{n}</span></button>)}
+    </div>
+  </section>
+
+  <!-- Filter bar: desktop and tablet -->
+  <div class="fbar-wrap only-product">
+    <div class="fbar">
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-expanded="false" aria-haspopup="listbox" data-dd-btn><span class="dd-k">Industry</span><span data-ind-label>All</span><i class="chev" aria-hidden="true"></i></button>
+        <div class="dd-list" role="listbox" hidden data-dd-list>
+          <button type="button" class="frow" data-ind-pick=""><span class="fdot" aria-hidden="true"></span><span class="frow-l">All industries</span><span class="num frow-n"></span></button>
+          {industries.map((g) => <button type="button" class="frow" data-ind-pick={g.key}><span class="fdot" aria-hidden="true"></span><span class="frow-l">{g.label}</span><span class="num frow-n"></span></button>)}
+        </div>
+      </div>
+      <div class="seg" role="group" aria-label="Platform">
+        {['All', 'Web', 'Mobile', 'iOS'].map((p) => <button type="button" class="seg-b" data-plat-pick={p === 'All' ? '' : p}>{p}</button>)}
+      </div>
+      <span class="fbar-sp"></span>
+      <span class="fbar-count muted" aria-live="polite"><b class="num" data-count>25</b> <span data-noun>projects</span></span>
+      <button type="button" class="clear" data-clear hidden>Clear</button>
+      <div class="seg" role="tablist" aria-label="View">
+        {[['rows', 'Rows'], ['index', 'Index'], ['cards', 'Cards']].map(([k, l]) => <button type="button" role="tab" class:list={['seg-b', { 'only-d': k === 'index' }]} data-view-pick={k}>{l}</button>)}
+      </div>
+    </div>
+  </div>
+  <button type="button" class="dd-scrim" aria-label="Close" hidden data-dd-scrim></button>
+
+  <!-- Filters: phone -->
+  <div class="fpill-wrap" data-fpill hidden>
+    <div class="fpill">
+      <button type="button" class="fpill-btn" data-sheet-open><span class="fpill-ic" aria-hidden="true"><i></i><i></i><i></i></span><span data-pill-label>Filter</span></button>
+      <b class="num fpill-n" data-count>25</b>
+    </div>
+  </div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="Filters" hidden data-sheet>
+    <button type="button" class="sheet-scrim" aria-label="Close filters" data-sheet-close></button>
+    <div class="sheet-panel">
+      <div class="sheet-grab"><i></i></div>
+      <div class="sheet-head"><span class="sheet-title">Filter</span><button type="button" class="clear" data-clear hidden>Clear all</button></div>
+      <div class="sheet-body">
+        <div class="sheet-grp"><span class="label muted">VIEW</span><div class="seg full">{[['rows', 'Rows'], ['cards', 'Cards']].map(([k, l]) => <button type="button" class="seg-b" data-view-pick={k}>{l}</button>)}</div></div>
+        <div class="sheet-grp"><span class="label muted">PLATFORM</span><div class="seg full">{['All', 'Web', 'Mobile', 'iOS'].map((p) => <button type="button" class="seg-b" data-plat-pick={p === 'All' ? '' : p}>{p}</button>)}</div></div>
+        <div class="sheet-grp"><span class="label muted">INDUSTRY</span>
+          <div class="sheet-list">
+            <button type="button" class="frow" data-ind-pick=""><span class="fdot" aria-hidden="true"></span><span class="frow-l">All industries</span><span class="num frow-n"></span></button>
+            {industries.map((g) => <button type="button" class="frow" data-ind-pick={g.key}><span class="fdot" aria-hidden="true"></span><span class="frow-l">{g.label}</span><span class="num frow-n"></span></button>)}
+          </div>
+        </div>
+      </div>
+      <div class="sheet-foot"><button type="button" class="sheet-show" data-sheet-close>Show <span data-count-label>25 projects</span></button></div>
+    </div>
+  </div>
+
+  <section class="empty" hidden data-empty>
+    <span class="h2">Nothing here yet.</span>
+    <button type="button" class="btn btn-ink" data-clear-all>Clear filters</button>
+  </section>
+
+  <!-- Product work, grouped by industry -->
+  {groups.map((g) => (
+    <section class="group g12 only-product" data-group={g.key}>
+      <header class="group-h">
+        <div class="group-top"><span class="label-s group-no" data-group-no></span><span class="num badge" data-group-count>{g.items.length}</span></div>
+        <h2 class="group-t">{g.label}</h2>
+        <p class="group-sub muted">{g.sub}</p>
+      </header>
+      <div class="rows" role="list">
+        {g.items.map((p) => {
+          const Tag = p.href ? 'a' : 'div';
+          return (
+            <Tag role="listitem" class="row" href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat} tabindex={p.href ? undefined : 0}>
+              <div class="row-t"><span class="row-title">{p.t}</span><span class="label-s row-m">{p.m}</span></div>
+              <span class="num row-r">{p.r}</span>
+              <span class="row-arr" aria-hidden="true">{Arrow}</span>
+            </Tag>
+          );
+        })}
+      </div>
+      <div class="mrows" role="list">
+        {g.items.map((p, idx) => {
+          const Tag = p.href ? 'a' : 'div';
+          return (
+            <Tag role="listitem" class="mrow" href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat}>
+              <span class:list={['mthumb', { alt: idx % 2 === 1 }]} style={p.img ? `background-image:url(${url(p.img)})` : undefined}>{!p.img && <span data-thumb-no></span>}</span>
+              <span class="mrow-b"><span class="mrow-txt"><span class="mrow-t">{p.t}</span>{p.r && <span class="num mrow-r">{p.r}</span>}<span class="muted mrow-m">{p.short}</span></span><i class="mchev" aria-hidden="true"></i></span>
+            </Tag>
+          );
+        })}
+      </div>
+      <div class="cards">
+        {g.items.map((p) => {
+          const Tag = p.href ? 'a' : 'div';
+          return (
+            <Tag class:list={['card', { dark: !!p.img }]} href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat}>
+              {p.href && <span class="card-arr" aria-hidden="true">{Arrow}</span>}
+              {p.img && <div class="card-img" style={`background-image:url(${url(p.img)})`}></div>}
+              <div class="card-b">
+                {p.r && <span class="num card-r">{p.r}</span>}
+                <div class="card-tt"><span class="card-t">{p.t}</span><span class="card-d">{p.d}</span></div>
+                <div class="card-foot"><span class="label-s card-m">{p.m}</span><div class="card-tags">{p.tags.map((t) => <span>{t}</span>)}</div></div>
+              </div>
+            </Tag>
+          );
+        })}
+      </div>
+      <button type="button" class="more" data-more hidden>Show <span data-more-n></span> more<span aria-hidden="true">↓</span></button>
+    </section>
+  ))}
+
+  <!-- Index view (desktop only) -->
+  <section class="index only-product">
+    <div class="index-list">
+      {groups.map((g) => (
+        <div class="ig" data-group={g.key}>
+          <div class="ig-h"><span class="ig-ht"><span class="label-s group-no" data-group-no></span><span class="ig-t">{g.label}</span></span><span class="serif ig-n">(<span data-group-count>{g.items.length}</span>)</span></div>
+          {g.items.map((p) => <button type="button" class="ii" data-p={p.i} data-ind={p.ind} data-plat={p.plat} data-select={p.i}><span class="ii-t">{p.t}</span><span class="ii-r"><span class="num">{p.r}</span><span class="ii-arr" aria-hidden="true">{Arrow}</span></span></button>)}
+        </div>
+      ))}
+    </div>
+    <aside class="ipanel" aria-live="polite" data-ipanel></aside>
+  </section>
+
+  <div class="float" aria-hidden="true" hidden data-float></div>
+
+  <button type="button" class="banner" data-to="mine" data-banner>
+    <span class="h5 banner-t">I also build my own products — from the first sketch to the App Store.</span>
+    <span class="btn btn-white">See My products<span class="arr" aria-hidden="true">{Arrow}</span></span>
+  </button>
+
+  <!-- My products -->
+  <section id="mine" class="section g12 mine" data-mine>
+    <h2 class="big-h s-half">My <span class="serif">products</span></h2>
+    <div class="s-half mine-intro">
+      <p class="muted body">I build small, focused apps on my own: the idea, the design, the SwiftUI code with Claude Code and Cursor, and the App Store page. Every decision is mine to defend and every bug is mine to fix — that is the best product school I know.</p>
+      <div class="pills">{stack.map((x) => <span class="label-s pill-grey">{x}</span>)}</div>
+    </div>
+    {apps.map((a) => (
+      <article class="appcard g12">
+        <div class="s-phone appcard-ph"><div class="phone"><div><Slot label={a.ph} /></div></div></div>
+        <div class="s-apptext appcard-t">
+          <div class="appcard-head">
+            <span class="label-s glass-tag"><i class="dot" style="width:7px;height:7px;background:var(--orange)"></i>{a.status}</span>
+            <h3 class="big-h">{a.name}</h3>
+            <span class="serif slogan mist">{a.slogan}</span>
+            <p class="body mist">{a.d}</p>
+          </div>
+          <div class="dec"><span class="label on-ink-muted">DECISIONS I MADE</span>{a.dec.map((t, i) => <div class="dec-row"><span class="num dec-n">0{i + 1}</span><span>{t}</span></div>)}</div>
+          <div class="did"><span class="label on-ink-muted">WHAT I DID</span>{a.did.map((w) => <span class="did-chip">{w}</span>)}</div>
+          {a.page && <a class="btn btn-white" href={url(a.page)}>Open product page<span class="arr" aria-hidden="true">{Arrow}</span></a>}
+        </div>
+      </article>
+    ))}
+    <article class="s-half kvit" data-not-ios>
+      <span class="label-s tag-white">CONCEPT</span>
+      <div class="kvit-h"><h3 class="big-h">Kvit</h3><span class="serif slogan muted">Receipts, grocery prices and a food budget in one place.</span></div>
+      <div class="did"><span class="label muted">WHAT I DID</span><span class="did-chip light">Idea</span><span class="did-chip light">research</span><span class="did-chip light">product design</span></div>
+    </article>
+    <article class="s-half aicard" data-not-ios>
+      <span class="label-s glass-tag"><i class="dot" style="width:7px;height:7px;background:var(--green)"></i>IN DAILY USE</span>
+      <div class="kvit-h"><h3 class="ai-h">How I work <span class="serif">with AI</span></h3><p class="body mist">My everyday setup: a system of AI agents with rules I wrote and keep improving.</p></div>
+      <div class="ai-grid">{ai.map((x) => <div class="ai-item"><span class="ai-t">{x.t}</span><span class="mist ai-d">{x.d}</span></div>)}</div>
+    </article>
+  </section>
+
+  <!-- Graphic & illustration -->
+  <section id="graphic" class="section g12 graphic" data-graphic>
+    <h2 class="big-h s-half">Graphic &amp; <span class="serif">illustration</span></h2>
+    <p class="s-half muted body graphic-p">Brand systems, illustration, print and icons. 14 projects, plus product work where the visual side carried the result.</p>
+    <div class="gtypes">
+      <span class="label muted gtypes-k">TYPE</span>
+      {graphicTypes.map(([label, n]) => <button type="button" class="gchip" aria-pressed="false" data-gtype={label}>{label}<span class="num gchip-n">{n}</span><i aria-hidden="true">+</i></button>)}
+    </div>
+    {graphics.map((g) => (
+      <div class="gtile s-gfx" data-gtype-of={g.type}>
+        <div class="gtile-img"><Slot label={g.t} /></div>
+        <div class="gtile-t"><span class="label" style="color:var(--cobalt)">{g.type}</span><span class="gtile-name">{g.t}</span><span class="muted gtile-l">{g.l}</span></div>
+      </div>
+    ))}
+    <div class="vis">
+      <div class="vis-l"><span class="vis-t">Product work with a strong visual side</span><div class="pills">{visualProducts.map((x) => <span class="pill-grey">{x}</span>)}</div></div>
+      <button type="button" class="btn btn-ink" data-to="product">All product work<span class="arr" aria-hidden="true">{Arrow}</span></button>
+    </div>
+  </section>
+
+  <div class="full"><Contact /></div>
+</main>
+<script type="application/json" id="work-data" set:html={JSON.stringify(preview)}></script>
+</Base>
+
+<style>
+  /* 12-col grid: 12 / 12 / 4 columns at desktop / tablet / phone */
+  .g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+  .work { padding-top: var(--content-top); padding-bottom: 16px; row-gap: 12px; }
+  .work > *, .full { grid-column: 1 / -1; min-width: 0; }
+  .s-half { grid-column: span 6; }
+  .s-phone { grid-column: span 4; }
+  .s-apptext { grid-column: span 8; }
+  .s-gfx { grid-column: span 3; }
+  @media (max-width: 1099px) { .s-half { grid-column: span 12; } .s-phone { grid-column: span 5; } .s-apptext { grid-column: span 7; } .s-gfx { grid-column: span 4; } }
+  @media (max-width: 639px) {
+    .g12 { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 16px; }
+    .s-half, .s-phone, .s-apptext { grid-column: span 4; }
+    .s-gfx { grid-column: span 2; }
+  }
+  .body { font-size: var(--t-body); line-height: 1.5; max-width: 62ch; }
+  .big-h { font-weight: 500; font-size: var(--t-display); line-height: .86; letter-spacing: -.055em; }
+  .pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .pill-grey { padding: 7px 12px; border-radius: var(--r-pill); background: var(--grey-238); font-size: var(--t-small); }
+  .label-s.pill-grey { font-size: var(--t-label); letter-spacing: 0; }
+
+  /* Section visibility */
+  .work:not([data-section='all']):not([data-section='product']) .only-product { display: none !important; }
+  [hidden] { display: none !important; }
+
+  /* Console */
+  .console { border-radius: var(--r-surface); background: var(--cobalt); color: var(--white); padding: var(--panel-pad); row-gap: clamp(22px, 3.6vw, 56px); }
+  .console-h { grid-column: span 8; align-self: end; font-weight: 500; font-size: var(--t-number-xl); line-height: .78; letter-spacing: -.055em; }
+  .console-count { grid-column: span 4; align-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .console-count-n { display: flex; align-items: baseline; gap: 8px; }
+  .console-count-n .num { font-size: var(--t-hero); line-height: .8; letter-spacing: -.055em; }
+  .console-count-n .serif { font-size: var(--t-h5); }
+  .console-lead { grid-column: span 7; font-size: var(--t-h5); line-height: 1.3; letter-spacing: -.02em; font-weight: 400; }
+  .tabs { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; border-radius: var(--r-card); background: var(--on-dark-fill); }
+  .tab { display: flex; justify-content: flex-start; align-items: center; gap: 12px; min-height: 52px; padding: 0 18px; border-radius: var(--r-inner); font-size: var(--t-body); font-weight: 500; text-align: left; color: var(--white); transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease); }
+  .tab:hover { box-shadow: inset 0 0 0 1.5px var(--on-dark-glass); }
+  .tab[aria-selected='true'] { background: var(--white); color: var(--cobalt); }
+  .tab-n { min-width: 28px; height: 28px; padding: 0 6px; border-radius: var(--r-pill); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-small); background: var(--on-dark-line); color: var(--white); }
+  .tab[aria-selected='true'] .tab-n { background: var(--cobalt); }
+  @media (max-width: 1099px) { .console-h { grid-column: span 7; } .console-count { grid-column: span 5; } .console-lead { grid-column: span 10; } }
+  @media (max-width: 639px) {
+    .console-h, .console-count, .console-lead { grid-column: span 4; }
+    .console-count { align-items: flex-start; }
+    .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* Filter bar */
+  .fbar-wrap { position: sticky; top: 72px; z-index: 40; transition: top var(--d-base) var(--ease); }
+  :global(html.nav-hidden) .fbar-wrap { top: 10px; }
+  @media (max-width: 639px) { .fbar-wrap { display: none !important; } }
+  .fbar { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: var(--r-pill); background: var(--glass-light-bg); backdrop-filter: var(--glass-light-filter); -webkit-backdrop-filter: var(--glass-light-filter); box-shadow: var(--glass-light-shadow); }
+  .fbar-sp { flex: 1; }
+  .fbar-count { font-size: var(--t-small); white-space: nowrap; }
+  .fbar-count b { color: var(--ink); }
+  .dd { position: relative; flex-shrink: 0; }
+  .dd-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px 0 18px; border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 500; }
+  .dd-btn.set { background: var(--ink); color: var(--white); }
+  .dd-k { opacity: .6; }
+  .chev { width: 7px; height: 7px; margin: 0 2px 3px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform var(--d-base) var(--ease); }
+  .dd-btn[aria-expanded='true'] .chev { transform: rotate(-135deg); }
+  .dd-list { position: absolute; top: calc(100% + 10px); left: 0; width: 340px; padding: 6px; border-radius: var(--r-inner); background: var(--glass-sheet-bg); backdrop-filter: var(--glass-sheet-filter); -webkit-backdrop-filter: var(--glass-sheet-filter); box-shadow: var(--glass-sheet-shadow); display: flex; flex-direction: column; gap: 2px; z-index: 2; }
+  .dd-scrim { position: fixed; inset: 0; z-index: 39; cursor: default; }
+  .frow { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; border-radius: var(--r-tile); text-align: left; font-size: 15px; font-weight: 500; }
+  .frow:hover:not(:disabled), .frow[aria-pressed='true'] { background: var(--hover); }
+  .fdot { flex-shrink: 0; width: 20px; height: 20px; border-radius: var(--r-dot); display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 1.5px var(--line); color: var(--white); font-size: var(--t-label); }
+  .frow[aria-pressed='true'] .fdot { background: var(--ink); box-shadow: none; }
+  .frow[aria-pressed='true'] .fdot::after { content: '✓'; }
+  .frow-l { flex: 1; min-width: 0; }
+  .frow-n { font-size: var(--t-small); color: var(--text-muted); }
+  .seg { display: flex; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: var(--hover); flex-shrink: 0; }
+  .seg-b { flex: 1 0 auto; min-height: 38px; padding: 0 14px; border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 500; white-space: nowrap; }
+  .seg-b[aria-pressed='true'] { background: var(--white); box-shadow: 0 1px 4px var(--shadow-ink); }
+  .seg.full .seg-b { min-height: 40px; }
+  @media (max-width: 1099px) { .only-d { display: none; } }
+  .clear { min-height: 44px; padding: 0 12px; border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 500; color: var(--cobalt); }
+  .clear:hover { background: var(--cobalt-tint); }
+
+  /* Phone filter pill + sheet */
+  .fpill-wrap { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 45; display: flex; justify-content: center; pointer-events: none; }
+  @media (min-width: 640px) { .fpill-wrap { display: none !important; } }
+  :global(html.menu-open) .fpill-wrap { display: none !important; }
+  .fpill { display: flex; align-items: center; gap: 4px; padding: 5px; border-radius: var(--r-pill); background: var(--glass-light-bg); backdrop-filter: var(--glass-light-filter); -webkit-backdrop-filter: var(--glass-light-filter); box-shadow: var(--glass-light-shadow); pointer-events: auto; }
+  .fpill-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); font-weight: 500; }
+  .fpill-ic { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .fpill-ic i { height: 2px; border-radius: 2px; background: var(--white); width: 14px; }
+  .fpill-ic i:nth-child(2) { width: 10px; }
+  .fpill-ic i:nth-child(3) { width: 6px; }
+  .fpill-n { padding: 0 10px 0 6px; font-size: var(--t-small); }
+  .sheet { position: fixed; inset: 0; z-index: 70; display: flex; flex-direction: column; justify-content: flex-end; }
+  .sheet-scrim { position: absolute; inset: 0; background: var(--scrim); cursor: default; }
+  .sheet-panel { position: relative; max-height: 86svh; display: flex; flex-direction: column; border-radius: var(--r-card) var(--r-card) 0 0; background: var(--glass-sheet-bg); backdrop-filter: var(--glass-sheet-filter); -webkit-backdrop-filter: var(--glass-sheet-filter); box-shadow: var(--glass-sheet-shadow); padding-bottom: env(safe-area-inset-bottom); animation: sheet-in var(--d-slow) var(--ease); }
+  @keyframes sheet-in { from { transform: translateY(100%); } }
+  .sheet-grab { display: flex; justify-content: center; padding: 10px 0 0; }
+  .sheet-grab i { width: 40px; height: 5px; border-radius: var(--r-mark); background: var(--line); }
+  .sheet-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 16px 8px 20px; }
+  .sheet-title { font-size: 22px; font-weight: 500; letter-spacing: -.03em; }
+  .sheet-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; padding: 4px 12px 16px; }
+  .sheet-grp { display: flex; flex-direction: column; gap: 8px; }
+  .sheet-grp > .label { padding: 0 8px; }
+  .sheet-list { display: flex; flex-direction: column; gap: 2px; padding: 4px; border-radius: var(--r-inner); background: var(--white); }
+  .sheet-foot { padding: 12px 16px 16px; border-top: 1px solid var(--hover); }
+  .sheet-show { width: 100%; min-height: 52px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-body); font-weight: 500; }
+
+  .empty { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding: var(--block-top) clamp(20px, 2.6vw, 40px); border-radius: var(--r-surface); background: var(--grey-238); }
+
+  /* Groups */
+  .group { row-gap: 24px; align-items: start; padding-top: var(--block-top); }
+  .group-h { grid-column: span 3; display: flex; flex-direction: column; gap: 12px; padding-top: 16px; border-top: 2px solid var(--ink); }
+  .group-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .group-no { color: var(--cobalt); letter-spacing: .06em; }
+  .badge { min-width: 28px; height: 28px; padding: 0 6px; border-radius: var(--r-pill); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-small); background: var(--cobalt); color: var(--white); }
+  .group-t { font-weight: 500; font-size: var(--t-h4); line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
+  .group-sub { font-size: var(--t-body); line-height: 1.5; max-width: 56ch; }
+  .rows, .mrows, .cards, .more { grid-column: span 9; }
+  @media (max-width: 1099px) { .group-h, .rows, .mrows, .cards, .more { grid-column: span 12; } }
+  @media (max-width: 639px) { .group-h, .rows, .mrows, .cards, .more { grid-column: span 4; } .group-sub { display: none; } }
+
+  /* View switching */
+  .mrows, .cards, .index { display: none; }
+  .work[data-view='cards'] .rows, .work[data-view='cards'] .mrows { display: none; }
+  .work[data-view='cards'] .cards { display: grid; }
+  @media (max-width: 639px) {
+    .work:not([data-view='cards']) .rows { display: none; }
+    .work:not([data-view='cards']) .mrows { display: block; }
+  }
+  @media (min-width: 1100px) {
+    .work[data-view='index'] .group { display: none; }
+    .work[data-view='index'] .index { display: grid; }
+  }
+  @media (max-width: 639px) { .capped { display: none !important; } }
+  @media (min-width: 640px) { .more { display: none !important; } }
+
+  /* Rows (desktop / tablet) */
+  .rows { display: flex; flex-direction: column; border-top: 2px solid var(--ink); }
+  .row { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: 24px; align-items: center; margin: 0 -16px; padding: clamp(16px, 1.5vw, 22px) 16px; border-radius: 0; color: var(--ink); text-decoration: none; box-shadow: 0 1px 0 var(--shadow-ink); transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease), border-radius var(--d-base) var(--ease); }
+  .row-t { grid-column: span 5; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .row-title { font-size: var(--t-h5); font-weight: 500; line-height: 1.05; letter-spacing: -.03em; }
+  .row-m { line-height: 1.5; color: var(--text-muted); }
+  .row-r { grid-column: span 3; font-size: var(--t-body); line-height: 1.25; letter-spacing: -.01em; color: var(--cobalt); }
+  .row-arr { grid-column: span 1; justify-self: end; width: 44px; height: 44px; border-radius: var(--r-dot); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-ui-l); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); transition: transform var(--d-base) var(--ease), background var(--d-base) var(--ease); }
+  @media (max-width: 1099px) { .row { grid-template-columns: repeat(12, minmax(0, 1fr)); } .row-t { grid-column: span 7; } .row-r { grid-column: span 4; } }
+  @media (hover: hover) and (pointer: fine) {
+    .row:hover, .row:focus-visible { background: var(--ink); color: var(--white); border-radius: var(--r-inner); }
+    .row:hover .row-r, .row:focus-visible .row-r { color: var(--periwinkle); }
+    .row:hover .row-m, .row:focus-visible .row-m { color: var(--muted-on-ink); }
+    .row:hover .row-arr, .row:focus-visible .row-arr { background: var(--white); box-shadow: none; transform: rotate(-45deg); }
+  }
+
+  /* Rows (phone) */
+  .mrows { border-radius: var(--r-inner); background: var(--grey-238); overflow: hidden; }
+  .mrow { display: flex; align-items: center; gap: 12px; padding: 0 16px; min-height: 76px; color: var(--ink); text-decoration: none; }
+  .mrow:active { background: var(--grey-210); }
+  .mthumb { flex-shrink: 0; width: 56px; height: 56px; border-radius: var(--r-tile); overflow: hidden; display: flex; align-items: flex-end; padding: 7px; background: var(--cobalt) center / cover no-repeat; color: var(--white); font-weight: 500; font-size: var(--t-label); }
+  .mthumb.alt { background-color: var(--ink); }
+  .mthumb[style] { background-color: var(--grey-210); }
+  .mrow-b { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; align-self: stretch; padding: 12px 0; }
+  .mrow.sep .mrow-b { box-shadow: inset 0 1px 0 var(--hover); }
+  .mrow-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .mrow-t { font-size: var(--t-ui-l); font-weight: 500; line-height: 1.22; letter-spacing: -.01em; }
+  .mrow-r { font-size: var(--t-small); line-height: 1.3; color: var(--cobalt); }
+  .mrow-m { font-size: var(--t-small); line-height: 1.3; }
+  .mchev { flex-shrink: 0; width: 8px; height: 8px; margin-right: 4px; border-top: 2px solid var(--text-muted); border-right: 2px solid var(--text-muted); transform: rotate(45deg); }
+
+  /* Cards */
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-content: start; }
+  @media (max-width: 1099px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .cards { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
+  .card { position: relative; display: flex; flex-direction: column; border-radius: var(--r-card); overflow: hidden; background: var(--grey-238); color: var(--ink); text-decoration: none; transition: transform var(--d-base) var(--ease), box-shadow var(--d-base) var(--ease); }
+  .card.dark { background: var(--ink); color: var(--white); }
+  a.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); color: inherit; }
+  .card-arr { position: absolute; top: 14px; right: 14px; z-index: 1; width: 44px; height: 44px; border-radius: var(--r-dot); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-ui-l); background: var(--white); color: var(--ink); box-shadow: 0 4px 14px var(--shadow-ink); transform: rotate(-45deg); }
+  .card-img { aspect-ratio: 16 / 10; background: var(--grey-210) center / cover no-repeat; }
+  .card-b { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: var(--card-pad); }
+  .card-r { font-size: var(--t-h5); line-height: 1.04; letter-spacing: -.045em; }
+  a.card:not(.dark) .card-r, a.card:not(.dark) .card-tt { padding-right: 52px; }
+  .card-tt { display: flex; flex-direction: column; gap: 6px; }
+  .card-t { font-size: 20px; font-weight: 500; line-height: 1.15; letter-spacing: -.02em; }
+  .card-d, .card-m { color: var(--text-muted); }
+  .card-d { font-size: var(--t-body); line-height: 1.45; }
+  .card.dark .card-d, .card.dark .card-m { color: var(--mist); }
+  .card-foot { margin-top: auto; display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }
+  .card-m { line-height: 1.5; }
+  .card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .card-tags span { padding: 5px 10px; border-radius: var(--r-pill); font-size: var(--t-label); background: var(--white); }
+  .card.dark .card-tags span { background: var(--on-dark-fill); }
+  .more { display: flex; justify-content: center; align-items: center; gap: 8px; min-height: 48px; border-radius: var(--r-pill); font-size: var(--t-body); font-weight: 500; box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+  /* Index */
+  .index { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; padding-top: clamp(20px, 2.6vw, 40px); }
+  .index-list { grid-column: span 7; display: flex; flex-direction: column; gap: 32px; }
+  .ig { display: flex; flex-direction: column; }
+  .ig-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 0 0 12px; border-bottom: 2px solid var(--ink); }
+  .ig-ht { display: flex; align-items: baseline; gap: 12px; }
+  .ig-t { font-size: var(--t-h5); font-weight: 500; letter-spacing: -.03em; }
+  .ig-n { font-size: 20px; color: var(--text-muted); }
+  .ii { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 56px; margin: 0 -14px; padding: 0 14px; border-radius: 0; text-align: left; box-shadow: 0 1px 0 var(--hover); transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease); }
+  .ii-t { font-size: var(--t-lead); font-weight: 500; letter-spacing: -.02em; }
+  .ii-r { display: inline-flex; align-items: center; gap: 12px; }
+  .ii-r .num { font-size: var(--t-small); text-align: right; color: var(--cobalt); }
+  .ii-arr { opacity: .35; }
+  .ii[aria-pressed='true'] { background: var(--ink); color: var(--white); border-radius: var(--r-tile); }
+  .ii[aria-pressed='true'] .num { color: var(--periwinkle); }
+  .ii[aria-pressed='true'] .ii-arr { opacity: 1; }
+  .ipanel { grid-column: span 5; position: sticky; top: var(--content-top); max-height: calc(100svh - 96px); overflow: auto; display: flex; flex-direction: column; border-radius: var(--r-surface); background: var(--ink); color: var(--white); }
+  .ipanel :global(.ip-img) { flex-shrink: 0; aspect-ratio: 16 / 10; max-height: 36svh; background: var(--grey-210) center / cover no-repeat; }
+  .ipanel :global(.ip-big) { flex-shrink: 0; aspect-ratio: 16 / 10; max-height: 36svh; display: flex; flex-direction: column; justify-content: space-between; padding: var(--panel-pad); background: var(--cobalt); }
+  .ipanel :global(.ip-big .num) { font-size: var(--t-h2); line-height: .94; letter-spacing: -.05em; }
+  .ipanel :global(.ip-b) { display: flex; flex-direction: column; gap: 16px; padding: var(--panel-pad); }
+  .ipanel :global(.ip-t) { font-size: var(--t-h4); font-weight: 500; line-height: 1; letter-spacing: -.045em; }
+  .ipanel :global(.ip-r) { font-size: 20px; color: var(--periwinkle); }
+  .ipanel :global(.ip-d) { font-size: var(--t-body); line-height: 1.5; }
+  .ipanel :global(.ip-foot) { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+  .ipanel :global(.ip-tags) { display: flex; gap: 4px; flex-wrap: wrap; }
+  .ipanel :global(.ip-tags span) { padding: 5px 10px; border-radius: var(--r-pill); font-size: var(--t-label); background: var(--on-dark-fill); }
+
+  /* Floating cover preview on row hover */
+  .float { position: fixed; z-index: 60; width: clamp(200px, 18vw, 280px); aspect-ratio: 4 / 3; border-radius: var(--r-inner); overflow: hidden; pointer-events: none; box-shadow: 0 28px 64px var(--scrim); transition: left var(--d-fast) var(--ease), top var(--d-fast) var(--ease); }
+  .float :global(.fl-img) { width: 100%; height: 100%; background: var(--grey-210) center / cover no-repeat; }
+  .float :global(.fl-big) { width: 100%; height: 100%; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; background: var(--cobalt); color: var(--white); }
+  .float :global(.fl-big .num) { font-size: var(--t-h4); line-height: 1; letter-spacing: -.045em; }
+  .float :global(.fl-d) { font-size: var(--t-small); line-height: 1.4; }
+
+  /* Banner */
+  .banner { display: flex; justify-content: space-between; align-items: center; gap: 24px 40px; flex-wrap: wrap; margin-top: clamp(22px, 3.6vw, 56px); padding: var(--panel-pad); border-radius: var(--r-card); background: var(--ink); color: var(--white); text-align: left; transition: background var(--d-base) var(--ease); }
+  .banner:hover { background: var(--cobalt); }
+  .banner-t { flex: 1 1 420px; }
+
+  /* My products */
+  .mine { row-gap: 12px; }
+  .mine > .big-h, .graphic > .big-h { margin-bottom: 12px; align-self: end; }
+  .mine-intro { align-self: end; margin-bottom: 12px; display: flex; flex-direction: column; gap: 12px; }
+  .appcard { grid-column: 1 / -1; row-gap: 24px; padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--ink); color: var(--white); align-items: center; }
+  .appcard-ph { display: flex; justify-content: center; }
+  .appcard-ph .phone { width: min(100%, 280px); aspect-ratio: 9 / 19.5; border-radius: 44px; }
+  .appcard-ph .phone > div { border-radius: 36px; }
+  @media (max-width: 639px) { .appcard-ph .phone { width: min(100%, 220px); } }
+  .appcard-t { min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+  .appcard-head { display: flex; flex-direction: column; gap: 12px; }
+  .appcard-head .big-h { line-height: .84; }
+  .glass-tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-pill); background: var(--on-dark-fill); }
+  .slogan { font-size: var(--t-h5); line-height: 1.12; }
+  .dec { display: flex; flex-direction: column; }
+  .dec > .label { padding-bottom: 8px; }
+  .dec-row { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--on-dark-fill); font-size: var(--t-body); line-height: 1.45; }
+  .dec-n { color: var(--periwinkle); }
+  .did { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .did > .label { margin-right: 6px; }
+  .did-chip { padding: 7px 12px; border-radius: var(--r-pill); background: var(--on-dark-fill); font-size: var(--t-small); }
+  .did-chip.light { background: var(--white); }
+  .appcard-t > .btn { align-self: flex-start; }
+  .kvit, .aicard { display: flex; flex-direction: column; gap: 24px; padding: var(--panel-pad); border-radius: var(--r-surface); }
+  .kvit { justify-content: space-between; gap: 40px; background: var(--grey-238); }
+  .aicard { background: var(--cobalt); color: var(--white); }
+  .tag-white { align-self: flex-start; padding: 8px 12px; border-radius: var(--r-pill); background: var(--white); }
+  .kvit-h { display: flex; flex-direction: column; gap: 12px; }
+  .kvit .big-h { line-height: .84; }
+  .ai-h { font-weight: 500; font-size: var(--t-number-l); line-height: .9; letter-spacing: -.055em; }
+  .ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  @media (max-width: 639px) { .ai-grid { grid-template-columns: minmax(0, 1fr); } }
+  .ai-item { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--r-inner); background: var(--on-dark-fill); }
+  .ai-t { font-size: var(--t-body); font-weight: 500; letter-spacing: -.01em; }
+  .ai-d { font-size: var(--t-small); line-height: 1.45; }
+  .work[data-plat='iOS'] [data-not-ios] { display: none; }
+
+  /* Graphic */
+  .graphic { row-gap: 12px; }
+  .graphic-p { align-self: end; margin-bottom: 12px; }
+  .gtypes { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px; border-radius: var(--r-card); background: var(--grey-238); }
+  @media (max-width: 639px) { .gtypes { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } }
+  .gtypes-k { flex-shrink: 0; padding: 0 10px; }
+  .gchip { flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 8px 0 16px; border-radius: var(--r-pill); font-size: var(--t-body); font-weight: 500; white-space: nowrap; background: var(--white); box-shadow: inset 0 0 0 1px var(--hover); }
+  .gchip:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .gchip[aria-pressed='true'] { background: var(--ink); color: var(--white); box-shadow: none; }
+  .gchip-n { min-width: 24px; height: 24px; padding: 0 5px; border-radius: var(--r-pill); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-label); background: var(--grey-238); }
+  .gchip[aria-pressed='true'] .gchip-n { background: var(--on-dark-line); }
+  .gchip i { width: 18px; display: inline-flex; justify-content: center; font-size: var(--t-body); line-height: 1; opacity: .7; }
+  .gtile { display: flex; flex-direction: column; gap: 12px; padding: 8px 8px 16px; border-radius: var(--r-card); background: var(--grey-238); }
+  .gtile-img { aspect-ratio: 4 / 5; border-radius: var(--r-inner); overflow: hidden; display: flex; }
+  .gtile-t { display: flex; flex-direction: column; gap: 4px; padding: 0 10px; }
+  .gtile-name { font-size: var(--t-ui-l); font-weight: 500; line-height: 1.2; letter-spacing: -.01em; }
+  .gtile-l { font-size: var(--t-small); line-height: 1.35; }
+  .vis { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px 32px; flex-wrap: wrap; margin-top: 12px; padding: var(--panel-pad); border-radius: var(--r-card); box-shadow: inset 0 0 0 1px var(--muted-on-ink); }
+  .vis-l { flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px; }
+  .vis-t { font-size: var(--t-ui-l); font-weight: 500; letter-spacing: -.01em; }
+
+  @media (max-width: 639px) { .work { padding-bottom: 88px; } }
+</style>
+
+<script>
+  type Prev = { t: string; r: string; d: string; m: string; tags: string[]; img: string; href: string | null; ind: string };
+  const PREV: Prev[] = JSON.parse(document.getElementById('work-data')!.textContent!);
+  const main = document.querySelector<HTMLElement>('[data-work]')!;
+  const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = main) => [...r.querySelectorAll<T>(s)];
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  const IND: Record<string, string> = {};
+  $$('[data-ind-pick]', document).forEach((b) => { if (b.dataset.indPick) IND[b.dataset.indPick] = b.querySelector('.frow-l')!.textContent!; });
+
+  const S = { section: 'all', ind: '', plat: '', gtype: '', view: 'rows', sel: -1, open: new Set<string>() };
+  const q = new URLSearchParams(location.search).get('section');
+  if (q && ['product', 'mine', 'graphic'].includes(q)) S.section = q;
+
+  // One record per product, read once from the rows markup.
+  const P = $$('.rows [data-p]').map((el) => ({ i: +el.dataset.p!, ind: el.dataset.ind!, plat: el.dataset.plat!.split(' ').filter(Boolean) }));
+  const match = (p: (typeof P)[number], ind = S.ind, plat = S.plat) => (!ind || p.ind === ind) && (!plat || p.plat.includes(plat));
+  const phone = matchMedia('(max-width: 639px)');
+
+  function apply() {
+    const showProduct = S.section === 'all' || S.section === 'product';
+    const showMine = (S.section === 'all' || S.section === 'mine') && !S.ind && (!S.plat || S.plat === 'iOS');
+    const showGraphic = (S.section === 'all' || S.section === 'graphic') && !S.ind && !S.plat;
+    const vis = new Set(showProduct ? P.filter((p) => match(p)).map((p) => p.i) : []);
+    main.dataset.section = S.section;
+    main.dataset.view = S.view;
+    main.dataset.plat = S.plat;
+
+    $$('[data-p]').forEach((el) => { el.hidden = !vis.has(+el.dataset.p!); });
+
+    // Groups: hide empty ones, renumber the rest, cap phone lists at 3.
+    let gi = 0, run = 0;
+    const live = $$('.group').filter((g) => $$('.rows [data-p]', g).some((el) => !el.hidden));
+    const total = String(live.length).padStart(2, '0');
+    $$('[data-group]').forEach((g) => {
+      const count = P.filter((p) => p.ind === g.dataset.group && vis.has(p.i)).length;
+      g.hidden = count === 0;
+      if (count === 0) return;
+      if (g.classList.contains('group')) gi++;
+      $$('[data-group-no]', g).forEach((el) => { el.textContent = g.classList.contains('group') ? `${String(gi).padStart(2, '0')} / ${total}` : String(gi).padStart(2, '0'); });
+      $$('[data-group-count]', g).forEach((el) => { el.textContent = String(count); });
+      if (!g.classList.contains('group')) return;
+      const capped = !S.open.has(g.dataset.group!) && count > 3;
+      ['.mrow', '.card'].forEach((sel) => $$(sel, g).filter((el) => !el.hidden).forEach((el, k) => el.classList.toggle('capped', capped && k >= 3)));
+      $$('.mrow', g).filter((el) => !el.hidden).forEach((el, k) => {
+        run++;
+        el.classList.toggle('sep', k > 0);
+        const no = el.querySelector('[data-thumb-no]');
+        if (no) no.textContent = String(run).padStart(2, '0');
+      });
+      const more = g.querySelector<HTMLElement>('[data-more]')!;
+      more.hidden = !capped || S.view === 'index' && !phone.matches;
+      more.querySelector('[data-more-n]')!.textContent = String(count - 3);
+    });
+
+    // Counts and filter controls
+    const nShown = vis.size;
+    const gShown = $$('[data-gtype-of]').filter((el) => { const on = showGraphic && (!S.gtype || el.dataset.gtypeOf === S.gtype); el.hidden = !on; return on; }).length;
+    $$('[data-shown]').forEach((el) => { el.textContent = String(nShown + (showMine ? 5 : 0) + gShown); });
+    $$('[data-count]', document).forEach((el) => { el.textContent = String(nShown); });
+    $$('[data-noun]').forEach((el) => { el.textContent = nShown === 1 ? 'project' : 'projects'; });
+    $$('[data-count-label]', document).forEach((el) => { el.textContent = nShown === 1 ? '1 project' : `${nShown} projects`; });
+    const hasFilter = !!(S.ind || S.plat);
+    $$('[data-clear]', document).forEach((el) => { el.hidden = !hasFilter; });
+    const ddBtn = document.querySelector<HTMLElement>('[data-dd-btn]')!;
+    ddBtn.classList.toggle('set', !!S.ind);
+    document.querySelector('[data-ind-label]')!.textContent = S.ind ? IND[S.ind] : 'All';
+    $$<HTMLButtonElement>('[data-ind-pick]', document).forEach((b) => {
+      const k = b.dataset.indPick!;
+      const n = P.filter((p) => (!k || p.ind === k) && (!S.plat || p.plat.includes(S.plat))).length;
+      b.querySelector('.frow-n')!.textContent = String(n);
+      b.setAttribute('aria-pressed', String(S.ind === k));
+      b.disabled = !n && S.ind !== k;
+    });
+    $$<HTMLButtonElement>('[data-plat-pick]', document).forEach((b) => {
+      const k = b.dataset.platPick!;
+      const n = !k ? 1 : k === 'iOS' ? 3 : P.filter((p) => (!S.ind || p.ind === S.ind) && p.plat.includes(k)).length;
+      b.setAttribute('aria-pressed', String(S.plat === k));
+      b.disabled = !n && S.plat !== k;
+    });
+    $$('[data-view-pick]', document).forEach((b) => b.setAttribute('aria-pressed', String(S.view === b.dataset.viewPick)));
+    $$('[data-section-tab]').forEach((b) => b.setAttribute('aria-selected', String(S.section === b.dataset.sectionTab)));
+    const nf = (S.ind ? 1 : 0) + (S.plat ? 1 : 0);
+    document.querySelector('[data-pill-label]')!.textContent = nf ? `Filter · ${nf}` : 'Filter';
+    document.querySelector<HTMLElement>('[data-fpill]')!.hidden = !showProduct || !sheet.hidden;
+
+    $$('[data-gtype]').forEach((b) => { const on = S.gtype === b.dataset.gtype; b.setAttribute('aria-pressed', String(on)); b.querySelector('i')!.textContent = on ? '×' : '+'; });
+    main.querySelector<HTMLElement>('[data-mine]')!.hidden = !showMine;
+    main.querySelector<HTMLElement>('[data-graphic]')!.hidden = !showGraphic;
+    main.querySelector<HTMLElement>('[data-banner]')!.hidden = !(S.section === 'product' || (S.section === 'all' && !hasFilter));
+    main.querySelector<HTMLElement>('[data-empty]')!.hidden = nShown + (showMine ? 5 : 0) + gShown > 0;
+
+    const ca = main.querySelector('[data-contact-a]'), cb = main.querySelector('[data-contact-b]');
+    if (ca && cb) {
+      const g = S.section === 'graphic';
+      ca.textContent = g ? 'Looking for a designer who can do both ' : 'Hiring for a senior ';
+      cb.textContent = g ? 'product and visual?' : 'product role?';
+    }
+    renderIndex(vis);
+  }
+
+  // Index view: selected item (or the first visible) in the side panel.
+  function renderIndex(vis: Set<number>) {
+    const ids = $$('.ii').filter((el) => !el.hidden).map((el) => +el.dataset.p!);
+    const sel = vis.has(S.sel) ? S.sel : ids[0];
+    $$('.ii').forEach((el) => el.setAttribute('aria-pressed', String(+el.dataset.p! === sel)));
+    const panel = main.querySelector<HTMLElement>('[data-ipanel]')!;
+    if (sel == null) { panel.innerHTML = ''; return; }
+    const p = PREV[sel];
+    const head = p.img
+      ? `<div class="ip-img" style="background-image:url(${p.img})"></div>`
+      : `<div class="ip-big"><span class="label mist">${esc(p.ind)}</span><span class="num">${esc(p.r || p.t)}</span></div>`;
+    const link = p.href ? `<a class="btn btn-white to-cobalt" href="${p.href}">View case<span class="arr" aria-hidden="true">→</span></a>` : '';
+    panel.innerHTML = `${head}<div class="ip-b"><span class="ip-t">${esc(p.t)}</span>${p.r && p.img ? `<span class="num ip-r">${esc(p.r)}</span>` : ''}<span class="ip-d mist">${esc(p.d)}</span><span class="label-s on-ink-muted">${esc(p.m)}</span><div class="ip-foot"><div class="ip-tags">${p.tags.map((t) => `<span>${esc(t)}</span>`).join('')}</div>${link}</div></div>`;
+  }
+
+  // Sections reset filters and scroll to top; ?section= deep link.
+  function go(section: string) {
+    Object.assign(S, { section, ind: '', plat: '', gtype: '' });
+    const u = new URL(location.href);
+    if (section === 'all') u.searchParams.delete('section'); else u.searchParams.set('section', section);
+    history.replaceState(null, '', u);
+    apply();
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+
+  // Industry dropdown
+  const ddBtn = document.querySelector<HTMLButtonElement>('[data-dd-btn]')!;
+  const ddList = document.querySelector<HTMLElement>('[data-dd-list]')!;
+  const ddScrim = document.querySelector<HTMLElement>('[data-dd-scrim]')!;
+  const setDD = (open: boolean) => { ddList.hidden = !open; ddScrim.hidden = !open; ddBtn.setAttribute('aria-expanded', String(open)); };
+
+  // Phone sheet
+  const sheet = document.querySelector<HTMLElement>('[data-sheet]')!;
+  const setSheet = (open: boolean) => { sheet.hidden = !open; document.body.style.overflow = open ? 'hidden' : ''; apply(); };
+
+  document.addEventListener('click', (e) => {
+    const t = (e.target as HTMLElement).closest<HTMLElement>('button');
+    if (!t) return;
+    const d = t.dataset;
+    if (d.sectionTab) go(d.sectionTab);
+    else if (d.to) go(d.to);
+    else if ('ddBtn' in d) setDD(ddList.hidden);
+    else if ('ddScrim' in d) setDD(false);
+    else if (d.indPick !== undefined) { S.ind = d.indPick; setDD(false); apply(); }
+    else if (d.platPick !== undefined) { const k = d.platPick; S.plat = S.plat === k ? '' : k; if (k === 'iOS') S.ind = ''; apply(); }
+    else if (d.viewPick) { S.view = d.viewPick; apply(); }
+    else if ('clear' in d || 'clearAll' in d) { Object.assign(S, { ind: '', plat: '', gtype: '' }); apply(); }
+    else if ('sheetOpen' in d) setSheet(true);
+    else if ('sheetClose' in d) setSheet(false);
+    else if ('more' in d) { S.open.add(t.closest<HTMLElement>('[data-group]')!.dataset.group!); apply(); }
+    else if (d.gtype) { S.gtype = S.gtype === d.gtype ? '' : d.gtype; apply(); }
+    else if (d.select) { S.sel = +d.select; renderIndex(new Set(P.filter((p) => match(p)).map((p) => p.i))); }
+  });
+  $$('.ii').forEach((b) => ['mouseenter', 'focus'].forEach((ev) => b.addEventListener(ev, () => { S.sel = +b.dataset.p!; renderIndex(new Set(P.filter((p) => match(p)).map((p) => p.i))); })));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') { setDD(false); if (!sheet.hidden) setSheet(false); } });
+
+  // Floating cover preview that follows the cursor over rows (fine pointers only).
+  const float = main.querySelector<HTMLElement>('[data-float]')!;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  let raf = 0;
+  const place = (x: number, y: number) => {
+    float.style.left = x + 'px';
+    float.style.top = y + 'px';
+    float.style.transform = `translate(${x > innerWidth - 420 ? 'calc(-100% - 36px)' : '36px'},-50%) rotate(-3deg)`;
+  };
+  $$('.row').forEach((row) => {
+    row.addEventListener('mouseenter', (e) => {
+      if (!fine.matches || phone.matches) return;
+      const p = PREV[+row.dataset.p!];
+      float.innerHTML = p.img
+        ? `<div class="fl-img" style="background-image:url(${p.img})"></div>`
+        : `<div class="fl-big"><span class="label mist">${esc(p.ind)}</span><span class="num">${esc(p.r || p.t)}</span><span class="fl-d mist">${esc(p.d)}</span></div>`;
+      place(e.clientX, e.clientY);
+      float.hidden = false;
+    });
+    row.addEventListener('mousemove', (e) => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => place(e.clientX, e.clientY)); });
+    row.addEventListener('mouseleave', () => { float.hidden = true; });
+  });
+  addEventListener('scroll', () => { float.hidden = true; }, { passive: true });
+
+  phone.addEventListener('change', () => { if (!phone.matches && !sheet.hidden) setSheet(false); apply(); });
+  apply();
+</script>

@@ -1,0 +1,263 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import Timeline from '../components/Timeline.astro';
+import Slot from '../components/Slot.astro';
+import { url } from '../lib/url';
+import { CV_URL, LOCATION } from '../data/site';
+import { hero, people, industriesShort, langs, weeks, layers, pipe, homeApps, education } from '../data/home';
+
+const nav = [{ href: '/#work', label: 'Proof', active: true }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+const years = Array.from({ length: 9 }, (_, i) => i >= 6);
+const ten = Array.from({ length: 10 }, (_, i) => i < 6);
+const grid = Array.from({ length: 100 }, (_, i) => i < 87);
+---
+<Base title="Viktoriia Seliverstova — Senior Product Designer" description={hero.lead} nav={nav}>
+<main id="top" class="page">
+
+  <section id="hero" class="hero">
+    <div class="hero-panel">
+      <div class="hero-top">
+        <span class="hero-role">Senior Product Designer</span>
+        <span class="status"><i class="dot dot-live"></i><span>Available now · {LOCATION}</span></span>
+      </div>
+      <h1 class="hero-h">{hero.a}<span class="serif mist">{hero.b}</span></h1>
+      <div class="people">
+        {[people.slice(0, 2), people.slice(2)].map((pair) => (
+          <div class="people-pair">{pair.map((p) => <div class="person"><span class="label on-ink-muted">{p.c}</span><span class="person-who">{p.who}</span></div>)}</div>
+        ))}
+      </div>
+    </div>
+    <div class="hero-foot">
+      <p class="hero-lead">{hero.lead}</p>
+      <div class="hero-btns"><a class="btn btn-cobalt" href="#work">See case studies</a><a class="btn btn-outline" href={url(CV_URL)}>Download CV</a></div>
+    </div>
+  </section>
+
+  <section id="facts" class="block facts">
+    <div class="fact">
+      <div class="fact-head"><span class="fact-n num">9</span><span class="fact-l">years</span></div>
+      <div class="fact-years">
+        <div class="years-strip">{years.map((lead) => <i class:list={{ lead }}></i>)}</div>
+        <div class="years-axis"><span>2017</span><span class="years-lead">leading since 2023</span><span>2026</span></div>
+      </div>
+    </div>
+    <div class="fact">
+      <div class="fact-head"><span class="fact-n num">4</span><span class="fact-l">designers led</span></div>
+      <div class="led" aria-hidden="true"><i class="led-me"></i><i class="led-line"></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="fact">
+      <div class="fact-head"><span class="fact-n num">7</span><span class="fact-l">industries</span></div>
+      <div class="fact-chips">{industriesShort.map((m) => <span class="label-s fact-chip">{m}</span>)}</div>
+    </div>
+    <div class="fact">
+      <span class="fact-l">Languages</span>
+      <div class="langs">{langs.map((l) => <div class="lang"><span>{l.n}</span><div class="lang-bar"><div style={`width:${l.w}`}></div></div><span class="lang-lv">{l.lv}</span></div>)}</div>
+    </div>
+  </section>
+
+  <section id="work" class="section proof">
+    <div class="sec-head"><h2 class="h2">Proof, <span class="serif">not adjectives.</span></h2><a class="more-link" href={url('/work')}>All 44 works →</a></div>
+    <div class="proof-grid">
+      <a class="pcard pcard-ink" href={url('/work')}>
+        <div class="pcard-img" style={`background-image:url(${url('/assets/work/19.jpg')})`}></div>
+        <div class="pcard-body">
+          <div class="ba">
+            <div class="ba-row"><span class="label-s on-ink-muted">BEFORE</span><i class="ba-bar"></i><span class="num ba-v">15 min</span></div>
+            <div class="ba-row"><span class="label-s on-ink-muted">AFTER</span><div><i class="ba-bar after"></i></div><span class="num ba-v">3 min</span></div>
+          </div>
+          <div class="pcard-foot"><span class="h5 pcard-t">To process a traffic violation</span><span class="pcard-meta mist">Field app for officers →</span></div>
+        </div>
+      </a>
+      <a class="pcard pcard-cobalt" href={url('/work')}>
+        <div class="pcard-center">
+          <span class="num weeks-n">4 weeks</span>
+          <div class="weeks">{weeks.map((w) => <div><i style={`background:rgba(255,255,255,${w.o})`}></i><span class="label-s mist">{w.t}</span></div>)}</div>
+        </div>
+        <div class="pcard-foot pad"><span class="h5 pcard-t">From concept to launch, in the middle of a lockdown</span><span class="pcard-meta mist">Delivery platform · 100+ restaurants</span></div>
+      </a>
+      <a class="pcard pcard-grey" href={url('/work')}>
+        <div class="pcard-img" style={`background-image:url(${url('/assets/work/01.jpg')})`}></div>
+        <div class="pcard-body">
+          <div class="ten-row"><span class="num fact-n">−40%</span><div class="ten">{ten.map((on) => <i class:list={{ on }}></i>)}</div></div>
+          <div class="pcard-foot"><span class="h5 pcard-t">less time on core tasks</span><span class="pcard-meta muted">IWMS · warehouse teams →</span></div>
+        </div>
+      </a>
+      <a class="pcard pcard-line" href={url('/work')}>
+        <div class="pcard-center">
+          <div class="dots100" aria-hidden="true">{grid.map((on) => <i class:list={{ on }}></i>)}</div>
+          <div class="dots-key label-s muted"><span><i></i>87% COMPONENT REUSE ACROSS 3 MARKETS</span><span>US · DE · AE</span></div>
+        </div>
+        <div class="pcard-foot pad"><span class="h5 pcard-t"><span class="num">400+</span> components in 1 design system across the US, Germany and the UAE</span><span class="pcard-meta muted">OOKA →</span></div>
+      </a>
+    </div>
+    <div class="logos">
+      <span class="label muted">Products I designed are used at</span>
+      <div class="logos-names"><span class="logo-a">JW Marriott Hotels</span><span class="logo-b num">Metro Cash &amp; Carry</span></div>
+    </div>
+  </section>
+
+  <section id="how" class="section how">
+    <div class="how-card cobalt">
+      <div class="how-head"><span class="label mist">What you can hand me</span><h2 class="h3">A whole <span class="serif">product area.</span></h2></div>
+      <div class="stack">
+        <div class="stack-layers">{layers.map((t, i) => <div style={`background:rgba(255,255,255,${(0.1 + i * 0.06).toFixed(2)})`}>{t}</div>)}</div>
+        <div class="stack-me"><span class="label">1 DESIGNER</span></div>
+      </div>
+      <p class="how-p mist">Last role: the only designer on an AI meeting assistant. Before that: led a team of 4 designers on enterprise and government systems for a Swedish software company.</p>
+    </div>
+    <div class="how-card ink">
+      <div class="how-head"><span class="label on-ink-muted">How I work with engineers</span><h2 class="h3">My designs <span class="serif">get built.</span></h2></div>
+      <div class="pipe">
+        {pipe.map((s) => (
+          <div class="pipe-row">
+            <span class:list={['pipe-n num', { last: s.last }]}>{s.n}</span>
+            <div class="pipe-body"><span class="pipe-t">{s.t}</span>{s.chips.map((c) => <span class="label-s pipe-chip">{c}</span>)}</div>
+          </div>
+        ))}
+      </div>
+      <p class="how-p on-ink-muted">I ship my own iOS apps with Claude Code and Cursor, so I design with the build in mind.</p>
+    </div>
+  </section>
+
+  <section id="apps" class="section apps">
+    <div class="sec-head apps-head"><h2 class="h2">Designed it. <span class="serif">Built it.</span></h2><span class="label-s muted" style="letter-spacing:.06em">3 IOS APPS · SWIFTUI · CLAUDE CODE · CURSOR</span></div>
+    <div class="apps-grid">
+      {homeApps.map((a) => (
+        <div class="app">
+          <div class="phone app-phone"><div><Slot label={a.ph} /></div></div>
+          <div class="app-text">
+            <div class="app-title"><span class="h5">{a.name}</span><span class="label-s muted">IN APP STORE REVIEW</span></div>
+            <span class="muted app-what">{a.what}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="experience" class="section exp">
+    <h2 class="h2" style="padding:0 4px">Nine years <span class="serif">on one line.</span></h2>
+    <div class="exp-frame"><Timeline /></div>
+    <p class="muted exp-edu">{education}</p>
+  </section>
+
+  <Contact status={`Available now · ${LOCATION}`} showAbout minH="80svh" />
+</main>
+</Base>
+
+<style>
+  .hero { min-height: 100svh; padding-top: var(--content-top); display: flex; flex-direction: column; gap: 12px; }
+  .hero-panel { flex: 1; border-radius: var(--r-surface); background: var(--ink); color: var(--white); padding: var(--panel-pad); display: flex; flex-direction: column; justify-content: space-between; gap: 40px; overflow: hidden; }
+  .hero-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .hero-role { padding: 10px 18px; border-radius: var(--r-pill); background: var(--cobalt); font-size: var(--t-body); font-weight: 500; }
+  .hero-h { font-weight: 500; font-size: var(--t-display); line-height: .92; letter-spacing: -.05em; max-width: 1300px; text-wrap: balance; }
+  .hero-h .serif { letter-spacing: -.03em; }
+  .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 12px; }
+  .people-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .person { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: 20px 22px; border-radius: var(--r-inner); background: var(--on-dark-fill); box-shadow: inset 0 0 0 1px var(--on-dark-fill); }
+  .person-who { font-size: var(--t-h5); font-weight: 500; line-height: 1.05; letter-spacing: -.03em; }
+  .hero-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px 40px; flex-wrap: wrap; padding: 14px 4px 0; }
+  .hero-lead { font-size: var(--t-lead); line-height: 1.35; letter-spacing: -.01em; max-width: 720px; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 1099px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .facts { grid-template-columns: minmax(0, 1fr); } }
+  .fact { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: var(--card-pad); border-radius: var(--r-card); background: var(--grey-238); }
+  .fact-head { display: flex; align-items: baseline; gap: 12px; }
+  .fact-n { font-size: var(--t-number-l); line-height: 1; letter-spacing: -.05em; }
+  .fact-l { font-size: var(--t-ui-l); font-weight: 500; }
+  .fact-years { display: flex; flex-direction: column; gap: 8px; }
+  .years-strip { display: flex; gap: 3px; height: 28px; }
+  .years-strip i { flex: 1; border-radius: var(--r-mark); background: var(--muted-on-ink); }
+  .years-strip i.lead { background: var(--cobalt); }
+  .years-axis { display: flex; justify-content: space-between; font-weight: 500; font-size: var(--t-label); color: var(--text-muted); }
+  .years-lead { color: var(--cobalt); }
+  .led { display: flex; align-items: center; gap: 8px; }
+  .led i { width: 36px; height: 36px; border-radius: var(--r-dot); background: var(--ink); }
+  .led .led-me { width: 44px; height: 44px; background: var(--cobalt); box-shadow: 0 0 0 4px var(--grey-238), 0 0 0 6px var(--cobalt); }
+  .led .led-line { width: 16px; height: 2px; border-radius: 0; background: var(--muted-on-ink); }
+  .fact-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .fact-chip { padding: 7px 11px; border-radius: var(--r-pill); background: var(--white); }
+  .langs { display: flex; flex-direction: column; gap: 12px; }
+  .lang { display: grid; grid-template-columns: 84px minmax(0, 1fr) 54px; gap: 12px; align-items: center; font-size: var(--t-small); }
+  .lang-bar { height: 8px; border-radius: var(--r-tile); background: var(--white); overflow: hidden; }
+  .lang-bar div { height: 100%; border-radius: var(--r-tile); background: var(--cobalt); }
+  .lang-lv { font-weight: 500; font-size: var(--t-label); text-align: right; }
+
+  .proof { display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 0; }
+  .more-link { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--t-body); text-decoration: none; }
+  .proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 899px) { .proof-grid { grid-template-columns: minmax(0, 1fr); } }
+  .pcard { display: flex; flex-direction: column; border-radius: var(--r-surface); overflow: hidden; text-decoration: none; min-height: 520px; transition: box-shadow var(--d-fast) var(--ease), transform var(--d-base) var(--ease); }
+  .pcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  .pcard-ink, .pcard-ink:hover { background: var(--ink); color: var(--white); }
+  .pcard-cobalt, .pcard-cobalt:hover { background: var(--cobalt); color: var(--white); }
+  .pcard-grey, .pcard-grey:hover { background: var(--grey-238); color: var(--ink); }
+  .pcard-line, .pcard-line:hover { background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 1px var(--muted-on-ink); }
+  .pcard-line:hover { box-shadow: inset 0 0 0 1px var(--ink), var(--shadow-lift); }
+  .pcard-img { flex: 1; min-height: 220px; background: var(--grey-210) center / cover no-repeat; }
+  .pcard-body { display: flex; flex-direction: column; gap: 16px; padding: 26px; }
+  .pcard-center { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 26px 26px 0; }
+  .pcard-foot { display: flex; justify-content: space-between; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+  .pcard-foot.pad { padding: 26px; }
+  .pcard-t { max-width: 420px; }
+  .pcard-meta { font-size: var(--t-small); }
+  .ba { display: flex; flex-direction: column; gap: 12px; }
+  .ba-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) 72px; gap: 12px; align-items: center; }
+  .ba-bar { display: block; height: 20px; border-radius: var(--r-mark); background: var(--on-dark-line); }
+  .ba-bar.after { width: 20%; background: var(--focus); }
+  .ba-v { font-size: var(--t-number-s); text-align: right; }
+  .weeks-n { font-size: var(--t-hero); line-height: .85; letter-spacing: -.055em; }
+  .weeks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .weeks > div { display: flex; flex-direction: column; gap: 8px; }
+  .weeks i { height: 44px; border-radius: var(--r-tile); }
+  .ten-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .ten { display: flex; gap: 4px; }
+  .ten i { width: 18px; height: 30px; border-radius: var(--r-mark); background: var(--cobalt-tint-strong); opacity: .5; }
+  .ten i.on { background: var(--cobalt); opacity: 1; }
+  .dots100 { display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 4px; }
+  .dots100 i { aspect-ratio: 1; border-radius: var(--r-mark); background: var(--grey-210); }
+  .dots100 i.on { background: var(--cobalt); }
+  .dots-key { display: flex; gap: 16px; flex-wrap: wrap; letter-spacing: 0; }
+  .dots-key span { display: inline-flex; align-items: center; gap: 6px; }
+  .dots-key i { width: 10px; height: 10px; border-radius: var(--r-mark); background: var(--cobalt); }
+  .logos { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; padding: 28px var(--panel-pad); border-radius: var(--r-card); background: var(--grey-238); }
+  .logos-names { display: flex; flex-wrap: wrap; gap: 12px 40px; align-items: baseline; }
+  .logo-a { font-size: var(--t-h4); font-weight: 500; letter-spacing: -.045em; }
+  .logo-b { font-size: var(--t-h4); letter-spacing: -.03em; }
+
+  .how { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 939px) { .how { grid-template-columns: minmax(0, 1fr); } }
+  .how-card { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: var(--panel-pad); border-radius: var(--r-surface); color: var(--white); }
+  .how-card.cobalt { background: var(--cobalt); }
+  .how-card.ink { background: var(--ink); }
+  .how-head { display: flex; flex-direction: column; gap: 12px; }
+  .stack { display: grid; grid-template-columns: minmax(0, 1fr) 56px; gap: 12px; }
+  .stack-layers { display: flex; flex-direction: column; gap: 6px; }
+  .stack-layers div { padding: 13px 16px; border-radius: var(--r-tile); font-size: var(--t-ui-l); font-weight: 500; letter-spacing: -.01em; }
+  .stack-me { display: flex; align-items: center; justify-content: center; border-radius: var(--r-tile); box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
+  .stack-me span { writing-mode: vertical-rl; transform: rotate(180deg); }
+  .how-p { font-size: var(--t-body); line-height: 1.45; }
+  .pipe { display: flex; flex-direction: column; gap: 6px; }
+  .pipe-row { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: center; }
+  .pipe-n { width: 36px; height: 36px; border-radius: var(--r-dot); display: flex; align-items: center; justify-content: center; font-size: var(--t-small); background: var(--on-dark-fill); }
+  .pipe-n.last { background: var(--cobalt); }
+  .pipe-body { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--on-dark-fill); }
+  .pipe-t { font-size: var(--t-ui-l); font-weight: 500; margin-right: 6px; }
+  .pipe-chip { padding: 5px 10px; border-radius: var(--r-pill); background: var(--on-dark-fill); letter-spacing: 0; }
+
+  .apps { display: flex; flex-direction: column; gap: 24px; }
+  .apps-head { align-items: flex-end; }
+  .apps-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 899px) { .apps-grid { grid-template-columns: minmax(0, 1fr); } }
+  .app { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--grey-238); }
+  .app-phone { width: min(100%, 240px); }
+  .app-text { align-self: stretch; display: flex; flex-direction: column; gap: 4px; }
+  .app-title { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .app-what { font-size: var(--t-body); line-height: 1.4; }
+
+  .exp { display: flex; flex-direction: column; gap: 24px; }
+  .exp-frame { padding: 12px; border-radius: var(--r-surface); background: var(--grey-238); }
+  .exp-edu { padding: 0 4px; font-size: var(--t-body); line-height: 1.5; }
+</style>

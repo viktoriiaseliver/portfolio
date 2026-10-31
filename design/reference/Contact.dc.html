@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+</helmet>
+<section id="contact" data-screen-label="Contact" style="padding-top:clamp(64px,10vw,128px);display:flex">
+<div style="flex:1;min-width:0;min-height:{{ minH }};display:grid;grid-template-columns:repeat({{ cols }},minmax(0,1fr));gap:24px 40px;border-radius:32px;background:rgb(15,20,154);color:#fff;padding:clamp(20px,3vw,40px);box-sizing:border-box">
+<div style="min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<span style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:16px;color:rgb(215,221,236)"><i style="width:9px;height:9px;border-radius:50%;background:rgb(120,220,150);animation:pulse 2.4s ease-in-out infinite"></i><span>{{ status }}</span></span>
+<sc-if value="{{ hasLabel }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:500;letter-spacing:.06em;color:rgb(215,221,236)">{{ label }}</span></sc-if>
+<h2 style="margin:0;font-weight:500;font-size:{{ hSize }};line-height:{{ hLh }};letter-spacing:-.05em;max-width:{{ hMax }}">{{ a }}<span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em;color:rgb(215,221,236)">{{ b }}</span></h2>
+<sc-if value="{{ hasTerms }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ terms }}" as="t" hint-placeholder-count="4"><span style="display:inline-flex;align-items:center;gap:8px;min-height:40px;box-sizing:border-box;padding:0 16px 0 12px;border-radius:120px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);font-size:14px"><i style="width:10px;height:10px;border-radius:50%;background:{{ t.c }}"></i>{{ t.t }}</span></sc-for></div></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:18px">
+<button onClick="{{ copy }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:100%;padding:10px 0;font-size:clamp(18px,2.6vw,40px);font-weight:500;letter-spacing:-.03em;color:#fff;text-align:left;overflow-wrap:anywhere" style-hover="opacity:.85"><span style="text-decoration:underline;text-underline-offset:.18em;text-decoration-thickness:2px">viktoriia.seliver@gmail.com</span><span style="padding:6px 12px;border-radius:120px;background:#fff;color:rgb(15,20,154);font-size:12px;font-weight:500;letter-spacing:.06em">{{ copyLabel }}</span></button>
+<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center">
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a href="{{ primaryHref }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:120px;background:#fff;color:rgb(15,20,154);font-size:16px;font-weight:500;text-decoration:none" style-hover="opacity:.9">{{ primaryLabel }}</a>
+<sc-for list="{{ links }}" as="l" hint-placeholder-count="3"><a href="{{ l.href }}" target="{{ l.target }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 22px;border-radius:120px;color:#fff;font-size:16px;text-decoration:none;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)" style-hover="background:rgba(255,255,255,.1)">{{ l.t }}</a></sc-for>
+</div>
+<span style="font-size:14px;color:rgb(215,221,236)">© 2026 Viktoriia Seliverstova</span>
+</div>
+</div>
+</div>
+<sc-if value="{{ hasImage }}" hint-placeholder-val="{{ false }}"><div style="display:flex;min-height:320px;border-radius:20px;overflow:hidden;background:rgba(255,255,255,.1)"><image-slot id="{{ imageId }}" placeholder="{{ imagePh }}" style="flex:1"></image-slot></div></sc-if>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:640},&quot;a&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Hiring for a senior &quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;b&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;product role?&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;status&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Available now · Remote across Europe&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;terms&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{t:string,c:string}[]&quot;},&quot;primaryLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ask for a 20-minute walkthrough&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;primaryHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;mailto:viktoriia.seliver@gmail.com?subject=20-minute%20walkthrough&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showAbout&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;minH&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;60svh&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;imageId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;imagePh&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { copied: false, w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  componentDidMount() { this._r = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this._r); }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); clearTimeout(this._t); }
+  renderVals() {
+    const p = this.props;
+    const links = [['Telegram ↗', 'https://t.me/viktoriia_seliver', '_blank'], ['LinkedIn ↗', 'https://linkedin.com/in/viktoriiaseliver', '_blank']];
+    if (p.showAbout) links.push(['About me →', 'About.dc.html', '_self']);
+    links.push(['Download CV', '#', '_self']);
+    const long = (p.a || '').length + (p.b || '').length > 60;
+    const hasImage = !!p.imageId;
+    return {
+      a: p.a ?? 'Hiring for a senior ', b: p.b ?? 'product role?',
+      status: p.status ?? 'Available now · Remote across Europe',
+      label: p.label || '', hasLabel: !!p.label,
+      terms: p.terms || [], hasTerms: !!(p.terms && p.terms.length),
+      hSize: long ? 'clamp(22px,3.6vw,56px)' : 'clamp(30px,7vw,112px)', hLh: long ? '1' : '.88', hMax: long ? '28ch' : '16ch',
+      primaryLabel: p.primaryLabel ?? 'Ask for a 20-minute walkthrough',
+      primaryHref: p.primaryHref ?? 'mailto:viktoriia.seliver@gmail.com?subject=20-minute%20walkthrough',
+      minH: p.minH ?? '60svh',
+      hasImage, imageId: p.imageId || 'contact-image', imagePh: p.imagePh || 'Illustration',
+      cols: hasImage && this.state.w >= 640 ? 2 : 1,
+      links: links.map(l => ({ t: l[0], href: l[1], target: l[2] })),
+      copyLabel: this.state.copied ? 'COPIED' : 'COPY',
+      copy: () => { try { navigator.clipboard.writeText('viktoriia.seliver@gmail.com'); } catch (_) {} this.setState({ copied: true }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ copied: false }), 1500); }
+    };
+  }
+}
+</script>
+</body>
+</html>

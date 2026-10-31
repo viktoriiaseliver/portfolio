@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts-local.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/effects.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/styles.css">
+<script src="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>html,body{margin:0;background:#fff}a,button{transition:background-color .15s cubic-bezier(.2,.8,.2,1),color .15s cubic-bezier(.2,.8,.2,1),box-shadow .15s cubic-bezier(.2,.8,.2,1),opacity .15s cubic-bezier(.2,.8,.2,1),transform .25s cubic-bezier(.2,.8,.2,1)}button:not(:disabled):active,a:active{transform:scale(.97)}button:disabled{cursor:not-allowed}button:focus-visible,a:focus-visible{outline:2px solid rgb(120,140,255);outline-offset:3px}a{color:rgb(15,20,154)}a:hover{color:rgb(24,29,40)}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="font-family:var(--font-display);color:rgb(24,29,40);text-wrap:pretty;-webkit-font-smoothing:antialiased">
+
+<nav style="position:fixed;top:10px;left:0;right:0;z-index:50;padding:0 clamp(10px,2vw,32px);pointer-events:none;transform:translateY({{ nv.y }});transition:transform .25s cubic-bezier(.2,.8,.2,1)">
+<div style="position:relative;max-width:1376px;margin:0 auto;padding:6px 6px 6px 20px;border-radius:120px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);box-sizing:border-box;display:flex;align-items:center;gap:4px;pointer-events:auto;overflow:hidden">
+<a href="Home.dc.html" style="display:block;line-height:44px;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:16px;font-weight:500;color:rgb(24,29,40);text-decoration:none;white-space:nowrap;margin-right:auto">Viktoriia Seliverstova</a>
+<sc-if value="{{ nv.wide }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" style="padding:12px 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;color:rgb(24,29,40);background:{{ n.bg }}" style-hover="background:rgba(24,29,40,.08)">{{ n.label }}</a></sc-for><a href="#contact" style="padding:12px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px;text-decoration:none;white-space:nowrap">Contact</a></sc-if>
+<sc-if value="{{ nv.narrow }}" hint-placeholder-val="{{ false }}"><button onClick="{{ nv.toggle }}" aria-expanded="{{ nv.open }}" style="flex-shrink:0;min-height:44px;padding:0 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px">{{ nv.btn }}</button></sc-if>
+<i aria-hidden="true" style="position:absolute;left:0;bottom:0;height:3px;width:{{ progress }}%;background:rgb(15,20,154)"></i>
+</div>
+<sc-if value="{{ nv.open }}" hint-placeholder-val="{{ false }}"><div style="max-width:1376px;margin:8px auto 0;padding:8px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.78));backdrop-filter:blur(24px) saturate(190%);-webkit-backdrop-filter:blur(24px) saturate(190%);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 1px rgba(24,29,40,.06),0 20px 48px rgba(24,29,40,.18);box-sizing:border-box;display:flex;flex-direction:column;gap:4px;pointer-events:auto"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" onClick="{{ nv.close }}" style="padding:16px 18px;border-radius:20px;font-size:20px;font-weight:500;letter-spacing:-.03em;text-decoration:none;color:rgb(24,29,40);background:{{ n.bg }}">{{ n.label }}</a></sc-for><a href="#contact" onClick="{{ nv.close }}" style="margin-top:4px;padding:16px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:16px;text-align:center;text-decoration:none">Contact</a></div></sc-if>
+</nav>
+
+<main style="max-width:1440px;margin:0 auto;padding:84px clamp(16px,2.8vw,40px) 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px">
+
+<section id="hero" data-screen-label="01 Graphic hero" style="display:flex;flex-direction:column;gap:12px">
+<div style="position:relative;display:flex;min-height:clamp(420px,78vh,820px);border-radius:32px;overflow:hidden;background:rgb(255,209,190)">
+<image-slot id="{{ c.heroSlot }}" placeholder="{{ c.heroPh }}" style="flex:1"></image-slot>
+<div style="position:absolute;left:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none"><span style="padding:9px 16px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px;font-weight:500">{{ c.kind }}</span><span style="padding:9px 14px;border-radius:120px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em">{{ c.year }}</span></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat({{ L.two }},minmax(0,1fr));gap:16px 40px;align-items:end;padding:14px 4px 0">
+<h1 style="margin:0;font-weight:500;font-size:clamp(30px,7vw,112px);line-height:.9;letter-spacing:-.055em">{{ c.title.a }}<span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.03em;color:rgb(70,74,84)">{{ c.title.b }}</span></h1>
+<dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px"><sc-for list="{{ c.facts }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px;padding-top:12px;border-top:1px solid rgb(172,173,178)"><dt style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">{{ f.k }}</dt><dd style="margin:0;font-size:16px;font-weight:500">{{ f.v }}</dd></div></sc-for></dl>
+</div>
+</section>
+
+<section id="pieces" data-screen-label="02 Pieces" style="padding-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat({{ L.grid }},minmax(0,1fr));grid-auto-flow:dense;gap:12px">
+<sc-for list="{{ pieces }}" as="p" hint-placeholder-count="6"><div style="grid-column:span {{ p.span }};display:flex;flex-direction:column;gap:12px;padding:10px 10px 16px;border-radius:28px;background:rgb(238,238,238)"><div style="position:relative;aspect-ratio:{{ p.ar }};border-radius:20px;overflow:hidden;display:flex;background:#fff"><image-slot id="{{ p.slot }}" placeholder="{{ p.ph }}" style="flex:1"></image-slot></div><div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:0 8px"><span style="font-size:16px;font-weight:500">{{ p.t }}</span><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em;color:rgb(70,74,84)">{{ p.m }}</span></div></div></sc-for>
+</section>
+
+<section id="system" data-screen-label="03 Palette and type" style="padding-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat({{ L.two }},minmax(0,1fr));gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">PALETTE</span>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:6px;height:clamp(96px,12vw,160px)"><sc-for list="{{ c.palette }}" as="s" hint-placeholder-count="5"><div title="{{ s.c }}" style="flex:{{ s.fl }};border-radius:20px;background:{{ s.c }};box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></div></sc-for></div><div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px"><sc-for list="{{ c.palette }}" as="s" hint-placeholder-count="5"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em;color:rgb(172,173,178);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.c }}</span></sc-for></div></div>
+<sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start;padding:4px 10px;border-radius:120px;box-shadow:inset 0 0 0 1px rgb(236,146,60);font-size:12px">draft · replace with the real colours</span></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(238,238,238)">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">TYPE &amp; FORMAT</span>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,7vw,112px);line-height:.85;letter-spacing:-.055em">Aa</span><span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(20px,2.6vw,40px);line-height:1;letter-spacing:-.02em;color:rgb(70,74,84)">{{ c.typeface }}</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ c.formats }}" as="f" hint-placeholder-count="3"><span style="padding:7px 12px;border-radius:120px;background:#fff;font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em">{{ f }}</span></sc-for></div>
+</div>
+</section>
+
+<section id="process" data-screen-label="04 Process" style="padding-top:clamp(40px,6vw,72px);display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding:0 4px"><h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.95;letter-spacing:-.045em">Sketch to <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">print.</span></h2><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">{{ stepsN }} STEPS</span></div>
+<div style="display:grid;grid-template-columns:repeat({{ L.steps }},minmax(0,1fr));gap:12px"><sc-for list="{{ steps }}" as="s" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:12px;padding:10px 10px 16px;border-radius:28px;background:{{ s.bg }};color:{{ s.fg }}"><div style="aspect-ratio:1;border-radius:20px;overflow:hidden;display:flex;background:rgba(255,255,255,.45)"><image-slot id="{{ s.slot }}" placeholder="{{ s.ph }}" style="flex:1"></image-slot></div><div style="display:flex;gap:12px;align-items:baseline;padding:0 8px"><span style="font-family:var(--font-tile);font-weight:700;font-size:20px">{{ s.n }}</span><span style="font-size:16px;font-weight:500">{{ s.t }}</span></div></div></sc-for></div>
+</section>
+
+<section id="next" data-screen-label="05 Next and contact" style="padding-top:clamp(64px,10vw,128px);display:grid;grid-template-columns:minmax(0,1fr);gap:12px">
+<a href="{{ c.next.href }}" style="display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:360px;padding:10px;border-radius:32px;background:rgb(255,209,190);color:rgb(24,29,40);text-decoration:none" style-hover="box-shadow:0 16px 40px rgba(24,29,40,.14)"><span style="flex:1;min-height:200px;border-radius:20px;background:url({{ c.next.img }}) center/cover no-repeat rgb(210,210,212)"></span><span style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 14px 10px"><span style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em">NEXT · {{ c.next.cat }}</span><span style="font-size:clamp(18px,2vw,30px);font-weight:500;letter-spacing:-.03em">{{ c.next.name }}</span></span><span style="font-size:20px">→</span></span></a>
+</section>
+<dc-import name="Contact" a="Need a visual " b="identity?" primary-label="Let's talk" primary-href="mailto:viktoriia.seliver@gmail.com" hint-size="100%,560px"></dc-import>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPlaceholders&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Draft&quot;}}">
+class Component extends DCLogic {
+  // TEMPLATE for graphic & illustration projects (posters, identity, business cards): duplicate the file, edit CASE only.
+  static CASE = {
+    kind: 'Graphic & illustration', year: '[YEAR]',
+    heroSlot: 'gfx-hero', heroPh: 'Hero shot: the piece in context (wall, hand, table)',
+    title: { a: '[Project ', b: 'name.]' },
+    facts: [{ k: 'CLIENT', v: '[client]' }, { k: 'WHAT', v: '[poster · identity · cards]' }, { k: 'MY ROLE', v: '[concept, illustration, layout]' }, { k: 'PRINT', v: '[A1 · 350 g · 2 colours]' }],
+    pieces: [
+      { t: '[Piece 1]', m: '[FORMAT]', span: 2, ar: '16/10', slot: 'gfx-1', ph: 'Main piece, flat' },
+      { t: '[Piece 2]', m: '[FORMAT]', span: 1, ar: '4/5', slot: 'gfx-2', ph: 'Detail' },
+      { t: '[Piece 3]', m: '[FORMAT]', span: 1, ar: '4/5', slot: 'gfx-3', ph: 'Back side' },
+      { t: '[Piece 4]', m: '[FORMAT]', span: 1, ar: '1/1', slot: 'gfx-4', ph: 'Close-up' },
+      { t: '[Piece 5]', m: '[FORMAT]', span: 1, ar: '1/1', slot: 'gfx-5', ph: 'In context' }
+    ],
+    palette: [{ c: 'rgb(24,29,40)', fg: '#fff', fl: 3 }, { c: 'rgb(15,20,154)', fg: '#fff', fl: 2 }, { c: 'rgb(255,209,190)', fg: 'rgb(24,29,40)', fl: 2 }, { c: 'rgb(236,146,60)', fg: 'rgb(24,29,40)', fl: 1 }, { c: '#fff', fg: 'rgb(24,29,40)', fl: 1 }],
+    typeface: '[Typeface name]', formats: ['[A1 POSTER]', '[85 × 55 MM CARD]', '[INSTAGRAM 4:5]'],
+    steps: [{ t: 'Sketch', slot: 'gfx-s1', ph: 'Pencil sketch' }, { t: 'Vector', slot: 'gfx-s2', ph: 'Vector draft' }, { t: 'Colour', slot: 'gfx-s3', ph: 'Colour tests' }, { t: 'Print', slot: 'gfx-s4', ph: 'Printed proof' }],
+    next: { href: 'Work.dc.html', cat: 'GRAPHIC & ILLUSTRATION', name: '[Next project]', img: 'assets/work/17.jpg' }
+  };
+  state = { progress: 0, w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  componentDidMount() {
+    this._navS = () => { const y = window.scrollY, d = y - (this._ly || 0); this._ly = y; const h = y > 240 && d > 6 ? true : (d < -6 || y < 240) ? false : !!this.state.navHidden; if (h !== !!this.state.navHidden) this.setState({ navHidden: h }); };
+    window.addEventListener('scroll', this._navS, { passive: true });
+    this._onScroll = () => { const d = document.documentElement; const p = Math.max(0, Math.min(100, d.scrollTop / Math.max(1, d.scrollHeight - d.clientHeight) * 100)); if (Math.abs(p - this.state.progress) > .5) this.setState({ progress: p }); };
+    this._onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('scroll', this._onScroll, { passive: true }); window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._navS); window.removeEventListener('scroll', this._onScroll); window.removeEventListener('resize', this._onResize); }
+  _nv() { const w = this.state.w || 1440, narrow = w < 640, m = !!this.state.menu; return { y: this.state.navHidden && !m ? 'calc(-100% - 16px)' : '0px', wide: !narrow, narrow, open: narrow && m, btn: m ? 'Close' : 'Menu', toggle: () => this.setState({ menu: !m }), close: () => this.setState({ menu: false }), links: [["Home.dc.html#work","Proof"],["Work.dc.html","All work"],["About.dc.html","About"]].map(([h, t]) => ({ href: h, label: t, bg: t === "" ? 'rgba(24,29,40,.08)' : 'transparent' })) }; }
+  renderVals() {
+    const C = Component.CASE, { progress, w } = this.state;
+    const bp = w < 640 ? 'm' : w < 1100 ? 't' : 'd';
+    const ph = this.props.showPlaceholders ?? true;
+    const ST = [['rgb(238,238,238)', 'rgb(24,29,40)'], ['rgb(255,209,190)', 'rgb(24,29,40)'], ['rgb(238,238,238)', 'rgb(24,29,40)'], ['rgb(24,29,40)', '#fff']];
+    return {
+      nv: this._nv(),
+      c: C, progress, ph,
+      L: { two: bp === 'm' ? 1 : 2, grid: bp === 'm' ? 1 : bp === 't' ? 2 : 4, steps: bp === 'm' ? 1 : bp === 't' ? 2 : C.steps.length },
+      pieces: C.pieces.map(p => ({ ...p, span: bp === 'm' ? 1 : Math.min(p.span, bp === 't' ? 2 : 4) })),
+      steps: C.steps.map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0'), bg: ST[i % 4][0], fg: ST[i % 4][1] })),
+      stepsN: C.steps.length
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts-local.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/effects.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/styles.css">
+<script src="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>html,body{margin:0;background:#fff}a,button{transition:background-color .15s cubic-bezier(.2,.8,.2,1),color .15s cubic-bezier(.2,.8,.2,1),box-shadow .15s cubic-bezier(.2,.8,.2,1),opacity .15s cubic-bezier(.2,.8,.2,1),transform .25s cubic-bezier(.2,.8,.2,1)}button:not(:disabled):active,a:active{transform:scale(.97)}button:disabled{cursor:not-allowed}button:focus-visible,a:focus-visible{outline:2px solid rgb(120,140,255);outline-offset:3px}html{scroll-padding-top:100px}a{color:rgb(15,20,154)}a:hover{color:rgb(24,29,40)}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}@keyframes ping{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.8);opacity:0}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="font-family:var(--font-display);color:rgb(24,29,40);text-wrap:pretty;-webkit-font-smoothing:antialiased">
+
+<nav style="position:fixed;top:10px;left:0;right:0;z-index:50;padding:0 clamp(10px,2vw,32px);pointer-events:none;transform:translateY({{ nv.y }});transition:transform .25s cubic-bezier(.2,.8,.2,1)">
+<div style="position:relative;max-width:1376px;margin:0 auto;padding:6px 6px 6px 20px;border-radius:120px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);box-sizing:border-box;display:flex;align-items:center;gap:4px;pointer-events:auto;overflow:hidden">
+<a href="Home.dc.html" style="display:block;line-height:44px;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:16px;font-weight:500;color:rgb(24,29,40);text-decoration:none;white-space:nowrap;margin-right:auto">Viktoriia Seliverstova</a>
+<sc-if value="{{ nv.wide }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" style="padding:12px 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;color:rgb(24,29,40);background:{{ n.bg }}" style-hover="background:rgba(24,29,40,.08)">{{ n.label }}</a></sc-for><div role="tablist" aria-label="Reading depth" style="display:flex;gap:2px;padding:3px;border-radius:120px;background:rgb(238,238,238)"><sc-for list="{{ depthTabs }}" as="d" hint-placeholder-count="2"><button role="tab" aria-selected="{{ d.on }}" onClick="{{ d.pick }}" style="min-height:38px;padding:0 12px;border-radius:120px;font-size:14px;white-space:nowrap;background:{{ d.bg }};box-shadow:{{ d.sh }}">{{ d.t }}</button></sc-for></div><a href="#contact" style="padding:12px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px;text-decoration:none;white-space:nowrap">Contact</a></sc-if>
+<sc-if value="{{ nv.narrow }}" hint-placeholder-val="{{ false }}"><button onClick="{{ nv.toggle }}" aria-expanded="{{ nv.open }}" style="flex-shrink:0;min-height:44px;padding:0 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px">{{ nv.btn }}</button></sc-if>
+<i aria-hidden="true" style="position:absolute;left:0;bottom:0;height:3px;width:{{ progress }}%;background:rgb(15,20,154)"></i>
+</div>
+<sc-if value="{{ nv.open }}" hint-placeholder-val="{{ false }}"><div style="max-width:1376px;margin:8px auto 0;padding:8px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.78));backdrop-filter:blur(24px) saturate(190%);-webkit-backdrop-filter:blur(24px) saturate(190%);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 1px rgba(24,29,40,.06),0 20px 48px rgba(24,29,40,.18);box-sizing:border-box;display:flex;flex-direction:column;gap:4px;pointer-events:auto"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" onClick="{{ nv.close }}" style="padding:16px 18px;border-radius:20px;font-size:20px;font-weight:500;letter-spacing:-.03em;text-decoration:none;color:rgb(24,29,40);background:{{ n.bg }}">{{ n.label }}</a></sc-for><div style="padding:8px 10px;display:flex"><div role="tablist" aria-label="Reading depth" style="display:flex;gap:2px;padding:3px;border-radius:120px;background:rgb(238,238,238)"><sc-for list="{{ depthTabs }}" as="d" hint-placeholder-count="2"><button role="tab" aria-selected="{{ d.on }}" onClick="{{ d.pick }}" style="min-height:38px;padding:0 12px;border-radius:120px;font-size:14px;white-space:nowrap;background:{{ d.bg }};box-shadow:{{ d.sh }}">{{ d.t }}</button></sc-for></div></div><a href="#contact" onClick="{{ nv.close }}" style="margin-top:4px;padding:16px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:16px;text-align:center;text-decoration:none">Contact</a></div></sc-if>
+</nav>
+
+<main style="max-width:1440px;margin:0 auto;padding:84px clamp(16px,2.8vw,40px) 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px">
+
+<section id="hero" data-screen-label="01 Case hero" style="display:grid;grid-template-columns:repeat({{ L.two }},minmax(0,1fr));gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:clamp(420px,64vh,640px);padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff;box-sizing:border-box">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span style="padding:10px 18px;border-radius:120px;background:rgb(15,20,154);font-size:16px;font-weight:500">{{ c.industry }}</span><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">{{ c.kicker }}</span></div>
+<div style="display:flex;flex-direction:column;gap:16px"><h1 style="margin:0;font-weight:500;font-size:clamp(30px,7vw,112px);line-height:.88;letter-spacing:-.055em">{{ c.title.a }}<span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.03em;color:rgb(215,221,236)">{{ c.title.b }}</span></h1><p style="margin:0;font-size:clamp(16px,1.5vw,22px);line-height:1.4;color:rgb(215,221,236);max-width:520px">{{ c.lead }}</p></div>
+<dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;border-top:1px solid rgba(255,255,255,.2);padding-top:16px"><sc-for list="{{ c.facts }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px"><dt style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">{{ f.k }}</dt><dd style="margin:0;font-size:16px">{{ f.v }}</dd></div></sc-for></dl>
+</div>
+<div style="position:relative;min-height:clamp(320px,64vh,640px);border-radius:32px;overflow:hidden;background:url({{ c.cover }}) center/cover no-repeat rgb(210,210,212)">
+<div style="position:absolute;left:10px;right:10px;bottom:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px"><sc-for list="{{ c.chips }}" as="r" hint-placeholder-count="2"><div style="padding:14px 16px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08));backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 1px 1px rgba(255,255,255,.45),inset 0 0 0 1px rgba(255,255,255,.18),0 8px 24px rgba(0,0,0,.18);color:#fff"><div style="font-family:var(--font-tile);font-weight:700;font-size:clamp(18px,2vw,30px);line-height:1;letter-spacing:-.03em">{{ r.num }}</div><div style="font-size:14px;margin-top:4px;opacity:.9">{{ r.what }}</div></div></sc-for></div>
+</div>
+</section>
+
+<section id="facts" data-screen-label="02 Quick look" style="display:grid;grid-template-columns:repeat({{ L.four }},minmax(0,1fr));gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(15,20,154);color:#fff">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">{{ c.result.sign }}{{ c.result.n }}</span><span style="font-size:18px;font-weight:500">{{ c.result.unit }} {{ c.result.b }}</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:3px;height:28px"><sc-for list="{{ blocks }}" as="b" hint-placeholder-count="8"><i style="flex:1;border-radius:4px;background:rgb(160,172,255)"></i></sc-for></div><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(215,221,236)">1 BLOCK = 1 MINUTE</span></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">3 → 1</span><span style="font-size:18px;font-weight:500">workflow</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:12px"><div style="display:flex;gap:4px;align-items:flex-end"><i style="width:26px;height:18px;border-radius:4px;background:rgb(24,29,40)"></i><i style="width:26px;height:18px;border-radius:4px;background:rgb(24,29,40)"></i><i style="width:26px;height:18px;border-radius:4px;background:rgb(24,29,40)"></i><i style="width:12px;height:22px;border-radius:4px;background:rgb(24,29,40)"></i></div><span style="color:rgb(70,74,84)">→</span><i style="height:28px;border-radius:4px;background:rgb(15,20,154)"></i></div><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(70,74,84)">3 WEB APPS + MOBILE</span></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">{{ rolesN }}</span><span style="font-size:18px;font-weight:500">roles, one order</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ c.roles }}" as="r" hint-placeholder-count="3"><span style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 8px;border-radius:120px;background:#fff;font-size:14px"><i style="width:10px;height:16px;border-radius:5px 5px 2px 2px;background:rgb(24,29,40)"></i>{{ r }}</span></sc-for></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<span style="font-size:18px;font-weight:500">My zone</span>
+<div style="display:flex;flex-direction:column;gap:6px"><sc-for list="{{ zone }}" as="z" hint-placeholder-count="4"><div style="padding:9px 14px;border-radius:12px;background:{{ z.bg }};color:#fff;font-size:16px;font-weight:500">{{ z.t }}</div></sc-for></div>
+</div>
+</section>
+
+<section data-screen-label="Case body" style="padding-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:{{ L.body }};gap:clamp(20px,2.6vw,40px);align-items:start">
+
+<aside style="position:sticky;top:{{ L.railTop }};z-index:10;display:flex;flex-direction:{{ L.railDir }};gap:4px;padding:8px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);overflow-x:auto;scrollbar-width:none;box-sizing:border-box">
+<sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="5"><a href="{{ ch.href }}" style="flex:none;display:flex;gap:12px;align-items:baseline;padding:11px 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;background:{{ ch.bg }};color:{{ ch.fg }};transition:background .15s cubic-bezier(.2,.8,.2,1),color .15s cubic-bezier(.2,.8,.2,1)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;opacity:.6">{{ ch.n }}</span>{{ ch.t }}</a></sc-for>
+<a href="#result" style="flex:none;display:inline-flex;align-items:center;min-height:44px;box-sizing:border-box;padding:0 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;color:rgb(24,29,40);box-shadow:inset 0 0 0 1.5px rgb(24,29,40);margin-top:{{ L.railGap }}">Skip to result ↓</a>
+</aside>
+
+<div style="display:flex;flex-direction:column;gap:clamp(64px,10vw,128px);min-width:0">
+
+<div id="problem" style="display:flex;flex-direction:column;gap:12px">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">01 · PROBLEM</span>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><h2 style="margin:0;max-width:18ch;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.95;letter-spacing:-.045em">{{ c.problem.a }}<span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">{{ c.problem.b }}</span></h2>
+<div role="tablist" aria-label="Before or after" style="display:flex;gap:2px;padding:4px;border-radius:120px;background:rgb(238,238,238)"><sc-for list="{{ baTabs }}" as="b" hint-placeholder-count="2"><button role="tab" aria-selected="{{ b.on }}" onClick="{{ b.pick }}" style="min-height:44px;padding:0 22px;border-radius:120px;font-size:16px;font-weight:500;background:{{ b.bg }};color:{{ b.fg }};transition:background .15s cubic-bezier(.2,.8,.2,1),color .15s cubic-bezier(.2,.8,.2,1)">{{ b.t }}</button></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:10px;border-radius:32px;background:rgb(238,238,238)">
+<div role="img" aria-label="{{ dia.alt }}" style="position:relative;aspect-ratio:{{ L.diaAR }};min-height:260px;border-radius:20px;background:#fff;overflow:hidden">
+<sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><i style="position:absolute;left:50%;top:50%;width:{{ l.len }};height:0;border-top:2px dashed rgb(172,173,178);transform-origin:0 0;transform:rotate({{ l.a }});opacity:{{ dia.beforeOp }};transition:opacity .4s cubic-bezier(.2,.8,.2,1)"></i></sc-for>
+<i style="position:absolute;left:14%;top:56%;height:3px;margin-top:-1.5px;width:{{ dia.lineW }};border-radius:4px;background:rgb(15,20,154);transition:width .6s cubic-bezier(.2,.8,.2,1)"></i>
+<sc-for list="{{ nodes }}" as="n" hint-placeholder-count="4"><div style="position:absolute;left:{{ n.x }};top:{{ n.y }};transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px;transition:left .6s cubic-bezier(.2,.8,.2,1),top .6s cubic-bezier(.2,.8,.2,1)"><i style="width:{{ n.w }};height:{{ n.h }};border-radius:{{ n.r }};background:{{ n.bg }};box-shadow:0 6px 18px rgba(24,29,40,.14);transition:background .4s cubic-bezier(.2,.8,.2,1)"></i><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em;white-space:nowrap">{{ n.t }}</span></div></sc-for>
+<sc-for list="{{ losses }}" as="d" hint-placeholder-count="3"><span style="position:absolute;left:{{ d.x }};top:{{ d.y }};width:14px;height:14px;margin:-7px 0 0 -7px;opacity:{{ dia.beforeOp }};transition:opacity .25s cubic-bezier(.2,.8,.2,1)"><i style="position:absolute;inset:0;border-radius:50%;background:rgb(236,146,60);animation:ping 1.8s ease-out infinite"></i><i style="position:absolute;inset:0;border-radius:50%;background:rgb(236,146,60)"></i></span></sc-for>
+<div style="position:absolute;left:50%;top:{{ dia.orderY }};transform:translate(-50%,-50%);padding:12px 18px;border-radius:20px;background:rgb(15,20,154);color:#fff;font-size:16px;font-weight:500;white-space:nowrap;box-shadow:0 10px 28px rgba(15,20,154,.3);transition:top .6s cubic-bezier(.2,.8,.2,1)">{{ dia.order }}</div>
+<span style="position:absolute;right:18px;bottom:16px;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(70,74,84)"><i style="width:8px;height:8px;border-radius:50%;background:{{ dia.legendC }}"></i>{{ dia.legend }}</span>
+</div>
+<sc-if value="{{ full }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px 32px;flex-wrap:wrap;padding:6px 12px 10px"><p style="margin:0;font-size:clamp(16px,1.5vw,22px);line-height:1.45;max-width:60ch">{{ c.context }} <sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-display);font-weight:500;font-size:14px;background:rgba(15,20,154,.08);border-bottom:1.5px dotted rgb(15,20,154);padding:0 4px">[how they worked before]</span></sc-if></p><sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-display);font-weight:500;font-size:14px;background:rgba(15,20,154,.08);border-bottom:1.5px dotted rgb(15,20,154);padding:2px 6px">[what this cost the business]</span></sc-if></div></sc-if>
+</div>
+</div>
+
+<sc-if value="{{ full }}" hint-placeholder-val="{{ true }}">
+<div id="research" style="display:flex;flex-direction:column;gap:12px">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">02 · RESEARCH</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.95;letter-spacing:-.045em">What I <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">found.</span></h2>
+<div style="display:grid;grid-template-columns:repeat({{ L.tri }},minmax(0,1fr));gap:12px"><sc-for list="{{ c.insights }}" as="i" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-height:220px;padding:24px;border-radius:28px;background:rgb(238,238,238)"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(22px,3.6vw,56px);line-height:1;letter-spacing:-.05em;color:rgb(15,20,154)">{{ i.n }}</span><div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(18px,2vw,30px);line-height:1;letter-spacing:-.02em;color:rgb(70,74,84)">“[insight]”</span><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em;color:rgb(70,74,84)">{{ i.src }}</span></div></div></sc-for></div>
+</div>
+</sc-if>
+
+<div id="decisions" style="display:flex;flex-direction:column;gap:clamp(40px,6vw,72px)">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">{{ decN }} · DECISIONS</span><h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.95;letter-spacing:-.045em">Three <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">decisions.</span></h2></div>
+<sc-for list="{{ decisions }}" as="d" hint-placeholder-count="3">
+<article style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:16px;align-items:baseline"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(22px,3.6vw,56px);line-height:.9;letter-spacing:-.05em;color:rgb(15,20,154)">{{ d.n }}</span><h3 style="margin:0;font-weight:500;font-size:clamp(20px,2.6vw,40px);line-height:1.05;letter-spacing:-.03em">{{ d.t }}</h3></div>
+<div style="position:relative;aspect-ratio:16/10;border-radius:28px;overflow:hidden;display:flex;background:rgb(210,210,212)"><image-slot id="{{ d.slot }}" placeholder="{{ d.ph }}" style="flex:1"></image-slot>
+<sc-for list="{{ d.pins }}" as="p" hint-placeholder-count="0"><span style="position:absolute;left:{{ p.x }};top:{{ p.y }};width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgb(24,29,40);color:#fff;font-weight:600;font-size:14px;box-shadow:0 0 0 4px #fff,0 8px 20px rgba(24,29,40,.22);pointer-events:none">{{ p.n }}</span></sc-for></div>
+<sc-if value="{{ phFull }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat({{ d.cols }},minmax(0,1fr));gap:8px"><sc-for list="{{ d.notes }}" as="nt" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:20px;background:rgb(238,238,238)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">{{ nt.k }}</span><span style="align-self:flex-start;font-family:var(--font-display);font-weight:500;font-size:14px;background:rgba(15,20,154,.08);border-bottom:1.5px dotted rgb(15,20,154);padding:0 4px">{{ nt.v }}</span></div></sc-for></div></sc-if>
+</article>
+</sc-for>
+</div>
+
+<div id="journey" style="display:flex;flex-direction:column;gap:24px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(15,20,154);color:#fff">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(215,221,236)">{{ useN }} · IN USE</span><h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.98;letter-spacing:-.045em">The path of <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">one order.</span></h2></div>
+<div style="display:flex;gap:8px"><button onClick="{{ togglePlay }}" style="min-height:48px;padding:0 18px;border-radius:120px;font-size:16px;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)">{{ playLabel }}</button><button onClick="{{ prevStep }}" aria-label="Previous step" style="width:48px;height:48px;border-radius:50%;font-size:18px;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45);opacity:{{ startOp }}">←</button><button onClick="{{ nextStep }}" aria-label="Next step" style="width:48px;height:48px;border-radius:50%;font-size:18px;background:#fff;color:rgb(15,20,154);opacity:{{ endOp }}">→</button></div></div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px"><sc-for list="{{ stations }}" as="s" hint-placeholder-count="4"><button onClick="{{ s.pick }}" aria-pressed="{{ s.on }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:12px;text-align:left"><i style="display:block;width:100%;height:44px;border-radius:12px;background:{{ s.bg }};transition:background .25s cubic-bezier(.2,.8,.2,1)"></i><span style="display:flex;gap:8px;align-items:baseline"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(215,221,236)">{{ s.n }}</span><span style="font-size:16px;font-weight:500">{{ s.t }}</span></span></button></sc-for></div>
+<div style="position:relative;aspect-ratio:16/9;min-height:220px;border-radius:20px;overflow:hidden;display:flex;background:rgba(255,255,255,.1)"><image-slot id="{{ st.slot }}" placeholder="{{ st.ph }}" style="flex:1"></image-slot>
+<sc-if value="{{ atEnd }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;right:16px;bottom:16px;display:flex;align-items:baseline;gap:8px;padding:12px 18px;border-radius:20px;background:#fff;color:rgb(15,20,154)"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(20px,2.6vw,40px);line-height:.9;letter-spacing:-.05em">{{ c.result.sign }}{{ c.result.n }} {{ c.result.unit }}</span><span style="font-size:14px">{{ c.result.b }}</span></span></sc-if>
+</div>
+</div>
+
+<sc-if value="{{ full }}" hint-placeholder-val="{{ true }}">
+<div id="explored" style="display:grid;grid-template-columns:repeat({{ L.twoIn }},minmax(0,1fr));gap:12px">
+<div style="position:relative;min-height:280px;border-radius:28px;overflow:hidden;display:flex;background:rgb(210,210,212)"><div style="flex:1;display:flex;filter:grayscale(1);opacity:.6"><image-slot id="crm-explored" placeholder="Explored alternative" style="flex:1"></image-slot></div><span style="position:absolute;left:50%;top:50%;width:140%;height:6px;background:rgb(236,146,60);transform:translate(-50%,-50%) rotate(-20deg);pointer-events:none"></span></div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:clamp(20px,3vw,40px);border-radius:28px;background:rgb(238,238,238)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">EXPLORED, NOT SHIPPED</span><p style="margin:0;font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.03em">I also explored <sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-display);font-weight:500;font-weight:400;font-size:14px;background:rgba(15,20,154,.08);border-bottom:1.5px dotted rgb(15,20,154);padding:0 4px">[alternative]</span></sc-if>. It tested worse because <sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-display);font-weight:500;font-weight:400;font-size:14px;background:rgba(15,20,154,.08);border-bottom:1.5px dotted rgb(15,20,154);padding:0 4px">[reason]</span></sc-if>.</p></div>
+</div>
+</sc-if>
+
+<div id="result" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:column;gap:clamp(18px,2vw,30px);padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff">
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">{{ resN }} · RESULT</span><sc-if value="{{ phFull }}" hint-placeholder-val="{{ true }}"><span style="padding:4px 10px;border-radius:120px;font-size:12px;box-shadow:inset 0 0 0 1px rgb(236,146,60)">how measured · [how and when]</span></sc-if></div>
+<div style="display:flex;align-items:flex-end;gap:12px 32px;flex-wrap:wrap"><span aria-label="{{ c.result.n }} {{ c.result.unit }}" style="display:block;font-family:var(--font-tile);font-weight:700;font-size:clamp(64px,18vw,280px);line-height:.82;letter-spacing:-.085em">{{ c.result.sign }}{{ counter }}<span style="font-size:.3em;letter-spacing:-.045em"> {{ c.result.unit }}</span></span><span style="font-size:clamp(20px,2.6vw,40px);font-weight:500;line-height:1;letter-spacing:-.03em;padding-bottom:.2em">{{ c.result.a }}<br><span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;color:rgb(215,221,236)">{{ c.result.b }}</span></span></div>
+<div aria-hidden="true" style="display:grid;grid-template-columns:repeat({{ c.result.n }},minmax(0,1fr));gap:16px"><sc-for list="{{ minutes }}" as="m" hint-placeholder-count="8"><i style="height:clamp(36px,4vw,56px);border-radius:12px;background:{{ m.bg }};transition:background .25s cubic-bezier(.2,.8,.2,1)"></i></sc-for></div>
+</div>
+<sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat({{ L.twoIn }},minmax(0,1fr));gap:12px"><div style="display:flex;flex-direction:column;gap:6px;padding:20px 22px;border-radius:28px;background:rgb(15,20,154);color:#fff"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(20px,2.6vw,40px);line-height:1;opacity:.55">[number 2]</span><span style="font-size:14px;color:rgb(215,221,236)">[what it measures]</span></div><div style="display:flex;flex-direction:column;gap:6px;padding:20px 22px;border-radius:28px;background:rgb(15,20,154);color:#fff"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(20px,2.6vw,40px);line-height:1;opacity:.55">[number 3]</span><span style="font-size:14px;color:rgb(215,221,236)">[what it measures]</span></div></div></sc-if>
+<sc-if value="{{ full }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:12px;padding:22px 24px;border-radius:28px;background:rgb(255,209,190)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em">WHAT I'D DO DIFFERENTLY</span><p style="margin:0;font-family:var(--font-editorial);font-style:italic;font-size:clamp(18px,2vw,30px);line-height:1.2">Next time I'd bring drivers into testing a week earlier: <sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-display);font-weight:500;font-style:normal;font-size:14px;border-bottom:1.5px dotted rgb(24,29,40);padding:0 4px">[why]</span></sc-if></p></div></sc-if>
+<a href="{{ c.next.href }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:20px 24px;border-radius:28px;background:rgb(238,238,238);color:rgb(24,29,40);text-decoration:none" style-hover="box-shadow:0 16px 40px rgba(24,29,40,.14)"><span style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">NEXT CASE · {{ c.next.cat }}</span><span style="font-size:clamp(18px,2vw,30px);font-weight:500;letter-spacing:-.03em">{{ c.next.name }}</span></span><span style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(20px,2.6vw,40px);letter-spacing:-.045em">{{ c.next.num }}</span><span style="display:flex;gap:4px"><sc-for list="{{ nextTen }}" as="t" hint-placeholder-count="10"><i style="width:10px;height:24px;border-radius:4px;background:{{ t.bg }}"></i></sc-for></span><span style="font-size:14px;color:rgb(70,74,84)">{{ c.next.what }} →</span></span></a>
+</div>
+
+</div>
+</section>
+
+<dc-import name="Contact" hint-size="100%,560px"></dc-import>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPlaceholders&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Draft&quot;},&quot;defaultDepth&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Full&quot;,&quot;Short&quot;],&quot;default&quot;:&quot;Full&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Reading&quot;}}">
+class Component extends DCLogic {
+  // TEMPLATE: for a new case, duplicate this file and edit CASE only.
+  static CASE = {
+    industry: 'Operations & government', kicker: 'FLAGSHIP CASE', cover: 'assets/work/05.jpg',
+    title: { a: 'Construction ', b: 'CRM.' },
+    lead: 'One workflow for rental, sales and delivery — 8 minutes saved on every order',
+    facts: [{ k: 'ROLE', v: 'Lead designer' }, { k: 'COMPANY', v: 'Stockguard, via Develit AB' }, { k: 'YEAR', v: '2024' }, { k: 'PLATFORMS', v: '3 web apps + mobile' }],
+    chips: [{ num: '−8 min', what: 'per order' }, { num: '3 → 1', what: 'apps to one workflow' }],
+    roles: ['Office staff', 'Warehouse workers', 'Drivers'],
+    zone: ['Research', 'UX', 'UI', 'design system'],
+    result: { sign: '−', n: 8, unit: 'min', a: 'faster', b: 'per order' },
+    problem: { a: 'One order touched 3 apps, and ', b: 'nobody saw the whole picture.' },
+    context: 'Stockguard rents and sells construction equipment. Office staff, drivers and warehouse workers each used',
+    insights: [{ n: '01', src: 'From [N] interviews with drivers' }, { n: '02', src: 'From [source]' }, { n: '03', src: 'From [source]' }],
+    decisions: [
+      { t: 'One order timeline for every role.', slot: 'crm-dec-1', ph: 'Order timeline screen', notes: [['WHY', '[why]'], ['TRADE-OFF', '[what I gave up]']], pins: [[18, 22], [62, 48], [84, 80]] },
+      { t: 'What AI suggests, what a person decides.', slot: 'crm-dec-2', ph: 'AI feature screen', notes: [['AI DOES', '[what the AI does]'], ['CAN FAIL', '[where it can be wrong]'], ['UI SHOWS', '[how the interface shows it]']], pins: [] },
+      { t: 'Bluetooth equipment tracking.', slot: 'crm-dec-3', ph: 'Equipment map screen', notes: [['WHY', '[why]'], ['TRADE-OFF', '[what I gave up]']], pins: [] }
+    ],
+    stations: [['Office', 'crm-st-office'], ['Warehouse', 'crm-st-warehouse'], ['Truck', 'crm-st-truck'], ['Site', 'crm-st-site']],
+    next: { href: 'Work.dc.html', cat: 'OPERATIONS & GOVERNMENT', name: 'Fleet Management', num: '35%', pct: 35, what: 'faster routine tasks' }
+  };
+  state = { depth: null, step: 0, counter: 0, progress: 0, active: 'problem', after: false, baTouched: false, playing: true, counted: false, w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  componentDidMount() {
+    this._navS = () => { const y = window.scrollY, d = y - (this._ly || 0); this._ly = y; const h = y > 240 && d > 6 ? true : (d < -6 || y < 240) ? false : !!this.state.navHidden; if (h !== !!this.state.navHidden) this.setState({ navHidden: h }); };
+    window.addEventListener('scroll', this._navS, { passive: true });
+    this._reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (this._reduce) this.setState({ playing: false });
+    this._onScroll = () => { const d = document.documentElement; const p = Math.max(0, Math.min(100, d.scrollTop / Math.max(1, d.scrollHeight - d.clientHeight) * 100)); if (Math.abs(p - this.state.progress) > .5) this.setState({ progress: p }); };
+    this._onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onResize);
+    this._io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const id = e.target.id; this.setState({ active: id }); if (id === 'result' && !this.state.counted) this._count(); } }), { rootMargin: '-35% 0px -50% 0px' });
+    this._observe();
+    this._t = setInterval(() => this._tick(), 2600);
+  }
+  componentDidUpdate() { this._observe(); }
+  componentWillUnmount() { window.removeEventListener('scroll', this._navS); clearInterval(this._t); cancelAnimationFrame(this._raf); window.removeEventListener('scroll', this._onScroll); window.removeEventListener('resize', this._onResize); this._io && this._io.disconnect(); }
+  _observe() { clearTimeout(this._ot); this._ot = setTimeout(() => ['problem', 'research', 'decisions', 'journey', 'explored', 'result'].forEach(id => { const el = document.getElementById(id); if (el) this._io.observe(el); }), 60); }
+  _count() { const N = Component.CASE.result.n; this.setState({ counted: true }); if (this._reduce) return this.setState({ counter: N }); let t0 = null; const f = ts => { if (!t0) t0 = ts; const k = Math.min(1, (ts - t0) / 1400); this.setState({ counter: Math.round(N * (1 - Math.pow(1 - k, 3))) }); if (k < 1) this._raf = requestAnimationFrame(f); }; this._raf = requestAnimationFrame(f); }
+  _tick() {
+    const s = this.state; if (this._reduce) return;
+    if (s.active === 'problem' && !s.baTouched) this.setState({ after: !s.after });
+    if (s.active === 'journey' && s.playing) this.setState({ step: s.step >= 3 ? 0 : s.step + 1 });
+  }
+  _nv() { const w = this.state.w || 1440, narrow = w < 640, m = !!this.state.menu; return { y: this.state.navHidden && !m ? 'calc(-100% - 16px)' : '0px', wide: !narrow, narrow, open: narrow && m, btn: m ? 'Close' : 'Menu', toggle: () => this.setState({ menu: !m }), close: () => this.setState({ menu: false }), links: [["Home.dc.html#work","Proof"],["Work.dc.html","All work"],["About.dc.html","About"]].map(([h, t]) => ({ href: h, label: t, bg: t === "" ? 'rgba(24,29,40,.08)' : 'transparent' })) }; }
+  renderVals() {
+    const C = Component.CASE;
+    const { step, counter, progress, active, after, playing, w } = this.state;
+    const depth = this.state.depth || ((this.props.defaultDepth ?? 'Full') === 'Short' ? 'short' : 'full');
+    const full = depth === 'full';
+    const ph = this.props.showPlaceholders ?? true;
+    const INK = 'rgb(24,29,40)', COB = 'rgb(15,20,154)', PER = 'rgb(160,172,255)';
+    const bp = w < 640 ? 'm' : w < 1100 ? 't' : 'd';
+    const BEFORE = [[18, 24], [82, 24], [18, 80], [82, 80]], AFTER = [[14, 56], [38, 56], [62, 56], [86, 56]];
+    const NODE = [['Web app 1', '56px', '40px', '8px'], ['Web app 2', '56px', '40px', '8px'], ['Web app 3', '56px', '40px', '8px'], ['Mobile app', '26px', '44px', '7px']];
+    const pos = after ? AFTER : BEFORE;
+    const CHS = [['problem', 'Problem'], ['research', 'Research'], ['decisions', 'Decisions'], ['journey', 'In use'], ['explored', 'Explored'], ['result', 'Result']].filter(x => full || !['research', 'explored'].includes(x[0]));
+    const num = id => String(CHS.findIndex(x => x[0] === id) + 1).padStart(2, '0');
+    const AR = bp === 'm' ? 4 / 3 : 16 / 9;
+    return {
+      nv: this._nv(),
+      c: C, full, ph, phFull: ph && full, progress,
+      L: { two: bp === 'm' ? 1 : 2, four: bp === 'm' ? 1 : bp === 't' ? 2 : 4, tri: bp === 'd' ? 3 : 1, twoIn: bp === 'm' ? 1 : 2, diaAR: bp === 'm' ? '4/3' : '16/9', body: bp === 'd' ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', railTop: bp === 'd' ? '96px' : '76px', railDir: bp === 'd' ? 'column' : 'row', railGap: bp === 'd' ? '8px' : '0' },
+      depthTabs: [['short', 'Short · 1 min'], ['full', 'Full · 5 min']].map(([k, t]) => ({ t: bp === 'm' ? t.split(' · ')[1] : t, on: depth === k, pick: () => this.setState({ depth: k }), bg: depth === k ? '#fff' : 'transparent', sh: depth === k ? '0 1px 4px rgba(24,29,40,.14)' : 'none' })),
+      chapters: CHS.map(([id, t], i) => ({ href: '#' + id, t, n: String(i + 1).padStart(2, '0'), bg: active === id ? INK : 'transparent', fg: active === id ? '#fff' : INK })),
+      decN: num('decisions'), useN: num('journey'), resN: num('result'),
+      blocks: Array.from({ length: C.result.n }, () => ({})),
+      rolesN: C.roles.length,
+      zone: C.zone.map((t, i) => ({ t, bg: i === C.zone.length - 1 ? COB : INK })),
+      baTabs: [['Before', false], ['After', true]].map(([t, v]) => ({ t, on: after === v, pick: () => this.setState({ after: v, baTouched: true }), bg: after === v ? INK : 'transparent', fg: after === v ? '#fff' : INK })),
+      dia: after
+        ? { alt: 'After: one order timeline connects three web apps and a mobile app', beforeOp: 0, lineW: '72%', orderY: '26%', order: 'One order timeline', legend: 'ONE SHARED VIEW', legendC: COB }
+        : { alt: 'Before: one order spread across three web apps and a mobile app, with lost context between them', beforeOp: 1, lineW: '0%', orderY: '52%', order: '1 order', legend: 'LOST CONTEXT', legendC: 'rgb(236,146,60)' },
+      nodes: NODE.map((n, i) => ({ t: n[0], w: n[1], h: n[2], r: n[3], x: pos[i][0] + '%', y: pos[i][1] + '%', bg: after ? COB : INK })),
+      links: BEFORE.map(([x, y]) => { const dx = (x - 50) / 100, dy = (y - 52) / 100 / AR; return { len: (Math.hypot(dx, dy) * 100) + '%', a: (Math.atan2(dy, dx) * 180 / Math.PI) + 'deg' }; }),
+      losses: [{ x: '34%', y: '38%' }, { x: '66%', y: '66%' }, { x: '64%', y: '37%' }],
+      decisions: C.decisions.map((d, i) => ({ n: String(i + 1).padStart(2, '0'), t: d.t, slot: d.slot, ph: d.ph, cols: bp === 'm' ? 1 : d.notes.length, notes: d.notes.map(r => ({ k: r[0], v: r[1] })), pins: d.pins.map((p, j) => ({ n: j + 1, x: p[0] + '%', y: p[1] + '%' })) })),
+      stations: C.stations.map(([t], i) => ({ t, n: String(i + 1).padStart(2, '0'), on: step === i, bg: i <= step ? '#fff' : 'rgba(255,255,255,.18)', pick: () => this.setState({ step: i, playing: false }) })),
+      st: { slot: C.stations[step][1], ph: 'Screen at the ' + C.stations[step][0].toLowerCase() },
+      playLabel: playing ? 'Pause' : 'Play',
+      togglePlay: () => this.setState({ playing: !playing }),
+      prevStep: () => this.setState({ step: Math.max(0, step - 1), playing: false }), nextStep: () => this.setState({ step: Math.min(3, step + 1), playing: false }),
+      atEnd: step === 3, startOp: step === 0 ? .35 : 1, endOp: step === 3 ? .35 : 1,
+      counter,
+      minutes: Array.from({ length: C.result.n }, (_, i) => ({ bg: i < counter ? PER : 'rgba(255,255,255,.1)' })),
+      nextTen: Array.from({ length: 10 }, (_, i) => ({ bg: i < Math.round(C.next.pct / 10) ? COB : 'rgba(15,20,154,.15)' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts-local.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/effects.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/styles.css">
+<script src="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>html,body{margin:0;background:#fff}a{color:rgb(15,20,154)}a:hover{color:rgb(24,29,40)}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible{outline:2px solid rgb(15,20,154);outline-offset:3px}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="font-family:var(--font-display);color:rgb(24,29,40);text-wrap:pretty;-webkit-font-smoothing:antialiased">
+
+<nav style="position:fixed;top:10px;left:0;right:0;z-index:50;padding:0 clamp(10px,2vw,32px);pointer-events:none;transform:translateY({{ nv.y }});transition:transform .25s cubic-bezier(.2,.8,.2,1)">
+<div style="position:relative;max-width:1376px;margin:0 auto;padding:6px 6px 6px 20px;border-radius:120px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);box-sizing:border-box;display:flex;align-items:center;gap:4px;pointer-events:auto;overflow:hidden">
+<a href="Home.dc.html" style="display:block;line-height:44px;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:16px;font-weight:500;color:rgb(24,29,40);text-decoration:none;white-space:nowrap;margin-right:auto">Viktoriia Seliverstova</a>
+<sc-if value="{{ nv.wide }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" style="padding:12px 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;color:rgb(24,29,40);background:{{ n.bg }}" style-hover="background:rgba(24,29,40,.08)">{{ n.label }}</a></sc-for><a href="Home.dc.html#contact" style="padding:12px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px;text-decoration:none;white-space:nowrap">Contact</a></sc-if>
+<sc-if value="{{ nv.narrow }}" hint-placeholder-val="{{ false }}"><button onClick="{{ nv.toggle }}" aria-expanded="{{ nv.open }}" style="flex-shrink:0;min-height:44px;padding:0 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px">{{ nv.btn }}</button></sc-if>
+</div>
+<sc-if value="{{ nv.open }}" hint-placeholder-val="{{ false }}"><div style="max-width:1376px;margin:8px auto 0;padding:8px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.95));backdrop-filter:blur(24px) saturate(190%);-webkit-backdrop-filter:blur(24px) saturate(190%);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 1px rgba(24,29,40,.06),0 20px 48px rgba(24,29,40,.18);box-sizing:border-box;display:flex;flex-direction:column;gap:4px;pointer-events:auto"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" onClick="{{ nv.close }}" style="padding:16px 18px;border-radius:20px;font-size:20px;font-weight:500;letter-spacing:-.03em;text-decoration:none;color:rgb(24,29,40);background:{{ n.bg }}">{{ n.label }}</a></sc-for><a href="Home.dc.html#contact" onClick="{{ nv.close }}" style="margin-top:4px;padding:16px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:16px;text-align:center;text-decoration:none">Contact</a></div></sc-if>
+</nav>
+
+<main style="max-width:1440px;margin:0 auto;padding:84px clamp(16px,2.8vw,40px) 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px">
+
+<section data-screen-label="01 Hero" style="border-radius:32px;background:rgb(24,29,40);color:#fff;padding:clamp(22px,3.4vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(28px,4vw,64px);align-items:center;overflow:hidden">
+<div style="display:flex;flex-direction:column;gap:clamp(18px,3vh,28px)">
+<div style="display:flex;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:120px;background:rgba(255,255,255,.1);font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em"><i style="width:7px;height:7px;border-radius:50%;background:rgb(236,146,60)"></i>IN APP STORE REVIEW</span><span style="display:inline-flex;align-items:center;padding:8px 12px;border-radius:120px;background:rgba(255,255,255,.1);font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em">BUILT BY ME · IOS</span></div>
+<h1 style="margin:0;font-weight:500;font-size:clamp(84px,13vw,216px);line-height:.78;letter-spacing:-.07em">Gamut.</h1>
+<p style="margin:0;font-family:var(--font-editorial);font-style:italic;font-size:clamp(28px,3.4vw,54px);line-height:1.04;letter-spacing:-.02em;color:rgb(215,221,236)">Plan your palette, not just your posts.</p>
+<div style="display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ did }}" as="w" hint-placeholder-count="4"><span style="padding:8px 13px;border-radius:120px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);font-size:14px">{{ w }}</span></sc-for></div>
+</div>
+<div style="display:flex;justify-content:center"><div style="width:min(100%,300px);aspect-ratio:9/19.5;border-radius:48px;background:rgb(44,49,60);padding:10px;box-sizing:border-box;box-shadow:0 4.2px 11.2px rgba(0,0,0,.25),0 40px 80px rgba(0,0,0,.35);transform:rotate(3deg)"><div style="width:100%;height:100%;border-radius:38px;overflow:hidden;display:flex;background:rgb(210,210,212)"><image-slot id="gamut-hero-video" placeholder="15–30 s screen recording from iPhone" style="flex:1"></image-slot></div></div></div>
+</section>
+
+<section data-screen-label="02 Why and for whom" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px;padding-top:clamp(40px,7vh,88px)">
+<div style="display:flex;flex-direction:column;gap:18px;padding:clamp(22px,3vw,44px);border-radius:32px;background:rgb(238,238,238)">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">WHY I MADE IT</span>
+<sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start;padding:6px 10px;border-radius:12px;border:1.5px dashed rgb(172,173,178);font-family:var(--font-display);font-weight:500;font-size:14px;color:rgb(70,74,84)">[your story]</span></sc-if>
+<p style="margin:0;font-size:clamp(22px,2.2vw,34px);font-weight:500;line-height:1.12;letter-spacing:-.03em">Existing planners start with photos, so you only see the grid when the content already exists.</p>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(22px,3vw,44px);border-radius:32px;background:rgb(15,20,154);color:#fff">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(215,221,236)">FOR WHOM</span>
+<p style="margin:0;font-family:var(--font-editorial);font-style:italic;font-size:clamp(26px,2.8vw,44px);line-height:1.1">For people who care how their profile looks as a whole and plan shoots around it.</p>
+</div>
+</section>
+
+<section id="try" data-screen-label="03 Try it" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,4vw,64px);align-items:center;margin-top:clamp(40px,7vh,88px);padding:clamp(22px,3.4vw,52px);border-radius:32px;background:rgb(24,29,40);color:#fff">
+<div style="display:flex;flex-direction:column;gap:22px">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">TRY IT · A MINI GAMUT</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(36px,4.4vw,68px);line-height:.9;letter-spacing:-.055em">Colour <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">before content.</span></h2>
+<p style="margin:0;font-size:16px;line-height:1.5;color:rgb(215,221,236);max-width:46ch">Pick a colour, tap an empty tile to plan a future post, then turn the whole feed into its colours.</p>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">1 · PICK A COLOUR</span>
+<div role="radiogroup" aria-label="Colour" style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ swatches }}" as="s" hint-placeholder-count="6"><button role="radio" aria-checked="{{ s.on }}" aria-label="{{ s.name }}" onClick="{{ s.pick }}" style="width:44px;height:44px;border-radius:50%;background:{{ s.c }};box-shadow:{{ s.ring }};transition:box-shadow .15s cubic-bezier(.2,.8,.2,1)"></button></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">2 · SEE THE FEED</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button onClick="{{ toggle }}" aria-pressed="{{ colours }}" style="display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 10px 0 22px;border-radius:120px;background:#fff;color:rgb(24,29,40);font-size:16px;font-weight:500" style-hover="opacity:.9">{{ toggleLabel }}<span aria-hidden="true" style="width:34px;height:20px;border-radius:120px;background:{{ knobTrack }};position:relative;transition:background .2s"><i style="position:absolute;top:2px;left:{{ knobX }};width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s cubic-bezier(.2,.8,.2,1)"></i></span></button><button onClick="{{ reset }}" style="min-height:52px;padding:0 18px;border-radius:120px;font-size:16px;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)" style-hover="background:rgba(255,255,255,.1)">Reset</button></div></div>
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.08);font-size:16px"><span aria-hidden="true" style="position:relative;width:14px;height:12px;margin-top:5px;border-radius:4px;background:#fff"><i style="position:absolute;left:2px;top:-7px;width:6px;height:7px;border:2px solid #fff;border-bottom:0;border-radius:5px 5px 0 0"></i></span>No login. No server.</span>
+</div>
+<div style="display:flex;justify-content:center"><div style="width:min(100%,380px);border-radius:44px;background:rgb(44,49,60);padding:10px;box-sizing:border-box;box-shadow:0 4.2px 11.2px rgba(0,0,0,.25)"><div style="border-radius:34px;background:#fff;overflow:hidden;color:rgb(24,29,40)">
+<div style="display:flex;align-items:center;gap:12px;padding:16px 16px 12px"><i style="width:44px;height:44px;border-radius:50%;background:rgb(238,238,238)"></i><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:500">your.profile</span><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(70,74,84)">{{ planned }} PLANNED · 6 PUBLISHED</span></div></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px">
+<sc-for list="{{ future }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.pick }}" aria-label="{{ f.label }}" style="position:relative;aspect-ratio:4/5;background:{{ f.bg }};box-shadow:{{ f.ring }};transition:background .25s cubic-bezier(.2,.8,.2,1)" style-hover="box-shadow:inset 0 0 0 2px rgb(15,20,154)"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:24px;color:rgb(70,74,84);opacity:{{ f.plusOp }}">+</span></button></sc-for>
+<sc-for list="{{ published }}" as="p" hint-placeholder-count="6"><div style="position:relative;aspect-ratio:4/5;display:flex;background:rgb(210,210,212)"><image-slot id="{{ p.slot }}" placeholder="Post" style="flex:1"></image-slot><i style="position:absolute;inset:0;background:{{ p.c }};opacity:{{ p.op }};transition:opacity .45s cubic-bezier(.2,.8,.2,1);pointer-events:none"></i></div></sc-for>
+</div>
+</div></div></div>
+</section>
+
+<section id="decisions" data-screen-label="04 Decisions" style="display:flex;flex-direction:column;gap:12px;padding-top:clamp(40px,7vh,88px)">
+<h2 style="margin:0 0 8px;padding:0 4px;font-weight:500;font-size:clamp(36px,4.6vw,72px);line-height:.9;letter-spacing:-.055em">Product <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">decisions</span></h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px">
+<sc-for list="{{ decisions }}" as="d" hint-placeholder-count="3"><article style="display:flex;flex-direction:column;gap:18px;padding:12px 12px 24px;border-radius:32px;background:{{ d.bg }};color:{{ d.fg }}">
+<div style="aspect-ratio:4/3;border-radius:20px;overflow:hidden;display:flex"><image-slot id="{{ d.slot }}" placeholder="{{ d.ph }}" style="flex:1"></image-slot></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:0 12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:16px;color:{{ d.acc }}">{{ d.n }}</span><h3 style="margin:0;font-size:clamp(22px,2vw,28px);font-weight:500;line-height:1.08;letter-spacing:-.03em">{{ d.t }}</h3><p style="margin:0;font-size:16px;line-height:1.5;opacity:.8">{{ d.d }}</p>
+<sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:10px;align-items:baseline;padding-top:10px;border-top:1px solid {{ d.rule }}"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;opacity:.7">TRADE-OFF</span><span style="padding:2px 8px;border-radius:12px;border:1.5px dashed {{ d.dash }};font-family:var(--font-display);font-weight:500;font-size:14px">[what I gave up]</span></div></sc-if></div>
+</article></sc-for>
+</div>
+</section>
+
+<sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="05 What I cut" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 40px;margin-top:12px;padding:clamp(22px,3vw,40px);border-radius:32px;box-shadow:inset 0 0 0 1px rgb(172,173,178)">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">WHAT I CUT FROM V1</span><span style="font-size:clamp(22px,2.2vw,32px);font-weight:500;letter-spacing:-.03em;text-decoration:line-through;text-decoration-thickness:2px;color:rgb(70,74,84)">[feature]</span></div>
+<span style="padding:6px 10px;border-radius:12px;border:1.5px dashed rgb(172,173,178);font-family:var(--font-display);font-weight:500;font-size:14px;color:rgb(70,74,84)">didn't make v1: [reason]</span>
+</section>
+</sc-if>
+
+<section data-screen-label="06 How I made it" style="display:flex;flex-direction:column;gap:20px;margin-top:clamp(40px,7vh,88px);padding:clamp(22px,3.4vw,52px);border-radius:32px;background:rgb(15,20,154);color:#fff">
+<h2 style="margin:0;font-weight:500;font-size:clamp(36px,4.6vw,72px);line-height:.9;letter-spacing:-.055em">How I <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">made it</span></h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:20px;background:#fff;color:rgb(24,29,40)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">I OWN</span><span style="font-size:clamp(22px,2vw,30px);font-weight:500;line-height:1.08;letter-spacing:-.03em">Every product and design decision</span><div style="display:flex;gap:4px;flex-wrap:wrap"><span style="padding:6px 11px;border-radius:120px;background:rgb(238,238,238);font-size:14px">Figma</span><span style="padding:6px 11px;border-radius:120px;background:rgb(238,238,238);font-size:14px">SwiftUI</span></div></div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:20px;background:rgba(255,255,255,.12)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(215,221,236)">AGENTS DO</span><span style="font-size:clamp(22px,2vw,30px);font-weight:500;line-height:1.08;letter-spacing:-.03em">Write code and check screens against HIG and accessibility</span><div style="display:flex;gap:4px;flex-wrap:wrap"><span style="padding:6px 11px;border-radius:120px;background:rgba(255,255,255,.14);font-size:14px">Claude Code</span><span style="padding:6px 11px;border-radius:120px;background:rgba(255,255,255,.14);font-size:14px">Cursor</span></div></div>
+</div>
+<p style="margin:0;font-size:16px;line-height:1.55;color:rgb(215,221,236);max-width:70ch">I design in Figma and write SwiftUI with Claude Code and Cursor. I own every product and design decision; agents write code and check screens against HIG and accessibility.<sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"> Once an agent <span style="padding:1px 7px;border-radius:4px;border:1.5px dashed rgba(255,255,255,.45);font-family:var(--font-display);font-weight:500;font-size:14px">[example]</span>, I <span style="padding:1px 7px;border-radius:4px;border:1.5px dashed rgba(255,255,255,.45);font-family:var(--font-display);font-weight:500;font-size:14px">[what I did]</span>.</sc-if></p>
+</section>
+
+<section data-screen-label="07 Craft" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;padding-top:clamp(40px,7vh,88px)">
+<h2 style="grid-column:1/-1;margin:0 0 8px;padding:0 4px;font-weight:500;font-size:clamp(36px,4.6vw,72px);line-height:.9;letter-spacing:-.055em">Craft <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">details</span></h2>
+<sc-for list="{{ craft }}" as="c" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:12px;padding:10px 10px 18px;border-radius:28px;background:rgb(238,238,238)"><div style="aspect-ratio:1;border-radius:20px;overflow:hidden;display:flex"><image-slot id="{{ c.slot }}" placeholder="{{ c.t }}" style="flex:1"></image-slot></div><span style="padding:0 10px;font-size:18px;font-weight:500;letter-spacing:-.015em">{{ c.t }}</span></div></sc-for>
+</section>
+
+<section id="next" data-screen-label="08 Status and next" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;padding-top:clamp(40px,7vh,88px)">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(22px,3vw,40px);border-radius:32px;background:rgb(238,238,238);min-height:300px;box-sizing:border-box">
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:120px;background:#fff;font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em"><i style="width:7px;height:7px;border-radius:50%;background:rgb(236,146,60)"></i>IN APP STORE REVIEW</span>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">NEXT</span><sc-if value="{{ ph }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start;padding:4px 9px;border-radius:12px;border:1.5px dashed rgb(172,173,178);font-family:var(--font-display);font-weight:500;font-size:14px">[step 1]</span><span style="align-self:flex-start;padding:4px 9px;border-radius:12px;border:1.5px dashed rgb(172,173,178);font-family:var(--font-display);font-weight:500;font-size:14px">[step 2]</span></sc-if></div>
+</div>
+<a href="Work.dc.html?section=mine" style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(22px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff;text-decoration:none;min-height:300px;box-sizing:border-box;transition:transform .25s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-4px)">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">NEXT PRODUCT</span><span aria-hidden="true" style="width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:18px;background:#fff;color:rgb(24,29,40);transform:rotate(-45deg)">→</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:clamp(44px,5vw,80px);font-weight:500;line-height:.85;letter-spacing:-.06em">Togo</span><span style="font-family:var(--font-editorial);font-style:italic;font-size:22px;color:rgb(215,221,236)">A dog diary for the whole family.</span></div>
+</a>
+<a href="Work.dc.html?section=mine" style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(22px,3vw,40px);border-radius:32px;background:rgb(15,20,154);color:#fff;text-decoration:none;min-height:300px;box-sizing:border-box;transition:transform .25s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-4px)">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(215,221,236)">PROCESS</span><span aria-hidden="true" style="width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:18px;background:#fff;color:rgb(15,20,154);transform:rotate(-45deg)">→</span></div>
+<span style="font-size:clamp(36px,4vw,60px);font-weight:500;line-height:.9;letter-spacing:-.055em">How I work <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">with AI</span></span>
+</a>
+</section>
+
+<dc-import name="Contact" show-about="{{ true }}" hint-size="100%,560px"></dc-import>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPlaceholders&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Draft&quot;}}">
+class Component extends DCLogic {
+  state = { colour: 0, colours: false, future: [null, null, null] };
+  componentDidMount() {
+    this._navS = () => { const y = window.scrollY, d = y - (this._ly || 0); this._ly = y; const h = y > 240 && d > 6 ? true : (d < -6 || y < 240) ? false : !!this.state.navHidden; if (h !== !!this.state.navHidden) this.setState({ navHidden: h }); };
+    window.addEventListener('scroll', this._navS, { passive: true });
+    this._gw = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this._gw);
+  }
+  _nv() { const w = this.state.w || (typeof window !== 'undefined' ? window.innerWidth : 1440), narrow = w < 640, m = !!this.state.menu; return { y: this.state.navHidden && !m ? 'calc(-100% - 16px)' : '0px', wide: !narrow, narrow, open: narrow && m, btn: m ? 'Close' : 'Menu', toggle: () => this.setState({ menu: !m }), close: () => this.setState({ menu: false }), links: [['Home.dc.html#work', 'Proof'], ['Work.dc.html', 'All work'], ['About.dc.html', 'About']].map(([h, t]) => ({ href: h, label: t, bg: 'transparent' })) }; }
+  renderVals() {
+    const { colour, colours, future } = this.state;
+    const ph = this.props.showPlaceholders ?? true;
+    const INK = 'rgb(24,29,40)', COB = 'rgb(15,20,154)';
+    const SW = [['Cobalt', COB], ['Peach', 'rgb(255,209,190)'], ['Amber', 'rgb(236,146,60)'], ['Mist', 'rgb(215,221,236)'], ['Periwinkle', 'rgb(120,140,255)'], ['Ink', INK]];
+    const FEED = ['rgb(255,209,190)', COB, 'rgb(215,221,236)', 'rgb(236,146,60)', 'rgb(120,140,255)', 'rgb(255,209,190)'];
+    return {
+      nv: this._nv(),
+      ph,
+      did: ['Idea', 'product design', 'SwiftUI', 'App Store page'],
+      swatches: SW.map(([name, c], i) => ({ name, c, on: colour === i, pick: () => this.setState({ colour: i }), ring: colour === i ? '0 0 0 3px rgb(24,29,40),0 0 0 5px #fff' : 'inset 0 0 0 1px rgba(255,255,255,.25)' })),
+      future: future.map((f, i) => ({ bg: f === null ? 'rgb(244,245,249)' : SW[f][1], ring: f === null ? 'inset 0 0 0 1.5px rgb(210,210,212)' : 'none', plusOp: f === null ? 1 : 0, label: f === null ? 'Plan a post in the selected colour' : 'Planned: ' + SW[f][0] + '. Tap to clear', pick: () => this.setState(s => { const n = s.future.slice(); n[i] = n[i] === null ? s.colour : null; return { future: n }; }) })),
+      planned: future.filter(f => f !== null).length,
+      published: FEED.map((c, i) => ({ c, op: colours ? 1 : 0, slot: 'gamut-post-' + i })),
+      colours,
+      toggle: () => this.setState({ colours: !colours }),
+      toggleLabel: colours ? 'Show photos' : 'Show colours',
+      knobTrack: colours ? COB : 'rgb(172,173,178)', knobX: colours ? '16px' : '2px',
+      reset: () => this.setState({ colours: false, future: [null, null, null] }),
+      decisions: [
+        { n: '01', t: 'Colour before content', d: 'Plan the mood of the grid before the photos exist.', slot: 'gamut-dec-1', ph: 'Colour tiles screen', bg: 'rgb(238,238,238)', fg: INK, acc: COB, rule: 'rgba(24,29,40,.14)', dash: 'rgb(172,173,178)' },
+        { n: '02', t: 'Private by design', d: 'Import your profile with a screenshot. No login, no server, everything stays on the phone.', slot: 'gamut-dec-2', ph: 'Screenshot import screen', bg: INK, fg: '#fff', acc: 'rgb(160,172,255)', rule: 'rgba(255,255,255,.14)', dash: 'rgba(255,255,255,.4)' },
+        { n: '03', t: 'One tap turns the whole feed, real photos included, into its colours.', d: '', slot: 'gamut-dec-3', ph: 'Feed in colours screen', bg: 'rgb(238,238,238)', fg: INK, acc: COB, rule: 'rgba(24,29,40,.14)', dash: 'rgb(172,173,178)' }
+      ],
+      craft: [{ t: 'Empty state', slot: 'gamut-craft-1' }, { t: 'Dark mode', slot: 'gamut-craft-2' }, { t: ph ? '[languages]' : 'Languages', slot: 'gamut-craft-3' }]
+    };
+  }
+}
+</script>
+</body>
+</html>
