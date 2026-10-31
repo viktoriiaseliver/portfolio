@@ -1,0 +1,428 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import Timeline from '../components/Timeline.astro';
+import Slot from '../components/Slot.astro';
+import { url } from '../lib/url';
+import { CV_URL, EMAIL } from '../data/site';
+import { intro, langs, nums, tabs, dsSteps, stages, aiTools, markets, studied, beyond, lookingFor } from '../data/about';
+
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About', active: true }];
+const stops = [['what', 'WHAT I DO'], ['how', 'HOW I WORK'], ['path', 'PATH'], ['beyond', 'BEYOND'], ['contact', 'CONTACT']];
+const code = [[70, 0, 0], [50, 12, .2], [85, 12, .4], [40, 24, .6], [60, 12, .8], [30, 0, 1]];
+const team = Array.from({ length: 17 }, (_, i) => (i === 8 ? 'me' : [5, 7, 9, 11].includes(i) ? 'des' : ''));
+const hasProduct = (p: string) => !p.startsWith('[');
+const lastStage = stages.length - 1;
+---
+<Base title="About — Viktoriia Seliverstova" description={intro} nav={nav}>
+<main class="page about">
+
+  <section id="hero" class="ahero">
+    <div class="ahero-top">
+      <div class="ahero-text">
+        <span class="ahero-chip"><i class="dot dot-live"></i>Available for new roles</span>
+        <div class="ahero-mid">
+          <h1 class="ahero-h">Hi, I'm <span class="serif mist">Viktoriia.</span></h1>
+          <p class="ahero-p mist">{intro}</p>
+        </div>
+        <div class="ahero-foot">
+          <div class="ahero-btns"><a class="btn btn-white big" href={url(CV_URL)}>Download CV</a><a class="btn ghost-light" href="#contact">Let's talk</a></div>
+          <div class="ahero-langs">{langs.map((l) => <span><span class="serif hi">{l.hi}</span><span class="label on-ink-muted">{l.n} · {l.lv}</span></span>)}</div>
+        </div>
+      </div>
+      <button type="button" class="portrait" aria-pressed="false" aria-label="Portrait: photo, hover for the illustrated self-portrait" data-portrait>
+        <div class="portrait-layer"><Slot label="Photo portrait" /></div>
+        <div class="portrait-layer ill"><Slot label="Illustrated self-portrait, with Stitch" /></div>
+        <span class="portrait-chips"><span class="label pc photo">PHOTO</span><span class="label pc drawn">DRAWN</span></span>
+      </button>
+    </div>
+    <div class="ahero-nums">
+      {nums.map(([n, t, href, on, total]) => (
+        <a class="anum" href={url(href)}>
+          <span class="num anum-n">{n}</span>
+          <span class="anum-t mist">{t}<span aria-hidden="true">↓</span></span>
+          <span class="anum-marks">{Array.from({ length: total }, (_, i) => <i class:list={{ on: i < on }}></i>)}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <div class="spine-wrap">
+    <aside class="spine" aria-hidden="true" data-spine>
+      <i class="spine-line"></i><i class="spine-fill" data-spine-fill></i>
+      {stops.map(([id, t], i) => <a href={`#${id}`} tabindex="-1" class="stop" style={`top:${6 + i * 22}%`} data-stop={id}><i></i><span class="label">{t}</span></a>)}
+    </aside>
+
+    <div class="spine-body">
+
+      <section id="what" class="asec" data-spy>
+        <div class="sec-head aend"><h2 class="h2">What I <span class="serif">do.</span></h2><span class="label muted">01 · FOUR STRENGTHS, ONE STAGE · PICK ONE</span></div>
+        <div class="stage" data-stage>
+          <div class="stage-tabs" role="tablist">
+            {tabs.map((t, i) => <button type="button" role="tab" class="stage-tab" aria-selected={i === 0 ? 'true' : 'false'} data-tab={i}><span class="label stage-tab-n">0{i + 1}</span><span class="stage-tab-t">{t.t}</span></button>)}
+          </div>
+          <div class="stage-main">
+            <div class="demo" aria-hidden="true" data-demo="0">
+              <div class="demo-pane d0">
+                <div class="mini-phone"><i class="mp-bar"></i><i class="mp-body"></i><i class="mp-btn tap"></i><i class="mp-btn ink tap late"></i></div>
+                <span class="label demo-cap mist">TARGETS FOR GLOVES · 2 ACTIONS PER SCREEN</span>
+              </div>
+              <div class="demo-pane d1" data-ds>
+                <div class="ds-center"><span class="ds-btn" data-ds-btn>{dsSteps[0].label}</span><span class="label ds-cap" data-ds-cap>{dsSteps[0].caption}</span></div>
+                <span class="label demo-cap ds-cap">ONE COMPONENT · 3 MARKETS · 2 THEMES</span>
+              </div>
+              <div class="demo-pane d2">
+                <div class="code"><div class="code-lines">{code.map(([w, ml, d], i) => <i class:list={[{ pea: i === 2, per: i === 4 }]} style={`width:${w}%;margin-left:${ml}px;animation-delay:${d}s`}></i>)}</div>
+                  <div class="code-phone"><div><i class="mp-bar"></i><i class="cp-img"></i><i class="cp-btn"></i></div></div></div>
+                <span class="label demo-cap mist">SWIFTUI · CLAUDE CODE · CURSOR</span>
+              </div>
+              <div class="demo-pane d3">
+                <div class="icons">{[0, 1, 2, 3, 4, 5].map((i) => <i class:list={{ cob: i % 2 === 1 }} style={`animation-delay:${i * .4}s`}></i>)}</div>
+                <span class="label demo-cap">ICONS · ILLUSTRATION · MOTION</span>
+              </div>
+            </div>
+            <div class="stage-text">
+              {tabs.map((t, i) => (
+                <div class="stage-copy" data-copy={i} hidden={i !== 0}>
+                  <p class="h5 stage-p">{t.text}</p>
+                  <div class="seeit"><span class="label muted">SEE IT IN</span><div class="seeit-links">{t.links.map(([l, h]) => <a href={url(h)}>{l} →</a>)}</div></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="team">
+            <p class="h5 team-p">I've led teams of up to 4 designers inside cross-functional groups of up to 17 — and I still design hands-on every day.</p>
+            <div class="team-r">
+              <div class="team-dots" aria-label="4 designers inside a group of 17">{team.map((k) => <i class={k}></i>)}</div>
+              <div class="team-key label-s mist"><span><i class="me"></i>ME</span><span><i class="des"></i>DESIGNERS</span><span><i></i>BA · ENGINEERS · QA · PO</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="asec" data-spy>
+        <div class="sec-head aend"><h2 class="h2">How I <span class="serif">work.</span></h2><span class="label muted">02 · ONE PROJECT, START TO RELEASE · THE TOOLS RIDE ALONG</span></div>
+        <div class="how-panel">
+          <div class="stages-scroll"><div class="stages" data-stages>
+            <i class="stages-line"></i><i class="stages-fill" data-stages-fill style="width:83.4%"></i>
+            {stages.map(([t, d, tools], i) => (
+              <button type="button" class:list={['stg', { on: i === lastStage, lit: true }]} data-stg={i}>
+                <span class="stg-dot"></span>
+                <span class="label stg-n">{String(i + 1).padStart(2, '0')}</span>
+                <span class="stg-t">{t}</span>
+                <p class="stg-d">{d}</p>
+                <div class="stg-tools">{tools.map((x) => <span class="label-s">{x}</span>)}</div>
+              </button>
+            ))}
+          </div></div>
+          <div class="ai-band">
+            <p class="h3">AI does the volume. <span class="serif mist">I own the decisions.</span></p>
+            <div class="ai-kit"><span class="label mist">AI IN THE KIT</span><div class="ai-tools">{aiTools.map((t) => <span>{t}</span>)}</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="path" class="asec" data-spy>
+        <div class="sec-head aend"><h2 class="h2">Nine years <span class="serif">on one line.</span></h2><span class="label muted">03 · HOVER A BAR · THEN A MARKET</span></div>
+        <div class="path-panel">
+          <Timeline />
+          <div class="path-row">
+            <div class="mk">
+              <div class="mk-head"><span class="h5">Products I designed are used in 7 markets.</span><span class="label mist">WEST → EAST</span></div>
+              <div class="mk-line" data-markets>
+                <i class="mk-rule"></i>
+                {markets.map(([t, p, x], i) => <button type="button" class:list={['mk-dot', { on: i === 0 }]} style={`left:${x}%`} aria-label={t} data-mk={i} data-product={hasProduct(p) ? p : ''}><span class="mk-c"></span><span class="mk-t">{t}</span></button>)}
+                <div class="mk-pop" data-mk-pop style={`left:${markets[0][2]}%`}>{markets[0][1]}</div>
+              </div>
+            </div>
+            <div class="studied">
+              <span class="label muted">STUDIED</span>
+              <div>{studied.map(([y, s, d]) => <div class="st-row"><span class="label-s muted" style="letter-spacing:0">{y}</span><span class="st-t"><b>{s}</b><span class="muted"> — {d}</span></span></div>)}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="beyond" class="asec" data-spy>
+        <div class="sec-head aend"><h2 class="h2">Beyond <span class="serif">work.</span></h2><span class="label muted">04 · ONE SKETCHBOOK SPREAD</span></div>
+        <div class="book">
+          <i class="book-fold" aria-hidden="true"></i>
+          {beyond.map((b) => {
+            const Tag = b.href ? 'a' : 'div';
+            return (
+              <Tag class="bcard" href={b.href ? url(b.href) : undefined} style={`--rot:${b.rot};--ty:${b.ty}`}>
+                <div class="bcard-img"><Slot label={b.ph} /></div>
+                <div class="bcard-t"><span class="label muted">{b.k}</span><span>{b.t}</span></div>
+              </Tag>
+            );
+          })}
+        </div>
+      </section>
+
+      <div data-spy id="contact-spy">
+        <Contact label={lookingFor.label} a={lookingFor.a} b={lookingFor.b} status="Available now"
+          terms={lookingFor.terms.map((t) => ({ t, c: 'var(--periwinkle)' }))}
+          primaryLabel="Email" primaryHref={`mailto:${EMAIL}`} imageId="about-wave" imagePh="Illustrated me waving, with Stitch" minH="80svh" />
+      </div>
+    </div>
+  </div>
+</main>
+</Base>
+
+<style>
+  .about { padding-top: var(--content-top); gap: 0; }
+  :global(html) { scroll-padding-top: 100px; }
+  .aend { align-items: flex-end; }
+
+  /* Hero */
+  .ahero { position: relative; display: flex; flex-direction: column; border-radius: var(--r-surface); background: var(--ink); color: var(--white); overflow: hidden; }
+  .ahero-top { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; padding: 10px; }
+  .ahero-text { grid-column: span 3; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: var(--panel-pad); min-height: clamp(420px, 66vh, 640px); }
+  .ahero-chip { align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: var(--r-pill); background: var(--on-dark-fill); box-shadow: inset 0 0 0 1px var(--on-dark-fill); font-size: var(--t-body); }
+  .ahero-mid { display: flex; flex-direction: column; gap: 24px; }
+  .ahero-h { font-weight: 500; font-size: var(--t-hero); line-height: .86; letter-spacing: -.055em; }
+  .ahero-h .serif { letter-spacing: -.03em; }
+  .ahero-p { font-size: var(--t-lead); line-height: 1.4; max-width: 58ch; }
+  .ahero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; }
+  .ahero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn.big { min-height: 52px; padding: 0 26px; font-weight: 400; }
+  .ghost-light { min-height: 52px; color: var(--white); font-weight: 400; box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
+  .ghost-light:hover { color: var(--white); background: var(--on-dark-fill); }
+  .ahero-langs { display: flex; gap: 24px; flex-wrap: wrap; }
+  .ahero-langs > span { display: flex; flex-direction: column; gap: 2px; }
+  .hi { font-size: var(--t-h5); line-height: 1; }
+  .portrait { grid-column: span 2; position: relative; display: block; min-height: clamp(360px, 66vh, 640px); border-radius: var(--r-inner); overflow: hidden; background: var(--peach); }
+  .portrait-layer { position: absolute; inset: 0; display: flex; }
+  .portrait-layer.ill { opacity: 0; transition: opacity var(--d-slow) var(--ease); pointer-events: none; }
+  .portrait[aria-pressed='true'] .portrait-layer.ill { opacity: 1; }
+  .portrait-chips { position: absolute; left: 12px; bottom: 12px; display: inline-flex; gap: 6px; }
+  .pc { padding: 8px 14px; border-radius: var(--r-pill); transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease); background: var(--on-dark-glass); color: var(--ink); }
+  .portrait[aria-pressed='false'] .pc.photo, .portrait[aria-pressed='true'] .pc.drawn { background: var(--ink); color: var(--white); }
+  .ahero-nums { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--on-dark-fill); }
+  .anum { display: flex; flex-direction: column; gap: 12px; padding: 22px var(--panel-pad) 26px; border-right: 1px solid var(--on-dark-fill); color: var(--white); text-decoration: none; transition: background var(--d-fast) var(--ease); }
+  .anum:hover { background: var(--cobalt); color: var(--white); }
+  .anum-n { font-size: var(--t-number-l); line-height: 1; letter-spacing: -.05em; }
+  .anum-t { display: flex; justify-content: space-between; gap: 8px; font-size: var(--t-body); }
+  .anum-marks { display: flex; gap: 3px; height: 6px; }
+  .anum-marks i { flex: 1; border-radius: var(--r-mark); background: var(--on-dark-line); }
+  .anum-marks i.on { background: var(--periwinkle); }
+  @media (max-width: 1099px) { .ahero-nums { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 639px) {
+    .ahero-top { grid-template-columns: minmax(0, 1fr); }
+    .ahero-text, .portrait { grid-column: span 1; }
+    .ahero-nums { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* Spine */
+  .spine-wrap { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: clamp(18px, 2vw, 30px); }
+  .spine { position: relative; }
+  .spine-line, .spine-fill { position: absolute; left: 50%; top: 0; width: 2px; margin-left: -1px; }
+  .spine-line { bottom: 0; background: var(--grey-210); }
+  .spine-fill { height: 0; background: var(--cobalt); transition: height var(--d-slow) var(--ease); }
+  .stop { position: absolute; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; }
+  .stop i { width: 10px; height: 10px; border-radius: var(--r-dot); background: var(--grey-210); box-shadow: 0 0 0 5px var(--white); transition: all var(--d-base) var(--ease); }
+  .stop span { writing-mode: vertical-rl; color: var(--muted-on-ink); transition: color var(--d-base) var(--ease); }
+  .stop.on i { width: 16px; height: 16px; background: var(--cobalt); }
+  .stop.on span { color: var(--cobalt); }
+  @media (max-width: 1099px) { .spine-wrap { grid-template-columns: minmax(0, 1fr); } .spine { display: none; } }
+  .spine-body { display: flex; flex-direction: column; gap: var(--section-top); padding-top: var(--block-top); min-width: 0; }
+  .spine-body :global(.contact) { padding-top: 0; }
+  .asec { display: flex; flex-direction: column; gap: 12px; }
+
+  /* What I do */
+  .stage { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 12px; padding: 10px; border-radius: var(--r-surface); background: var(--grey-238); }
+  .stage-tabs { display: flex; flex-direction: column; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .stage-tab { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 18px 18px 20px; border-radius: var(--r-inner); text-align: left; background: var(--white); color: var(--ink); min-width: 180px; transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease); }
+  .stage-tab[aria-selected='true'] { background: var(--ink); color: var(--white); }
+  .stage-tab-n { opacity: .65; }
+  .stage-tab-t { font-size: var(--t-h5); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; }
+  .stage-main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; min-width: 0; }
+  @media (max-width: 1099px) { .stage { grid-template-columns: minmax(0, 1fr); } .stage-tabs { flex-direction: row; } .stage-tab { flex: 1 0 auto; } }
+  @media (max-width: 639px) { .stage-main { grid-template-columns: minmax(0, 1fr); } }
+  .demo { position: relative; min-height: clamp(260px, 34vw, 420px); border-radius: var(--r-inner); overflow: hidden; background: var(--ink); transition: background var(--d-slow) var(--ease); }
+  .demo[data-demo='3'] { background: var(--peach); }
+  .demo[data-demo='1'] { background: var(--white); }
+  .demo[data-demo='1'].dark { background: var(--ink); }
+  .demo-pane { position: absolute; inset: 0; display: none; }
+  .demo[data-demo='0'] .d0, .demo[data-demo='1'] .d1, .demo[data-demo='2'] .d2, .demo[data-demo='3'] .d3 { display: block; }
+  .demo-cap { position: absolute; left: 16px; bottom: 16px; }
+  .d0 { display: none; }
+  .demo[data-demo='0'] .d0 { display: flex; align-items: center; justify-content: center; }
+  .mini-phone { width: 30%; min-width: 120px; aspect-ratio: 9 / 17; border-radius: var(--r-inner); background: var(--white); padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .mp-bar { height: 10px; width: 60%; border-radius: var(--r-mark); background: var(--grey-210); }
+  .mp-body { flex: 1; border-radius: var(--r-tile); background: var(--grey-238); }
+  .mp-btn { height: 20%; border-radius: var(--r-tile); background: var(--cobalt); }
+  .mp-btn.ink { background: var(--ink); }
+  .tap { animation: tap 2.2s ease-in-out infinite; }
+  .tap.late { animation-delay: 1.1s; }
+  @keyframes tap { 0%, 100% { transform: scale(1); } 50% { transform: scale(.9); } }
+  .ds-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+  .ds-btn { padding: 14px 26px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-body); font-weight: 500; transition: all var(--d-slow) var(--ease); }
+  .demo.dark .ds-btn { background: var(--cobalt); }
+  .demo.large .ds-btn { padding: 18px 34px; font-size: 20px; }
+  .ds-cap { color: var(--text-muted); }
+  .demo.dark .ds-cap { color: var(--muted-on-ink); }
+  .code { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 24px; }
+  .code-lines { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .code-lines i { height: 8px; border-radius: var(--r-mark); background: var(--on-dark-line); transform-origin: left; animation: grow 3s var(--ease) infinite; }
+  .code-lines i.pea { background: var(--peach); }
+  .code-lines i.per { background: var(--periwinkle); }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .code-phone { display: flex; align-items: center; justify-content: center; }
+  .code-phone > div { width: 58%; aspect-ratio: 9 / 17; border-radius: var(--r-inner); background: var(--white); padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .cp-img { flex: 1; border-radius: var(--r-tile); background: var(--peach); }
+  .cp-btn { height: 14%; border-radius: var(--r-tile); background: var(--cobalt); }
+  .icons { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 64px); gap: 16px; align-content: center; justify-content: center; }
+  .icons i { width: 64px; height: 64px; background: var(--ink); animation: morph 4s ease-in-out infinite; }
+  .icons i.cob { background: var(--cobalt); }
+  @keyframes morph { 0%, 100% { border-radius: var(--r-tile); transform: rotate(0); } 50% { border-radius: var(--r-dot); transform: rotate(90deg); } }
+  .stage-text { border-radius: var(--r-inner); background: var(--white); display: flex; }
+  .stage-copy { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: var(--panel-pad); }
+  .stage-p { line-height: 1.2; }
+  .seeit { display: flex; flex-direction: column; gap: 12px; }
+  .seeit-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seeit-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); text-decoration: none; }
+  .seeit-links a:hover { background: var(--cobalt); color: var(--white); }
+  .team { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; align-items: center; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--cobalt); color: var(--white); }
+  .team-r { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+  .team-dots { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; max-width: 420px; }
+  .team-dots i { width: 28px; height: 28px; border-radius: var(--r-dot); background: var(--on-dark-line); }
+  .team-dots i.des { background: var(--periwinkle); }
+  .team-dots i.me { width: 34px; height: 34px; background: var(--white); box-shadow: 0 0 0 3px var(--on-dark-ring); }
+  .team-key { display: flex; gap: 16px; flex-wrap: wrap; }
+  .team-key span { display: inline-flex; align-items: center; gap: 6px; }
+  .team-key i { width: 10px; height: 10px; border-radius: var(--r-dot); background: var(--on-dark-line); }
+  .team-key i.me { background: var(--white); }
+  .team-key i.des { background: var(--periwinkle); }
+  @media (max-width: 639px) { .team { grid-template-columns: minmax(0, 1fr); } .team-r { align-items: flex-start; } .team-dots { justify-content: flex-start; } }
+
+  /* How I work */
+  .how-panel { display: flex; flex-direction: column; gap: 12px; padding: 10px; border-radius: var(--r-surface); background: var(--ink); color: var(--white); }
+  .stages-scroll { overflow-x: auto; scrollbar-width: thin; }
+  .stages { position: relative; min-width: 1020px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; padding: 38px 8px 8px; }
+  .stages-line, .stages-fill { position: absolute; left: 8.3%; top: 21px; height: 2px; }
+  .stages-line { right: 8.3%; background: var(--on-dark-line); }
+  .stages-fill { background: var(--white); transition: width var(--d-slow) var(--ease); }
+  .stg { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: var(--r-inner); background: var(--on-dark-fill); color: var(--white); text-align: left; min-height: 250px; transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease); }
+  .stg.on { background: var(--white); color: var(--ink); }
+  .stg-dot { position: absolute; top: -30px; left: 50%; margin-left: -13px; width: 26px; height: 26px; border-radius: var(--r-dot); background: var(--on-dark-ring); box-shadow: 0 0 0 5px var(--ink); transition: background var(--d-base) var(--ease); }
+  .stg.lit .stg-dot { background: var(--white); }
+  .stg-n { opacity: .7; }
+  .stg-t { font-size: var(--t-ui-l); font-weight: 500; letter-spacing: -.02em; }
+  .stg-d { font-size: var(--t-small); line-height: 1.45; opacity: .85; }
+  .stg-tools { margin-top: auto; display: flex; flex-wrap: wrap; gap: 4px; }
+  .stg-tools span { padding: 5px 9px; border-radius: var(--r-pill); background: var(--on-dark-fill); }
+  .stg.on .stg-tools span { background: var(--grey-238); }
+  .ai-band { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; align-items: center; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--cobalt); }
+  .ai-kit { display: flex; flex-direction: column; gap: 12px; justify-self: end; }
+  .ai-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ai-tools span { padding: 8px 13px; border-radius: var(--r-pill); background: var(--on-dark-fill); box-shadow: inset 0 0 0 1px var(--on-dark-line); font-size: var(--t-small); }
+  @media (max-width: 639px) { .ai-band { grid-template-columns: minmax(0, 1fr); } .ai-kit { justify-self: start; } }
+
+  /* Path */
+  .path-panel { display: flex; flex-direction: column; gap: 12px; padding: 10px; border-radius: var(--r-surface); background: var(--grey-238); }
+  .path-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; }
+  @media (max-width: 1099px) { .path-row { grid-template-columns: minmax(0, 1fr); } }
+  .mk { display: flex; flex-direction: column; gap: 16px; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--cobalt); color: var(--white); }
+  .mk-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .mk-line { position: relative; height: clamp(140px, 16vw, 200px); }
+  .mk-rule { position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--on-dark-line); }
+  .mk-dot { position: absolute; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: var(--white); }
+  .mk-c { width: 14px; height: 14px; border-radius: var(--r-dot); background: var(--white); transition: all var(--d-base) var(--ease); }
+  .mk-dot.on .mk-c { width: 22px; height: 22px; box-shadow: 0 0 0 6px var(--on-dark-line); }
+  .mk-t { position: absolute; top: 100%; margin-top: 8px; font-size: var(--t-small); font-weight: 500; white-space: nowrap; opacity: .7; }
+  .mk-dot.on .mk-t { opacity: 1; }
+  @media (max-width: 639px) { .mk-dot:not(.on) .mk-t { opacity: 0; } }
+  .mk-pop { position: absolute; top: 0; transform: translateX(-50%); padding: 8px 14px; border-radius: var(--r-tile); background: var(--white); color: var(--cobalt); font-size: var(--t-small); font-weight: 500; white-space: nowrap; transition: left var(--d-base) var(--ease); }
+  .studied { display: flex; flex-direction: column; gap: 12px; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--white); }
+  .st-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--grey-238); align-items: baseline; }
+  .st-t { font-size: var(--t-small); line-height: 1.35; }
+  .st-t b { font-weight: 500; }
+
+  /* Beyond */
+  .book { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 1.5vw, 22px); padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--peach); overflow: hidden; }
+  .book-fold { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--shadow-ink); }
+  @media (max-width: 1099px) { .book { grid-template-columns: repeat(2, minmax(0, 1fr)); } .book-fold { display: none; } }
+  @media (max-width: 639px) { .book { grid-template-columns: minmax(0, 1fr); } }
+  .bcard { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 10px 10px 18px; border-radius: var(--r-inner); background: var(--white); color: var(--ink); text-decoration: none; box-shadow: var(--shadow-lift); transform: rotate(var(--rot)) translateY(var(--ty)); transition: transform var(--d-base) var(--ease); }
+  .bcard:hover { transform: rotate(0deg) translateY(-6px); color: var(--ink); }
+  .bcard-img { aspect-ratio: 4 / 3; border-radius: var(--r-inner); overflow: hidden; display: flex; }
+  .bcard-t { display: flex; flex-direction: column; gap: 6px; padding: 0 6px; font-size: var(--t-body); line-height: 1.4; }
+</style>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Portrait flip: hover on fine pointers, tap everywhere.
+  const portrait = document.querySelector<HTMLButtonElement>('[data-portrait]')!;
+  const setIll = (on: boolean) => portrait.setAttribute('aria-pressed', String(on));
+  portrait.addEventListener('click', () => setIll(portrait.getAttribute('aria-pressed') !== 'true'));
+  portrait.addEventListener('mouseenter', () => setIll(true));
+  portrait.addEventListener('mouseleave', () => setIll(false));
+
+  // What I do: tabs drive one demo area.
+  const demo = document.querySelector<HTMLElement>('[data-demo]')!;
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+  const pickTab = (i: number) => {
+    tabs.forEach((t, k) => t.setAttribute('aria-selected', String(k === i)));
+    document.querySelectorAll<HTMLElement>('[data-copy]').forEach((c) => { c.hidden = +c.dataset.copy! !== i; });
+    demo.dataset.demo = String(i);
+  };
+  tabs.forEach((t, i) => { t.addEventListener('click', () => pickTab(i)); t.addEventListener('mouseenter', () => pickTab(i)); });
+
+  // Design-system demo cycles LIGHT·EN → DARK·DE → LIGHT·AR·RTL every 1.8s.
+  const DS = [
+    { label: 'Add to bag', caption: 'LIGHT · EN · M', dark: false, rtl: false, large: false },
+    { label: 'In den Warenkorb', caption: 'DARK · DE · M', dark: true, rtl: false, large: false },
+    { label: 'أضف إلى الحقيبة', caption: 'LIGHT · AR · L · RTL', dark: false, rtl: true, large: true }
+  ];
+  const dsBtn = document.querySelector<HTMLElement>('[data-ds-btn]')!;
+  const dsCap = document.querySelector<HTMLElement>('[data-ds-cap]')!;
+  let ds = 0;
+  const paintDS = () => {
+    const s = DS[ds];
+    dsBtn.textContent = s.label;
+    dsCap.textContent = s.caption;
+    dsBtn.parentElement!.style.direction = s.rtl ? 'rtl' : 'ltr';
+    demo.classList.toggle('dark', s.dark);
+    demo.classList.toggle('large', s.large);
+  };
+  if (!reduce) setInterval(() => { ds = (ds + 1) % DS.length; paintDS(); }, 1800);
+
+  // How I work: lighting a stage fills the line up to it.
+  const stg = [...document.querySelectorAll<HTMLButtonElement>('[data-stg]')];
+  const fill = document.querySelector<HTMLElement>('[data-stages-fill]')!;
+  const pickStage = (i: number) => {
+    stg.forEach((s, k) => { s.classList.toggle('on', k === i); s.classList.toggle('lit', k <= i); });
+    fill.style.width = (i / (stg.length - 1)) * 83.4 + '%';
+  };
+  stg.forEach((s, i) => ['mouseenter', 'focus', 'click'].forEach((ev) => s.addEventListener(ev, () => pickStage(i))));
+
+  // Markets: hover / tap a dot to see the product.
+  const pop = document.querySelector<HTMLElement>('[data-mk-pop]')!;
+  const mks = [...document.querySelectorAll<HTMLButtonElement>('[data-mk]')];
+  const pickMk = (b: HTMLButtonElement) => {
+    mks.forEach((m) => m.classList.toggle('on', m === b));
+    pop.style.left = b.style.left;
+    pop.textContent = b.dataset.product!;
+    pop.hidden = !b.dataset.product;
+  };
+  mks.forEach((b) => ['mouseenter', 'focus', 'click'].forEach((ev) => b.addEventListener(ev, () => pickMk(b))));
+
+  // Spine: fill with scroll, highlight the active section.
+  const ids = ['what', 'how', 'path', 'beyond', 'contact'];
+  const spineFill = document.querySelector<HTMLElement>('[data-spine-fill]')!;
+  const stops = [...document.querySelectorAll<HTMLElement>('[data-stop]')];
+  const onScroll = () => {
+    const first = document.getElementById('what'), last = document.getElementById('contact');
+    if (!first || !last) return;
+    const y0 = first.getBoundingClientRect().top + scrollY, y1 = last.getBoundingClientRect().bottom + scrollY;
+    spineFill.style.height = Math.max(0, Math.min(100, ((scrollY + innerHeight * 0.5 - y0) / (y1 - y0)) * 100)) + '%';
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) stops.forEach((s) => s.classList.toggle('on', s.dataset.stop === e.target.id));
+  }), { rootMargin: '-40% 0px -50% 0px' });
+  ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+</script>

@@ -1,9 +1,9 @@
 ---
-import Base from '../layouts/Base.astro';
-import Contact from '../components/Contact.astro';
-import Slot from '../components/Slot.astro';
-import { url } from '../lib/url';
-import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES } from '../data/work';
+import Base from '../../layouts/Base.astro';
+import Contact from '../../components/Contact.astro';
+import Slot from '../../components/Slot.astro';
+import { url } from '../../lib/url';
+import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES } from '../../data/work';
 
 const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work', active: true }, { href: '/about', label: 'About' }];
 const pad = (n: number) => String(n).padStart(2, '0');

@@ -1,0 +1,190 @@
+---
+import Base from './Base.astro';
+import Contact from '../components/Contact.astro';
+import Ph from '../components/Ph.astro';
+import { visible } from '../lib/placeholder';
+import { WALKTHROUGH } from '../data/site';
+import type { NdaCase } from '../cases/types';
+
+interface Props { c: NdaCase }
+const { c } = Astro.props;
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+
+const scale = c.scale.filter((s) => visible(s.num));
+const plates = c.plates.filter(visible);
+const releases = c.releases.filter((r) => visible(r.date) && visible(r.text));
+// Numbered sections renumber when an unwritten one is hidden.
+const sections = [plates.length && 'plate', 'how', releases.length && 'log'].filter(Boolean) as string[];
+const no = (id: string) => String(sections.indexOf(id) + 1).padStart(2, '0');
+const H = [40, 55, 48, 70, 62, 80, 74, 58, 66, 90, 84, 72, 60, 76, 88, 95, 70, 64, 78, 86, 92, 80, 68, 74];
+const rows = [70, 55, 80, 45, 65, 60];
+const lines = [[80, 0], [60, 1], [90, 0], [45, 0], [70, 0]];
+---
+<Base title={`${c.title.a}${c.title.b} — Viktoriia Seliverstova`} description={c.lead} nav={nav} cta={{ label: 'Book a 20-min call', href: WALKTHROUGH }} progress>
+<main class="page nda">
+
+  <section id="hero" class="nhero">
+    <div class="nhero-text">
+      <div class="nhero-top"><span class="nhero-ind">{c.industry}</span><span class="label nda-chip"><i></i>UNDER NDA</span></div>
+      <div class="nhero-mid"><h1 class="nhero-h">{c.title.a}<span class="serif mist">{c.title.b}</span></h1><p class="nhero-lead mist">{c.lead}</p></div>
+      <dl class="facts">{c.facts.map((f) => <div><dt class="label on-ink-muted">{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
+    </div>
+    <div class="ghost dark" aria-label="Product screens are under NDA; the structure is shown as a skeleton" data-ghost>
+      <div class="ghost-top"><span class="label ghost-cap">GHOST UI · REAL STRUCTURE, NO PIXELS</span>
+        <button type="button" class="theme" aria-label="Toggle theme" aria-pressed="true" data-theme><span data-theme-label>Dark</span><span class="switch"><span></span></span></button></div>
+      <div class="ghost-tiles">{[0, 1, 2].map(() => <div class="gcard"><i class="bone" style="width:60%"></i><i class="shim"></i></div>)}</div>
+      <div class="ghost-main">
+        <div class="gcard chart"><div class="chart-top"><i class="bone" style="width:30%"></i><i class="bone" style="width:14%"></i></div><div class="bars">{H.map((h, i) => <i class:list={['bone', { acc: i >= 18 }]} style={`height:${h}%`}></i>)}</div></div>
+        <div class="gcard list">{rows.map((w, i) => <div class="grow"><i class="bone" style={`width:${w}%`}></i><i class:list={['bone', 'tag', { acc: i % 3 === 0 }]}></i></div>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scale" class="scale" style={`--n:${scale.length}`}>
+    {scale.map((s, i) => (
+      <div class:list={['scard', { first: i === 0 }]}>
+        <div class="scard-h"><span class="num scard-n"><Ph v={s.num} /></span><span class="scard-w">{s.what}</span></div>
+        <div class="scard-dots">{Array.from({ length: s.of }, (_, j) => <i class:list={{ on: j < s.n }}></i>)}</div>
+      </div>
+    ))}
+  </section>
+
+  {plates.length > 0 && (
+    <section id="plate" class="nsec">
+      <span class="label chap-k">{no('plate')} · WHAT IT DID</span>
+      <div class="plates">{plates.map((p) => <div class="plate"><span class="label mist">WHERE THE SCREENSHOT WOULD BE</span><p class="plate-p"><Ph v={p} /></p></div>)}</div>
+    </section>
+  )}
+
+  <section id="how" class="nsec">
+    <span class="label chap-k">{no('how')} · HOW, NOT WHAT</span>
+    <h2 class="h3">My artefacts, <span class="serif">client content removed.</span></h2>
+    <div class="arts">{c.artefacts.map((a, i) => (
+      <div class="art">
+        <div class="art-sheet">{lines.map(([w, acc]) => <i class:list={{ acc: acc || (i % 2 === 1 && w === 70) }} style={`width:${w}%`}></i>)}</div>
+        <div class="art-t"><span class="art-name">{a.t}</span>{visible(a.m) && <span class="label-s muted"><Ph v={a.m} /></span>}</div>
+      </div>
+    ))}</div>
+  </section>
+
+  <section id="say" class="say">
+    <div class="say-can"><span class="label on-ink-muted">I CAN</span><div>{c.can.map((x) => <div class="say-row"><i class="ok"></i><span>{x}</span></div>)}</div></div>
+    <div class="say-cant"><span class="label muted">I CAN'T</span><div>{c.cant.map((x) => <div class="say-row"><i class="no"></i><span>{x}</span></div>)}</div><p class="muted say-p">Want the originals? On a 20-minute call I walk through the real screens.</p></div>
+  </section>
+
+  {releases.length > 0 && (
+    <section id="log" class="nsec">
+      <span class="label chap-k">{no('log')} · WHAT SHIPPED</span>
+      <div class="log">{releases.map((r) => <div class="log-row"><span class="muted log-d"><Ph v={r.date} /></span><span class:list={['label-s', 'log-tag', { cob: r.tag === 'Tokens' }]}>{r.tag}</span><span class="log-t"><Ph v={r.text} /></span></div>)}</div>
+    </section>
+  )}
+
+  <Contact a="The real screens, " b="on a call." />
+</main>
+</Base>
+
+<style>
+  .nda { padding-top: var(--content-top); }
+  .chap-k { color: var(--cobalt); }
+  .nhero { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 639px) { .nhero { grid-template-columns: minmax(0, 1fr); } }
+  .nhero-text { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: clamp(420px, 64vh, 640px); padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--ink); color: var(--white); }
+  .nhero-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .nhero-ind { padding: 10px 18px; border-radius: var(--r-pill); background: var(--cobalt); font-size: var(--t-body); font-weight: 500; }
+  .nda-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
+  .nda-chip i { width: 8px; height: 8px; border-radius: var(--r-dot); background: var(--orange); }
+  .nhero-mid { display: flex; flex-direction: column; gap: 16px; }
+  .nhero-h { font-weight: 500; font-size: var(--t-display); line-height: .88; letter-spacing: -.055em; }
+  .nhero-h .serif { letter-spacing: -.03em; }
+  .nhero-lead { font-size: var(--t-lead); line-height: 1.4; max-width: 520px; }
+  .facts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; border-top: 1px solid var(--on-dark-line); padding-top: 16px; }
+  .facts div { display: flex; flex-direction: column; gap: 4px; }
+  .facts dd { margin: 0; font-size: var(--t-body); }
+
+  /* Ghost UI */
+  .ghost { --card: var(--white); --bone: var(--grey-210); --rule: var(--grey-238); --shim-a: var(--grey-210); --shim-b: var(--grey-238);
+    position: relative; display: flex; flex-direction: column; gap: 12px; min-height: clamp(320px, 64vh, 640px); padding: 10px; border-radius: var(--r-surface); background: var(--grey-238); color: var(--ink); transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease); }
+  .ghost.dark { --card: var(--on-dark-fill); --bone: var(--on-dark-line); --rule: var(--on-dark-fill); --shim-a: var(--on-dark-line); --shim-b: var(--on-dark-ring); background: var(--ink); color: var(--white); }
+  .ghost-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; }
+  .ghost-cap { opacity: .7; }
+  .theme { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 6px 6px 14px; border-radius: var(--r-pill); font-size: var(--t-small); box-shadow: inset 0 0 0 1.5px currentColor; }
+  .switch { position: relative; display: inline-block; width: 40px; height: 24px; border-radius: var(--r-pill); background: currentColor; }
+  .switch span { position: absolute; top: 4px; left: 4px; width: 16px; height: 16px; border-radius: var(--r-dot); background: var(--grey-238); transition: left var(--d-fast) var(--ease); }
+  .ghost.dark .switch span { left: 20px; background: var(--ink); }
+  .ghost-tiles { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0 4px; }
+  .gcard { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: var(--r-inner); background: var(--card); }
+  .bone { display: block; height: 10px; border-radius: var(--r-mark); background: var(--bone); }
+  .bone.acc { background: var(--cobalt); }
+  .shim { display: block; height: 26px; width: 40%; border-radius: var(--r-mark); background: linear-gradient(90deg, var(--shim-a), var(--shim-b), var(--shim-a)); background-size: 200% 100%; animation: shimmer 2.4s linear infinite; }
+  @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  .ghost-main { flex: 3; display: grid; grid-template-columns: 2fr 1fr; gap: 8px; padding: 0 4px 4px; }
+  .chart { gap: 12px; padding: 14px; }
+  .chart-top { display: flex; justify-content: space-between; }
+  .bars { flex: 1; display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; align-items: end; min-height: 120px; }
+  .bars .bone { height: auto; }
+  .list { gap: 6px; padding: 14px; }
+  .grow { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+  .grow .bone { height: 9px; }
+  .grow .tag { width: 28px; }
+
+  /* Scale sheet */
+  .scale { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 1099px) { .scale { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .scale { grid-template-columns: minmax(0, 1fr); } }
+  .scard { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: var(--card-pad); border-radius: var(--r-card); background: var(--grey-238); }
+  .scard.first { background: var(--cobalt); color: var(--white); }
+  .scard-h { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .scard-n { font-size: var(--t-h3); line-height: 1; letter-spacing: -.05em; }
+  .scard-w { font-size: var(--t-body); font-weight: 500; }
+  .scard-dots { display: flex; flex-wrap: wrap; gap: 4px; }
+  .scard-dots i { width: 14px; height: 14px; border-radius: var(--r-mark); background: var(--cobalt-tint-strong); opacity: .5; }
+  .scard-dots i.on { background: var(--cobalt); opacity: 1; }
+  .scard.first .scard-dots i { background: var(--on-dark-line); opacity: 1; }
+  .scard.first .scard-dots i.on { background: var(--periwinkle); }
+
+  .nsec { padding-top: var(--block-top); display: flex; flex-direction: column; gap: 12px; }
+  .plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 639px) { .plates { grid-template-columns: minmax(0, 1fr); } }
+  .plate { display: flex; flex-direction: column; justify-content: space-between; gap: 48px; min-height: 300px; padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--cobalt); color: var(--white); }
+  .plate-p { font-weight: 500; font-size: var(--t-h4); line-height: 1.02; letter-spacing: -.045em; }
+  .arts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 1099px) { .arts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .arts { grid-template-columns: minmax(0, 1fr); } }
+  .art { display: flex; flex-direction: column; gap: 12px; padding: 12px 12px 20px; border-radius: var(--r-card); background: var(--grey-238); }
+  .art-sheet { aspect-ratio: 4 / 3; border-radius: var(--r-inner); background: var(--white); display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+  .art-sheet i { height: 8px; border-radius: var(--r-mark); background: var(--grey-210); }
+  .art-sheet i.acc { background: var(--cobalt); }
+  .art-t { display: flex; flex-direction: column; gap: 4px; padding: 0 8px; }
+  .art-name { font-size: var(--t-ui-l); font-weight: 500; }
+
+  .say { padding-top: var(--block-top); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 639px) { .say { grid-template-columns: minmax(0, 1fr); } }
+  .say-can, .say-cant { display: flex; flex-direction: column; gap: 16px; padding: var(--panel-pad); border-radius: var(--r-surface); }
+  .say-can { background: var(--ink); color: var(--white); }
+  .say-cant { background: var(--grey-238); }
+  .say-row { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--on-dark-fill); font-size: var(--t-lead); line-height: 1.3; }
+  .say-cant .say-row { border-bottom-color: var(--grey-210); }
+  .say-row i { width: 18px; height: 18px; border-radius: var(--r-dot); align-self: center; }
+  .say-row i.ok { background: var(--green); }
+  .say-row i.no { background: var(--orange); }
+  .say-p { font-size: var(--t-body); line-height: 1.45; }
+
+  .log { display: flex; flex-direction: column; padding: 8px var(--panel-pad); border-radius: var(--r-surface); background: var(--grey-238); }
+  .log-row { display: grid; grid-template-columns: 110px 90px minmax(0, 1fr); gap: 6px 24px; padding: 16px 0; border-bottom: 1px solid var(--grey-210); align-items: baseline; }
+  @media (max-width: 639px) { .log-row { grid-template-columns: minmax(0, 1fr); } }
+  .log-d { font-weight: 500; font-size: var(--t-small); }
+  .log-tag { padding: 4px 10px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); justify-self: start; letter-spacing: 0; }
+  .log-tag.cob { background: var(--cobalt); }
+  .log-t { font-size: var(--t-ui-l); font-weight: 500; }
+</style>
+
+<script>
+  const ghost = document.querySelector<HTMLElement>('[data-ghost]')!;
+  const btn = ghost.querySelector<HTMLButtonElement>('[data-theme]')!;
+  btn.addEventListener('click', () => {
+    const dark = !ghost.classList.contains('dark');
+    ghost.classList.toggle('dark', dark);
+    btn.setAttribute('aria-pressed', String(dark));
+    btn.querySelector('[data-theme-label]')!.textContent = dark ? 'Dark' : 'Light';
+  });
+</script>

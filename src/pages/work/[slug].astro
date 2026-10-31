@@ -1,0 +1,21 @@
+---
+import type { Case } from '../../cases/types';
+import CaseOpen from '../../layouts/CaseOpen.astro';
+import CaseNda from '../../layouts/CaseNda.astro';
+import CaseGraphic from '../../layouts/CaseGraphic.astro';
+
+// Every file in src/cases/ is a case page; drafts are built only in `npm run dev`.
+export function getStaticPaths() {
+  const mods = import.meta.glob<{ default: Case }>('../../cases/*.ts', { eager: true });
+  return Object.entries(mods)
+    .filter(([path]) => !path.endsWith('/types.ts'))
+    .map(([, m]) => m.default)
+    .filter((c) => !c.draft || import.meta.env.DEV)
+    .map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+
+const { c } = Astro.props as { c: Case };
+---
+{c.layout === 'open' && <CaseOpen c={c} />}
+{c.layout === 'nda' && <CaseNda c={c} />}
+{c.layout === 'graphic' && <CaseGraphic c={c} />}

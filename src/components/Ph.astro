@@ -1,0 +1,8 @@
+---
+// Renders text; bracketed placeholders show as a marked draft in dev and disappear in production.
+import { isPh, SHOW_PLACEHOLDERS } from '../lib/placeholder';
+interface Props { v?: string }
+const { v } = Astro.props;
+const ph = isPh(v);
+---
+{v && (!ph ? v : SHOW_PLACEHOLDERS && <span class="ph">{v}</span>)}
