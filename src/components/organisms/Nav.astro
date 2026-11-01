@@ -1,16 +1,17 @@
 ---
-import { url } from '../lib/url';
+import { url } from '../../lib/url';
+import Segmented from '../atoms/Segmented.astro';
 interface Props { links: { href: string; label: string; active?: boolean }[]; cta?: { label: string; href: string }; progress?: boolean; depth?: boolean }
 const { links, cta = { label: 'Contact', href: '#contact' }, progress = false, depth = false } = Astro.props;
 // Case pages: Short · 1 min / Full · 5 min reading switch.
-const depthTabs = [['short', 'Short · 1 min'], ['full', 'Full · 5 min']];
+const depthItems = (short: boolean) => [['short', 'Short · 1 min'], ['full', 'Full · 5 min']].map(([k, t]) => ({ label: short ? t.split(' · ')[1] : t, selected: k === 'full', attrs: { 'data-depth-pick': k } }));
 ---
 <nav class="nav" aria-label="Main" data-nav>
   <div class="nav-bar">
     <a class="nav-name" href={url('/')}>Viktoriia Seliverstova</a>
     <div class="nav-wide">
       {links.map((l) => <a class:list={['nav-link', { on: l.active }]} href={url(l.href)} aria-current={l.active ? 'page' : undefined}>{l.label}</a>)}
-      {depth && <div class="depth" role="tablist" aria-label="Reading depth">{depthTabs.map(([k, t]) => <button type="button" role="tab" class="depth-b" data-depth-pick={k} aria-selected={k === 'full' ? 'true' : 'false'}>{t}</button>)}</div>}
+      {depth && <Segmented items={depthItems(false)} label="Reading depth" role="tablist" tone="soft" />}
       <a class="nav-cta" href={url(cta.href)}>{cta.label}</a>
     </div>
     <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="nav-sheet" data-nav-toggle>Menu</button>
@@ -18,7 +19,7 @@ const depthTabs = [['short', 'Short · 1 min'], ['full', 'Full · 5 min']];
   </div>
   <div class="nav-sheet" id="nav-sheet" hidden>
     {links.map((l) => <a class:list={['nav-sheet-link', { on: l.active }]} href={url(l.href)}>{l.label}</a>)}
-    {depth && <div class="depth-wrap"><div class="depth" role="tablist" aria-label="Reading depth">{depthTabs.map(([k, t]) => <button type="button" role="tab" class="depth-b" data-depth-pick={k} aria-selected={k === 'full' ? 'true' : 'false'}>{t.split(' · ')[1]}</button>)}</div></div>}
+    {depth && <div class="depth-wrap"><Segmented items={depthItems(true)} label="Reading depth" role="tablist" tone="soft" /></div>}
     <a class="nav-sheet-cta" href={url(cta.href)}>{cta.label}</a>
   </div>
 </nav>
@@ -29,11 +30,11 @@ const depthTabs = [['short', 'Short · 1 min'], ['full', 'Full · 5 min']];
   .nav-bar { position: relative; max-width: var(--nav-max); margin: 0 auto; padding: 6px 6px 6px 20px; border-radius: var(--r-pill); background: var(--glass-light-bg); backdrop-filter: var(--glass-light-filter); -webkit-backdrop-filter: var(--glass-light-filter); box-shadow: var(--glass-light-shadow); display: flex; align-items: center; gap: 4px; pointer-events: auto; overflow: hidden; }
   .nav-name { display: block; line-height: 44px; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: var(--t-body); font-weight: 500; color: var(--ink); text-decoration: none; white-space: nowrap; margin-right: auto; }
   .nav-wide { display: flex; align-items: center; gap: 4px; }
-  .nav-link { padding: 12px 14px; border-radius: var(--r-pill); font-size: var(--t-small); text-decoration: none; white-space: nowrap; color: var(--ink); }
+  .nav-link { display: inline-flex; align-items: center; min-height: var(--control-min); padding: 0 14px; border-radius: var(--r-pill); font-size: var(--t-small); text-decoration: none; white-space: nowrap; color: var(--ink); }
   .nav-link:hover, .nav-link.on { background: var(--hover); color: var(--ink); }
-  .nav-cta { padding: 12px 18px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); text-decoration: none; white-space: nowrap; }
+  .nav-cta { display: inline-flex; align-items: center; min-height: var(--control-min); padding: 0 18px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); text-decoration: none; white-space: nowrap; }
   .nav-cta:hover { color: var(--white); background: var(--cobalt); }
-  .nav-menu-btn { display: none; flex-shrink: 0; min-height: 44px; padding: 0 18px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); }
+  .nav-menu-btn { display: none; flex-shrink: 0; min-height: var(--control-min); padding: 0 18px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); }
   .nav-sheet { max-width: var(--nav-max); margin: 8px auto 0; padding: 8px; border-radius: var(--r-card); background: var(--glass-sheet-bg); backdrop-filter: var(--glass-sheet-filter); -webkit-backdrop-filter: var(--glass-sheet-filter); box-shadow: var(--glass-sheet-shadow); display: flex; flex-direction: column; gap: 4px; pointer-events: auto; }
   .nav-sheet[hidden] { display: none; }
   .nav-sheet-link { padding: 16px 18px; border-radius: var(--r-inner); font-size: 20px; font-weight: 500; letter-spacing: -.03em; text-decoration: none; color: var(--ink); }
@@ -41,9 +42,6 @@ const depthTabs = [['short', 'Short · 1 min'], ['full', 'Full · 5 min']];
   .nav-sheet-cta { margin-top: 4px; padding: 16px 18px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-body); text-align: center; text-decoration: none; }
   .nav-sheet-cta:hover { color: var(--white); }
   .nav-progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--cobalt); }
-  .depth { display: flex; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: var(--grey-238); }
-  .depth-b { min-height: 38px; padding: 0 12px; border-radius: var(--r-pill); font-size: var(--t-small); white-space: nowrap; }
-  .depth-b[aria-selected='true'] { background: var(--white); box-shadow: 0 1px 4px var(--shadow-ink); }
   .depth-wrap { padding: 8px 10px; display: flex; }
   @media (max-width: 639px) {
     .nav-wide { display: none; }

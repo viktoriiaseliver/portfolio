@@ -1,0 +1,11 @@
+---
+// Big number + unit, the head of every fact card.
+interface Props { n: string | number; unit?: string; class?: string; [attr: string]: unknown }
+const { n, unit, class: cls, ...rest } = Astro.props;
+---
+<div class:list={['stat-head', cls]} {...rest}><span class="num num-l">{n}</span>{unit && <span class="stat-unit">{unit}</span>}</div>
+
+<style is:global>
+  .stat-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .stat-unit { font-size: var(--t-ui-l); font-weight: 500; }
+</style>

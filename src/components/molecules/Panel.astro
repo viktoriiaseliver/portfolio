@@ -1,0 +1,29 @@
+---
+// Surface molecule: ink / cobalt / soft-grey / white / outlined / peach panels in the three radii of the system.
+interface Props {
+  as?: string;
+  tone?: 'dark' | 'brand' | 'soft' | 'white' | 'line' | 'warm';
+  radius?: 'surface' | 'card' | 'inner';
+  pad?: 'panel' | 'card' | 'inset' | 'none';
+  class?: string;
+  [attr: string]: unknown;
+}
+const { as: Tag = 'div', tone = 'soft', radius = 'surface', pad = 'panel', class: cls, ...rest } = Astro.props;
+---
+<Tag class:list={['panel', `tone-${tone}`, `r-${radius}`, `pad-${pad}`, cls]} {...rest}><slot /></Tag>
+
+<style is:global>
+  .panel { min-width: 0; }
+  .tone-dark { background: var(--surface-dark); color: var(--text-on-dark); }
+  .tone-brand { background: var(--surface-brand); color: var(--text-on-dark); }
+  .tone-soft { background: var(--surface-soft); color: var(--text); }
+  .tone-white { background: var(--white); color: var(--text); }
+  .tone-line { background: var(--white); color: var(--text); box-shadow: var(--ring-1) var(--muted-on-ink); }
+  .tone-warm { background: var(--surface-warm); color: var(--text); }
+  .r-surface { border-radius: var(--r-surface); }
+  .r-card { border-radius: var(--r-card); }
+  .r-inner { border-radius: var(--r-inner); }
+  .pad-panel { padding: var(--panel-pad); }
+  .pad-card { padding: var(--card-pad); }
+  .pad-inset { padding: 10px; }
+</style>

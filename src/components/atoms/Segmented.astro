@@ -1,0 +1,18 @@
+---
+// Segmented control atom. Each item carries its own data attributes for the page script.
+type Item = { label: string; selected?: boolean; attrs?: Record<string, string>; class?: string };
+interface Props {
+  items: Item[];
+  label: string;               // aria-label
+  role?: 'group' | 'tablist';
+  tone?: 'hover' | 'soft' | 'ink';
+  size?: 'md' | 'lg';
+  class?: string;
+  [attr: string]: unknown;
+}
+const { items, label, role = 'group', tone = 'hover', size = 'md', class: cls, ...rest } = Astro.props;
+const state = role === 'tablist' ? 'aria-selected' : 'aria-pressed';
+---
+<div class:list={['seg', { soft: tone === 'soft', ink: tone === 'ink', lg: size === 'lg' }, cls]} role={role} aria-label={label} {...rest}>
+  {items.map((it) => <button type="button" role={role === 'tablist' ? 'tab' : undefined} class:list={['seg-b', it.class]} {...{ [state]: it.selected ? 'true' : 'false' }} {...it.attrs}>{it.label}</button>)}
+</div>

@@ -1,0 +1,14 @@
+---
+// Two-part headline: Instrument Sans first half + Instrument Serif italic second half.
+interface Props {
+  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
+  size?: 'hero' | 'display' | 'h2' | 'h3' | 'h4' | 'h5';
+  a: string;
+  b?: string;
+  bTone?: 'mist' | 'muted' | 'inherit';
+  class?: string;
+  [attr: string]: unknown;
+}
+const { as: Tag = 'h2', size = 'h2', a, b, bTone = 'inherit', class: cls, ...rest } = Astro.props;
+---
+<Tag class:list={[size === 'hero' ? 'text-hero' : size, cls]} {...rest}>{a}{b && <span class:list={['serif', { mist: bTone === 'mist', muted: bTone === 'muted' }]}>{b}</span>}</Tag>

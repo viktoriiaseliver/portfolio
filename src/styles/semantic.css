@@ -1,0 +1,28 @@
+/* Semantic tokens — roles on top of the primitives in tokens.css.
+   Aliases only (no new colours); control sizes are the ones the design already uses. */
+:root {
+  /* Surfaces */
+  --surface-page: var(--white);
+  --surface-dark: var(--ink);
+  --surface-brand: var(--cobalt);
+  --surface-soft: var(--grey-238);
+  --surface-warm: var(--peach);
+  --surface-on-dark: var(--on-dark-fill);
+
+  /* Text */
+  --text: var(--ink);
+  --text-secondary: var(--text-muted);       /* on white 8.9:1, on grey-238 7.6:1 */
+  --text-on-dark: var(--white);
+  --text-on-dark-secondary: var(--mist);     /* on ink 12.4:1, on cobalt 9.7:1 */
+  --text-on-ink-label: var(--muted-on-ink);  /* labels on ink only: 7.5:1 */
+  --text-accent: var(--cobalt);
+  --text-data-on-dark: var(--periwinkle);
+
+  /* Controls: 44px is the minimum tap target everywhere */
+  --control-min: 44px;
+  --control-md: 48px;
+  --control-lg: 52px;
+  --control-seg: 38px;                       /* visual height inside a 44px segmented track; hit area stays 44px */
+  --ring-1: inset 0 0 0 1px;
+  --ring-15: inset 0 0 0 1.5px;
+}

@@ -1,0 +1,14 @@
+---
+// Chip atom: static pill for tags, statuses and meta. `s` = label style (12px).
+interface Props {
+  tone?: 'white' | 'soft' | 'dark' | 'ink' | 'brand' | 'outline-dark' | 'glass' | 'warn';
+  size?: 's' | 'm';
+  dot?: string;   // CSS colour of a leading dot
+  ring?: boolean;
+  tall?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { tone = 'soft', size = 'm', dot, ring = false, tall = false, class: cls, ...rest } = Astro.props;
+---
+<span class:list={['chip', `chip-${tone}`, { s: size === 's', ring, tall }, cls]} {...rest}>{dot && <i class="dot" style={`background:${dot}`}></i>}<slot /></span>

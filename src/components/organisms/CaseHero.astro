@@ -1,0 +1,28 @@
+---
+// Case hero, shared by the open and NDA layouts: ink text panel + a visual panel passed in the `visual` slot.
+import Chip from '../atoms/Chip.astro';
+import Heading from '../atoms/Heading.astro';
+import Panel from '../molecules/Panel.astro';
+import Facts from '../molecules/Facts.astro';
+interface Props { industry: string; title: { a: string; b: string }; lead: string; facts: { k: string; v: string }[] }
+const { industry, title, lead, facts } = Astro.props;
+---
+<section id="hero" class="case-hero">
+  <Panel tone="dark" class="case-hero-text">
+    <div class="case-hero-top"><Chip tone="brand" class="case-hero-ind">{industry}</Chip><slot name="badge" /></div>
+    <div class="case-hero-mid"><Heading as="h1" size="display" a={title.a} b={title.b} bTone="mist" class="case-hero-h" /><p class="lead mist case-hero-lead">{lead}</p></div>
+    <Facts items={facts} />
+  </Panel>
+  <slot name="visual" />
+</section>
+
+<style>
+  .case-hero { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 639px) { .case-hero { grid-template-columns: minmax(0, 1fr); } }
+  .case-hero :global(.case-hero-text) { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: clamp(420px, 64vh, 640px); }
+  .case-hero-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .case-hero :global(.case-hero-ind) { padding: 10px 18px; font-size: var(--t-body); font-weight: 500; }
+  .case-hero-mid { display: flex; flex-direction: column; gap: 16px; }
+  .case-hero :global(.case-hero-h .serif) { letter-spacing: -.03em; }
+  .case-hero-lead { max-width: 520px; }
+</style>
