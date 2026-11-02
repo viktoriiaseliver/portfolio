@@ -4,13 +4,13 @@ export const intro = "I'm a senior product designer. For 9 years I've been turni
 export const langs = [{ hi: 'Hello', n: 'ENGLISH', lv: 'C2' }, { hi: 'Bonjour', n: 'FRENCH', lv: 'B1' }, { hi: 'Привіт', n: 'UKRAINIAN', lv: 'NATIVE' }];
 
 // number, label, link, filled marks, total marks
-export const nums: [string, string, string, number, number][] = [['9', 'years', '#path', 9, 9], ['25', 'products', '/work', 10, 10], ['7', 'industries', '/work', 7, 7], ['400+', 'components', '/work', 10, 10], ['7', 'markets', '#path', 7, 7]];
+export const nums: [string, string, string, number, number][] = [['9', 'years', '#path', 9, 9], ['25', 'products', '/works', 10, 10], ['7', 'industries', '/works', 7, 7], ['400+', 'components', '/works', 10, 10], ['7', 'markets', '#path', 7, 7]];
 
 export const tabs = [
-  { t: 'Complex products', text: 'Systems with many roles, dense data and real-world limits: weak connection, gloves, bright sun, little time to learn.', links: [['Construction CRM', '/work/construction-crm'], ['Fleet', '/work'], ['Traffic', '/work']] },
-  { t: 'Design systems', text: '400+ documented components, variables and tokens, light and dark themes. Products for 7 markets, up to 18 breakpoints, WCAG 2.1 AA.', links: [['OOKA', '/work'], ['PokerMatch', '/work']] },
+  { t: 'Complex products', text: 'Systems with many roles, dense data and real-world limits: weak connection, gloves, bright sun, little time to learn.', links: [['Construction CRM', '/work/construction-crm'], ['Fleet', '/works'], ['Traffic', '/works']] },
+  { t: 'Design systems', text: '400+ documented components, variables and tokens, light and dark themes. Products for 7 markets, up to 18 breakpoints, WCAG 2.1 AA.', links: [['OOKA', '/works'], ['PokerMatch', '/works']] },
   { t: 'Code & AI', text: 'I prototype in code and build my own iOS apps in SwiftUI with Claude Code and Cursor. Prompting is my strongest AI skill.', links: [['My products', '/#apps'], ['How I work with AI', '/#how']] },
-  { t: 'Brand & visual', text: 'Illustration, icons, brand systems and motion — After Effects and Spline included.', links: [['Graphic & illustration', '/work?section=graphic']] }
+  { t: 'Brand & visual', text: 'Illustration, icons, brand systems and motion — After Effects and Spline included.', links: [['Graphic & illustration', '/works?section=graphic']] }
 ];
 
 // Design-system demo: one button cycling through markets and themes.

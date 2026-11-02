@@ -11,13 +11,13 @@ import Panel from '../components/molecules/Panel.astro';
 import FactCard from '../components/molecules/FactCard.astro';
 import CaseHero from '../components/organisms/CaseHero.astro';
 import Ph from '../components/atoms/Ph.astro';
-import { url } from '../lib/url';
+import { url, bg } from '../lib/url';
 import { filled, visible, SHOW_PLACEHOLDERS } from '../lib/placeholder';
 import type { OpenCase } from '../cases/types';
 
 interface Props { c: OpenCase }
 const { c } = Astro.props;
-const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
 
 // Optional chapters appear once their copy is written (or in dev as drafts).
 const showResearch = c.insights.some((i) => visible(i.quote));
@@ -39,12 +39,12 @@ const nextOn = Math.round(c.next.pct / 10);
 const R = c.result;
 const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
 ---
-<Base title={`${c.title.a}${c.title.b} — Viktoriia Seliverstova`} description={c.lead} nav={nav} progress depth>
+<Base og={`${c.slug}.png`} title={`${c.title.a}${c.title.b} — Viktoriia Seliverstova`} description={c.lead} nav={nav} progress depth>
 <main class="page case" data-case data-depth="full">
 
   <CaseHero industry={c.industry} title={c.title} lead={c.lead} facts={c.facts}>
     <span slot="badge" class="label on-ink-muted">{c.kicker}</span>
-    <div slot="visual" class="chero-cover" style={`background-image:url(${url(c.cover)})`}>
+    <div slot="visual" class="chero-cover" style={`background-image:${bg(c.cover)}`}>
       <div class="chero-chips">{c.chips.map((r) => <div class="gchip-dark"><div class="num gchip-n">{r.num}</div><div class="gchip-w">{r.what}</div></div>)}</div>
     </div>
   </CaseHero>

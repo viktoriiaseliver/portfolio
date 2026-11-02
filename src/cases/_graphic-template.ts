@@ -23,5 +23,5 @@ export default {
   typeface: '[Typeface name]',
   formats: ['[A1 POSTER]', '[85 × 55 MM CARD]', '[INSTAGRAM 4:5]'],
   steps: [{ t: 'Sketch', ph: 'Pencil sketch' }, { t: 'Vector', ph: 'Vector draft' }, { t: 'Colour', ph: 'Colour tests' }, { t: 'Print', ph: 'Printed proof' }],
-  next: { href: '/work?section=graphic', cat: 'GRAPHIC & ILLUSTRATION', name: '[Next project]', img: '/assets/work/17.jpg' }
+  next: { href: '/works?section=graphic', cat: 'GRAPHIC & ILLUSTRATION', name: '[Next project]', img: '/assets/work/17.jpg' }
 } satisfies GraphicCase;

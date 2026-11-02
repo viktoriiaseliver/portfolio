@@ -3,6 +3,8 @@ import type { NdaCase } from './types';
 export default {
   layout: 'nda',
   slug: 'multi-asset-trading',
+  // Not in the v1 launch (see README → Launch scope). Remove to publish.
+  draft: true,
   industry: 'Fintech',
   title: { a: 'Multi-asset ', b: 'trading.' },
   lead: 'iOS, Android and web. Light and dark from one token set. Live on App Store and Google Play.',

@@ -14,7 +14,7 @@ import type { NdaCase } from '../cases/types';
 
 interface Props { c: NdaCase }
 const { c } = Astro.props;
-const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
 
 const scale = c.scale.filter((s) => visible(s.num));
 const plates = c.plates.filter(visible);

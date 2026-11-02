@@ -1,0 +1,263 @@
+---
+import Base from '../../layouts/Base.astro';
+import Contact from '../../components/organisms/Contact.astro';
+import Chip from '../../components/atoms/Chip.astro';
+import Dot from '../../components/atoms/Dot.astro';
+import Heading from '../../components/atoms/Heading.astro';
+import Slot from '../../components/atoms/Slot.astro';
+import Ph from '../../components/atoms/Ph.astro';
+import Panel from '../../components/molecules/Panel.astro';
+import SectionHead from '../../components/molecules/SectionHead.astro';
+import { url } from '../../lib/url';
+import { visible } from '../../lib/placeholder';
+import { did, story, why, forWhom, swatches, feed, decisions, cut, made, craft, next } from '../../data/gamut';
+
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
+const nextSteps = next.filter(visible);
+---
+<Base og="gamut.png" title="Gamut — Viktoriia Seliverstova" description="Gamut: an Instagram feed planner that starts with colour, not photos. Designed and built by Viktoriia Seliverstova." nav={nav}>
+<main class="page gamut">
+
+  <Panel as="section" tone="dark" class="g-hero">
+    <div class="g-hero-text">
+      <div class="g-chips"><Chip tone="dark" size="s"><Dot tone="orange" size={7} />IN APP STORE REVIEW</Chip><Chip tone="dark" size="s">BUILT BY ME · IOS</Chip></div>
+      <h1 class="g-h">Gamut.</h1>
+      <p class="serif mist g-slogan">Plan your palette, not just your posts.</p>
+      <div class="g-did">{did.map((w) => <span class="chip chip-outline-dark g-did-chip">{w}</span>)}</div>
+    </div>
+    <div class="g-hero-phone"><div class="g-phone"><div><Slot label="15–30 s screen recording from iPhone" /></div></div></div>
+  </Panel>
+
+  <section class="g-sec grid-2">
+    <Panel tone="soft" class="g-why">
+      <span class="label muted">WHY I MADE IT</span>
+      {visible(story) && <p class="lead"><Ph v={story} /></p>}
+      <p class="g-why-p">{why}</p>
+    </Panel>
+    <Panel tone="brand" class="g-whom">
+      <span class="label mist">FOR WHOM</span>
+      <p class="serif g-whom-p">{forWhom}</p>
+    </Panel>
+  </section>
+
+  <Panel as="section" tone="dark" id="try" class="g-sec-m g-try" data-try>
+    <div class="g-try-text">
+      <span class="label on-ink-muted">TRY IT · A MINI GAMUT</span>
+      <Heading size="h2" a="Colour " b="before content." class="g-try-h" />
+      <p class="body mist g-try-p">Pick a colour, tap an empty tile to plan a future post, then turn the whole feed into its colours.</p>
+      <div class="g-step"><span class="label on-ink-muted">1 · PICK A COLOUR</span>
+        <div class="g-sw" role="radiogroup" aria-label="Colour">{swatches.map(([name, v], i) => <button type="button" role="radio" aria-checked={i === 0 ? 'true' : 'false'} aria-label={name} data-sw={i} style={`background:var(${v})`}></button>)}</div>
+      </div>
+      <div class="g-step"><span class="label on-ink-muted">2 · SEE THE FEED</span>
+        <div class="g-btns">
+          <button type="button" class="btn btn-white lg g-toggle" aria-pressed="false" data-toggle><span data-toggle-label>Show colours</span><span class="g-knob" aria-hidden="true"><i></i></span></button>
+          <button type="button" class="btn btn-outline-light lg" data-reset>Reset</button>
+        </div>
+      </div>
+      <span class="g-private"><span class="g-lock" aria-hidden="true"><i></i></span>No login. No server.</span>
+    </div>
+    <div class="g-try-phone"><div class="g-feed-phone"><div class="g-feed">
+      <div class="g-profile"><i></i><div><span class="g-prof-n">your.profile</span><span class="label-s muted"><span data-planned>0</span> PLANNED · 6 PUBLISHED</span></div></div>
+      <div class="g-grid">
+        {[0, 1, 2].map((i) => <button type="button" class="g-future" aria-label="Plan a post in the selected colour" data-future={i}><span aria-hidden="true">+</span></button>)}
+        {feed.map((v) => <div class="g-post"><Slot label="Post" /><i style={`background:var(${v})`}></i></div>)}
+      </div>
+    </div></div></div>
+  </Panel>
+
+  <section id="decisions" class="g-sec stack">
+    <SectionHead a="Product " b="decisions" />
+    <div class="grid-3">
+      {decisions.map((d, i) => (
+        <Panel as="article" tone={i === 1 ? 'dark' : 'soft'} pad="none" class="g-dec">
+          <div class="g-dec-img"><Slot label={d.ph} /></div>
+          <div class="g-dec-t">
+            <span class="num g-dec-n">0{i + 1}</span>
+            <h3 class="g-dec-h">{d.t}</h3>
+            {d.d && <p class="body g-dec-d">{d.d}</p>}
+            {visible(d.tradeoff) && <div class="g-trade"><span class="label">TRADE-OFF</span><span><Ph v={d.tradeoff} /></span></div>}
+          </div>
+        </Panel>
+      ))}
+    </div>
+  </section>
+
+  {visible(cut.feature) && visible(cut.reason) && (
+    <Panel as="section" tone="line" class="g-cut">
+      <div class="g-cut-l"><span class="label muted">WHAT I CUT FROM V1</span><span class="h4 muted g-cut-f"><Ph v={cut.feature} /></span></div>
+      <span class="muted">didn't make v1: <Ph v={cut.reason} /></span>
+    </Panel>
+  )}
+
+  <Panel as="section" tone="brand" class="g-sec-m g-made">
+    <Heading size="h2" a="How I " b="made it" class="g-made-h" />
+    <div class="grid-2">
+      <Panel tone="white" radius="inner" pad="none" class="g-made-c"><span class="label accent">I OWN</span><span class="g-made-t">Every product and design decision</span><div class="g-made-chips"><Chip tone="soft">Figma</Chip><Chip tone="soft">SwiftUI</Chip></div></Panel>
+      <div class="g-made-c dark"><span class="label mist">AGENTS DO</span><span class="g-made-t">Write code and check screens against HIG and accessibility</span><div class="g-made-chips"><Chip tone="dark">Claude Code</Chip><Chip tone="dark">Cursor</Chip></div></div>
+    </div>
+    <p class="body mist g-made-p">{made.text}{visible(made.example) && visible(made.action) && <> Once an agent <Ph v={made.example} />, I <Ph v={made.action} />.</>}</p>
+  </Panel>
+
+  <section class="g-sec stack">
+    <SectionHead a="Craft " b="details" />
+    <div class="grid-3">{craft.map((t) => <Panel tone="soft" radius="card" pad="none" class="g-craft"><div class="g-craft-img"><Slot label={t} /></div><span>{t}</span></Panel>)}</div>
+  </section>
+
+  <section id="next" class="g-sec grid-3">
+    <Panel tone="soft" class="g-next-card g-status">
+      <Chip tone="white" size="s"><Dot tone="orange" size={7} />IN APP STORE REVIEW</Chip>
+      {nextSteps.length > 0 && <div class="g-next-steps"><span class="label muted">NEXT</span>{nextSteps.map((s) => <span><Ph v={s} /></span>)}</div>}
+    </Panel>
+    <a class="panel tone-dark r-surface pad-panel g-next-card g-link" href={url('/works?section=mine')}>
+      <div class="g-link-top"><span class="label on-ink-muted">NEXT PRODUCT</span><span class="g-arr" aria-hidden="true">→</span></div>
+      <div class="g-link-b"><span class="g-togo">Togo</span><span class="serif mist g-togo-s">A dog diary for the whole family.</span></div>
+    </a>
+    <a class="panel tone-brand r-surface pad-panel g-next-card g-link" href={url('/works?section=mine')}>
+      <div class="g-link-top"><span class="label mist">PROCESS</span><span class="g-arr brand" aria-hidden="true">→</span></div>
+      <Heading as="span" size="h2" a="How I work " b="with AI" class="g-ai" />
+    </a>
+  </section>
+
+  <Contact showAbout />
+</main>
+</Base>
+
+<style>
+  .g-sec { padding-top: var(--block-top); }
+  .gamut :global(.g-sec-m) { margin-top: var(--block-top); }
+
+  /* Hero */
+  .gamut :global(.g-hero) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 64px); align-items: center; overflow: hidden; }
+  @media (max-width: 899px) { .gamut :global(.g-hero) { grid-template-columns: minmax(0, 1fr); } }
+  .g-hero-text { display: flex; flex-direction: column; gap: clamp(18px, 3vh, 28px); }
+  .g-chips, .g-did { display: flex; gap: 8px; flex-wrap: wrap; }
+  .g-did { gap: 4px; }
+  .g-chips :global(.chip) { padding: 8px 12px; }
+  .g-h { font-weight: 500; font-size: var(--t-number-xl); line-height: .78; letter-spacing: -.07em; }
+  .g-slogan { font-size: var(--t-h3); line-height: 1.04; }
+  .g-did-chip { padding: 8px 13px; box-shadow: var(--ring-1) var(--on-dark-line); }
+  .g-hero-phone { display: flex; justify-content: center; }
+  .g-phone { width: min(100%, 300px); aspect-ratio: 9 / 19.5; border-radius: 48px; background: var(--ink); padding: 10px; box-shadow: var(--shadow-device), var(--glass-dark-shadow); transform: rotate(3deg); outline: 1px solid var(--on-dark-fill); }
+  .g-phone > div { width: 100%; height: 100%; border-radius: 38px; overflow: hidden; display: flex; }
+
+  /* Why / for whom */
+  .gamut :global(.g-why) { display: flex; flex-direction: column; gap: 18px; }
+  .g-why-p { font-size: var(--t-h5); font-weight: 500; line-height: 1.12; letter-spacing: -.03em; }
+  .gamut :global(.g-whom) { display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
+  .g-whom-p { font-size: var(--t-h4); line-height: 1.1; letter-spacing: 0; }
+
+  /* Try it */
+  .gamut :global(.g-try) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); align-items: center; }
+  @media (max-width: 899px) { .gamut :global(.g-try) { grid-template-columns: minmax(0, 1fr); } }
+  .g-try-text { display: flex; flex-direction: column; gap: 22px; }
+  .g-try-p { max-width: 46ch; }
+  .g-step { display: flex; flex-direction: column; gap: 10px; }
+  .g-sw { display: flex; gap: 8px; flex-wrap: wrap; }
+  .g-sw button { width: var(--control-min); height: var(--control-min); border-radius: var(--r-dot); box-shadow: var(--ring-1) var(--on-dark-line); }
+  .g-sw button[aria-checked='true'] { box-shadow: 0 0 0 3px var(--ink), 0 0 0 5px var(--white); }
+  .g-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .g-toggle { padding: 0 10px 0 22px; font-weight: 500; }
+  .g-knob { position: relative; width: 34px; height: 20px; border-radius: var(--r-pill); background: var(--muted-on-ink); transition: background var(--d-base) var(--ease); }
+  .g-knob i { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: var(--r-dot); background: var(--white); transition: left var(--d-base) var(--ease); }
+  .g-toggle[aria-pressed='true'] .g-knob { background: var(--cobalt); }
+  .g-toggle[aria-pressed='true'] .g-knob i { left: 16px; }
+  .g-private { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--r-tile); background: var(--on-dark-fill); font-size: var(--t-body); }
+  .g-lock { position: relative; width: 14px; height: 12px; margin-top: 5px; border-radius: var(--r-mark); background: var(--white); }
+  .g-lock i { position: absolute; left: 2px; top: -7px; width: 6px; height: 7px; border: 2px solid var(--white); border-bottom: 0; border-radius: 5px 5px 0 0; }
+  .g-try-phone { display: flex; justify-content: center; }
+  .g-feed-phone { width: min(100%, 380px); border-radius: 44px; background: var(--ink); padding: 10px; box-shadow: var(--shadow-device); outline: 1px solid var(--on-dark-fill); }
+  .g-feed { border-radius: 34px; background: var(--white); overflow: hidden; color: var(--ink); }
+  .g-profile { display: flex; align-items: center; gap: 12px; padding: 16px 16px 12px; }
+  .g-profile > i { width: 44px; height: 44px; border-radius: var(--r-dot); background: var(--grey-238); }
+  .g-profile > div { display: flex; flex-direction: column; gap: 2px; }
+  .g-prof-n { font-size: var(--t-body); font-weight: 500; }
+  .g-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
+  .g-future { position: relative; aspect-ratio: 4 / 5; background: var(--grey-238); box-shadow: var(--ring-15) var(--grey-210); transition: background var(--d-base) var(--ease); }
+  .g-future:hover { box-shadow: inset 0 0 0 2px var(--cobalt); }
+  .g-future span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--text-secondary); }
+  .g-future.set { box-shadow: none; }
+  .g-future.set span { opacity: 0; }
+  .g-post { position: relative; aspect-ratio: 4 / 5; display: flex; }
+  .g-post i { position: absolute; inset: 0; opacity: 0; transition: opacity var(--d-slow) var(--ease); pointer-events: none; }
+  [data-try].colours .g-post i { opacity: 1; }
+
+  /* Decisions */
+  .gamut :global(.g-dec) { display: flex; flex-direction: column; gap: 18px; padding: 12px 12px 24px; }
+  .g-dec-img { aspect-ratio: 4 / 3; border-radius: var(--r-inner); overflow: hidden; display: flex; }
+  .g-dec-t { display: flex; flex-direction: column; gap: 12px; padding: 0 12px; }
+  .g-dec-n { font-size: var(--t-body); color: var(--cobalt); }
+  .gamut :global(.tone-dark) .g-dec-n { color: var(--periwinkle); }
+  .g-dec-h { font-size: clamp(22px, 2vw, 28px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em; }
+  .g-dec-d { opacity: .85; }
+  .g-trade { display: flex; gap: 10px; align-items: baseline; padding-top: 10px; border-top: 1px solid var(--line); }
+
+  .gamut :global(.g-cut) { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 40px; margin-top: 12px; }
+  .g-cut-l { display: flex; flex-direction: column; gap: 10px; }
+  .g-cut-f { text-decoration: line-through; text-decoration-thickness: 2px; }
+
+  /* How I made it */
+  .gamut :global(.g-made) { display: flex; flex-direction: column; gap: 20px; }
+  .gamut :global(.g-made-c) { display: flex; flex-direction: column; gap: 14px; padding: 22px; }
+  .g-made-c.dark { border-radius: var(--r-inner); background: var(--on-dark-fill); }
+  .g-made-t { font-size: var(--t-h5); font-weight: 500; line-height: 1.08; letter-spacing: -.03em; }
+  .g-made-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .g-made-p { line-height: 1.55; max-width: 70ch; }
+
+  /* Craft */
+  .gamut :global(.g-craft) { display: flex; flex-direction: column; gap: 12px; padding: 10px 10px 18px; }
+  .g-craft-img { aspect-ratio: 1; border-radius: var(--r-inner); overflow: hidden; display: flex; }
+  .gamut :global(.g-craft > span) { padding: 0 10px; font-size: var(--t-ui-l); font-weight: 500; letter-spacing: -.015em; }
+
+  /* Status and next */
+  .gamut :global(.g-next-card) { display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 300px; }
+  .gamut :global(.g-status) { justify-content: flex-start; }
+  .gamut :global(.g-status .chip) { align-self: flex-start; padding: 8px 12px; }
+  .g-next-steps { display: flex; flex-direction: column; gap: 8px; }
+  .g-link { text-decoration: none; transition: transform var(--d-base) var(--ease); }
+  .g-link:hover { transform: translateY(-4px); color: var(--white); }
+  .g-link-top { display: flex; justify-content: space-between; align-items: center; }
+  .g-arr { width: var(--control-md); height: var(--control-md); border-radius: var(--r-dot); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-ui-l); background: var(--white); color: var(--ink); transform: rotate(-45deg); }
+  .g-arr.brand { color: var(--cobalt); }
+  .g-link-b { display: flex; flex-direction: column; gap: 8px; }
+  .g-togo { font-size: clamp(44px, 5vw, 80px); font-weight: 500; line-height: .85; letter-spacing: -.06em; }
+  .g-togo-s { font-size: 22px; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-try]')!;
+  const sws = [...root.querySelectorAll<HTMLButtonElement>('[data-sw]')];
+  const tiles = [...root.querySelectorAll<HTMLButtonElement>('[data-future]')];
+  const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
+  const planned = root.querySelector<HTMLElement>('[data-planned]')!;
+  let colour = 0;
+  const future: (number | null)[] = [null, null, null];
+
+  const paint = () => {
+    sws.forEach((b, i) => b.setAttribute('aria-checked', String(i === colour)));
+    tiles.forEach((t, i) => {
+      const f = future[i];
+      t.classList.toggle('set', f !== null);
+      t.style.background = f === null ? '' : sws[f].style.background;
+      t.setAttribute('aria-label', f === null ? 'Plan a post in the selected colour' : `Planned: ${sws[f].getAttribute('aria-label')}. Tap to clear`);
+    });
+    planned.textContent = String(future.filter((f) => f !== null).length);
+  };
+  const setColours = (on: boolean) => {
+    root.classList.toggle('colours', on);
+    toggle.setAttribute('aria-pressed', String(on));
+    toggle.querySelector('[data-toggle-label]')!.textContent = on ? 'Show photos' : 'Show colours';
+  };
+  sws.forEach((b, i) => b.addEventListener('click', () => { colour = i; paint(); }));
+  // Arrow keys move between colours, as in a radio group.
+  root.querySelector('[role=radiogroup]')!.addEventListener('keydown', (e) => {
+    const k = (e as KeyboardEvent).key;
+    if (k !== 'ArrowRight' && k !== 'ArrowLeft') return;
+    colour = (colour + (k === 'ArrowRight' ? 1 : sws.length - 1)) % sws.length;
+    paint();
+    sws[colour].focus();
+  });
+  tiles.forEach((t, i) => t.addEventListener('click', () => { future[i] = future[i] === null ? colour : null; paint(); }));
+  toggle.addEventListener('click', () => setColours(toggle.getAttribute('aria-pressed') !== 'true'));
+  root.querySelector('[data-reset]')!.addEventListener('click', () => { future.fill(null); setColours(false); paint(); });
+  paint();
+</script>

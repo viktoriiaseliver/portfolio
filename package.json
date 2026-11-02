@@ -8,6 +8,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@fontsource/arimo": "^5.3.0",
+    "@fontsource/instrument-sans": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
     "astro": "^7.4.1"
   }
 }

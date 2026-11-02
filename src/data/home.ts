@@ -25,4 +25,4 @@ export const homeApps = [
   { name: 'Togo', what: 'A dog diary for the whole family.', ph: 'Togo screen' },
   { name: 'Timer', what: 'Know when to leave, not just when it starts.', ph: 'Timer screen' }
 ];
-export const education = 'V. N. Karazin Kharkiv National University, BA · ECV Nice, Web and Graphic Design · ESDAC Nice, Design Produit';
+export const education = 'V. N. Karazin Kharkiv National University, BA · ECV, Web and Graphic Design · ESDAC, Design Produit';

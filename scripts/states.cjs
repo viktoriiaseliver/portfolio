@@ -11,7 +11,7 @@ const check = async (p, name) => { const r = await p.evaluate(probe); const bad 
   let p = await b.newPage({ viewport: { width: 390, height: 844 } });
   await p.goto(BASE); await p.click('[data-nav-toggle]'); await check(p, 'phone menu open');
   await p.keyboard.press('Escape'); out.push('menu closes on Esc: ' + await p.$eval('#nav-sheet', (e) => e.hidden));
-  await p.goto(BASE + 'work'); await p.click('[data-sheet-open]'); await p.waitForTimeout(450); await check(p, 'phone filter sheet');
+  await p.goto(BASE + 'works'); await p.click('[data-sheet-open]'); await p.waitForTimeout(450); await check(p, 'phone filter sheet');
   out.push('body scroll locked: ' + (await p.evaluate(() => document.body.style.overflow)));
   out.push('focus inside sheet: ' + (await p.evaluate(() => !!document.activeElement.closest('[data-sheet]'))));
   await p.keyboard.press('Escape'); out.push('sheet closes on Esc: ' + (await p.$eval('[data-sheet]', (e) => e.hidden)) + ', focus back on pill: ' + (await p.evaluate(() => !!document.activeElement.closest('[data-fpill]'))));
@@ -19,7 +19,7 @@ const check = async (p, name) => { const r = await p.evaluate(probe); const bad 
   await p.close();
   // Desktop states
   p = await b.newPage({ viewport: { width: 1440, height: 900 } });
-  await p.goto(BASE + 'work'); await p.click('[data-dd-btn]'); await check(p, 'industry dropdown');
+  await p.goto(BASE + 'works'); await p.click('[data-dd-btn]'); await check(p, 'industry dropdown');
   await p.keyboard.press('Escape'); out.push('dropdown closes on Esc: ' + (await p.$eval('[data-dd-list]', (e) => e.hidden)) + ', focus back: ' + (await p.evaluate(() => document.activeElement.hasAttribute('data-dd-btn'))));
   await p.click('.fbar [data-view-pick="index"]'); await check(p, 'index view');
   await p.click('.fbar [data-view-pick="cards"]'); await check(p, 'cards view');
@@ -27,7 +27,7 @@ const check = async (p, name) => { const r = await p.evaluate(probe); const bad 
   await p.close();
   // Reduced motion: nothing animates, nothing auto-advances
   p = await b.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
-  for (const path of ['', 'about', 'work/construction-crm', 'work/multi-asset-trading']) {
+  for (const path of ['', 'about', 'work/construction-crm', 'products/gamut']) {
     await p.goto(BASE + path); await p.waitForTimeout(200);
     const before = await p.evaluate(() => document.body.innerText);
     await p.waitForTimeout(3000);

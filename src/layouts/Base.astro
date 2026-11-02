@@ -1,4 +1,11 @@
 ---
+// Self-hosted fonts (no request to Google): Instrument Sans 400/500, Instrument Serif italic, Arimo 700.
+import '@fontsource/instrument-sans/400.css';
+import '@fontsource/instrument-sans/500.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource/arimo/700.css';
+import sans500 from '@fontsource/instrument-sans/files/instrument-sans-latin-500-normal.woff2?url';
+import sans400 from '@fontsource/instrument-sans/files/instrument-sans-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import Nav from '../components/organisms/Nav.astro';
 
@@ -9,8 +16,12 @@ interface Props {
   cta?: { label: string; href: string };
   progress?: boolean;
   depth?: boolean;
+  og?: string;   // file name in public/og/, 1200×630
 }
-const { title, description, nav, cta, progress, depth } = Astro.props;
+const { title, description, nav, cta, progress, depth, og = 'site.png' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(`${base}/og/${og}`, Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -22,11 +33,20 @@ const { title, description, nav, cta, progress, depth } = Astro.props;
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Viktoriia Seliverstova" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+  <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+  <link rel="sitemap" href={`${base}/sitemap.xml`} />
   <meta name="theme-color" content="#181d28" />
   <slot name="head" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@1&family=Arimo:wght@700&display=swap" />
+  <link rel="preload" href={sans500} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={sans400} as="font" type="font/woff2" crossorigin />
 </head>
 <body>
   <Nav links={nav} cta={cta} progress={progress} depth={depth} />
