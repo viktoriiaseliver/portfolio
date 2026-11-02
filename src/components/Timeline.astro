@@ -1,0 +1,92 @@
+---
+import { roles, TIMELINE_START } from '../data/timeline';
+
+const spanN = Math.max(1, new Date().getFullYear() + 1 - TIMELINE_START);
+const axis = Array.from({ length: spanN }, (_, i) => TIMELINE_START + i);
+const pct = (v: number) => (v / spanN) * 100 + '%';
+const rows = roles.map((e) => {
+  const end = e.end === e.start ? e.start + 1 : e.end;
+  const ys = Math.floor(e.start), ye = Math.floor(e.end);
+  const label = ys === ye ? String(ys) : end - e.start <= 2.5 ? `’${String(ys).slice(2)}–’${String(ye).slice(2)}` : `${ys}–${ye}`;
+  return { ...e, label, left: pct(e.start - TIMELINE_START), width: pct(end - e.start) };
+});
+const first = rows[0];
+---
+<div class="tl" data-timeline>
+  <div class="tl-inner">
+    <div class="tl-grid">
+      <span></span>
+      <div class="tl-axis" style={`grid-template-columns:repeat(${spanN},minmax(0,1fr))`}>{axis.map((y) => <span>{y}</span>)}</div>
+    </div>
+    {rows.map((e, i) => (
+      <button type="button" class:list={['tl-row', { on: i === 0 }]} data-i={i} data-dates={e.dates} data-role={e.role} data-company={e.company} data-line={e.line}>
+        <span class="tl-who"><span class="tl-role">{e.role}</span><span class="tl-co">{e.company}</span></span>
+        <span class="tl-track"><span class:list={['tl-bar', { lead: e.lead, tbc: e.toConfirm }]} style={`left:${e.left};width:${e.width}`}>{e.label}</span></span>
+      </button>
+    ))}
+    <div class="tl-grid tl-building">
+      <span class="muted tl-small">Building now</span>
+      <div class="tl-apps">
+        <span class="tl-app" title="Gamut">G</span><span class="tl-app" title="Togo">T</span><span class="tl-app" title="Timer">Ti</span>
+        <span class="label-s muted tl-apps-l">GAMUT · TOGO · TIMER<br />IN APP STORE REVIEW</span>
+      </div>
+    </div>
+    <div class="tl-detail" aria-live="polite">
+      <span class="label-s muted" data-tl-dates>{first.dates}</span>
+      <span class="tl-detail-t" data-tl-title>{first.role} · {first.company}</span>
+      <span class="tl-detail-l muted" data-tl-line hidden={!first.line}>{first.line}</span>
+    </div>
+    <div class="tl-legend label muted">
+      <span><i class="tl-key lead"></i>LEAD ROLE</span>
+      <span><i class="tl-key"></i>SENIOR / PRODUCT ROLE</span>
+      <span><i class="tl-key tbc"></i>TO CONFIRM</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tl { overflow-x: auto; border-radius: var(--r-card); background: var(--white); padding: clamp(16px, 2.6vw, 32px); scrollbar-width: thin; }
+  .tl-inner { min-width: 900px; display: flex; flex-direction: column; gap: 4px; }
+  .tl-grid { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 16px; }
+  .tl-axis { display: grid; font-size: var(--t-label); font-weight: 500; color: var(--text-muted); }
+  .tl-axis span { padding-left: 4px; border-left: 1px solid var(--grey-210); }
+  .tl-row { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 16px; align-items: center; width: calc(100% + 16px); min-height: 48px; padding: 4px 8px; margin: 0 -8px; border-radius: var(--r-tile); text-align: left; }
+  .tl-row.on { background: var(--grey-238); }
+  .tl-who { display: flex; flex-direction: column; gap: 1px; }
+  .tl-role { font-size: var(--t-body); font-weight: 500; letter-spacing: -.01em; }
+  .tl-co, .tl-small { font-size: var(--t-small); color: var(--text-muted); }
+  .tl-track { position: relative; display: block; height: 40px; }
+  .tl-bar { position: absolute; top: 0; bottom: 0; border-radius: var(--r-tile); background: var(--ink); color: var(--white); display: flex; align-items: center; padding: 0 8px; font-size: var(--t-label); font-weight: 500; white-space: nowrap; overflow: hidden; }
+  .tl-bar.lead { background: var(--cobalt); }
+  .tl-bar.tbc { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--orange); }
+  .tl-building { padding-top: 6px; }
+  .tl-building > span { align-self: center; }
+  .tl-apps { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+  .tl-app { width: 40px; height: 40px; border-radius: var(--r-tile); background: var(--cobalt); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-tile); font-weight: 700; font-size: var(--t-small); }
+  .tl-apps-l { line-height: 1.4; margin-left: 4px; }
+  .tl-detail { display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 16px; margin-top: 8px; border-radius: var(--r-inner); background: var(--grey-238); }
+  .tl-detail-t { font-size: var(--t-ui-l); font-weight: 500; }
+  .tl-detail-l { font-size: var(--t-body); }
+  .tl-legend { display: flex; gap: 20px; flex-wrap: wrap; padding-top: 14px; }
+  .tl-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .tl-key { width: 12px; height: 12px; border-radius: var(--r-mark); background: var(--ink); }
+  .tl-key.lead { background: var(--cobalt); }
+  .tl-key.tbc { background: transparent; box-shadow: inset 0 0 0 1.5px var(--orange); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-timeline]').forEach((tl) => {
+    const rows = [...tl.querySelectorAll<HTMLButtonElement>('.tl-row')];
+    const dates = tl.querySelector<HTMLElement>('[data-tl-dates]')!;
+    const title = tl.querySelector<HTMLElement>('[data-tl-title]')!;
+    const line = tl.querySelector<HTMLElement>('[data-tl-line]')!;
+    const pick = (r: HTMLButtonElement) => {
+      rows.forEach((x) => x.classList.toggle('on', x === r));
+      dates.textContent = r.dataset.dates!;
+      title.textContent = `${r.dataset.role} · ${r.dataset.company}`;
+      line.textContent = r.dataset.line!;
+      line.hidden = !r.dataset.line;
+    };
+    rows.forEach((r) => ['mouseenter', 'focus', 'click'].forEach((ev) => r.addEventListener(ev, () => pick(r))));
+  });
+</script>

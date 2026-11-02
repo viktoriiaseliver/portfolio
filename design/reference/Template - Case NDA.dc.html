@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts-local.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/effects.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/styles.css">
+<script src="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/_ds_bundle.js"></script>
+<style>html,body{margin:0;background:#fff}a,button{transition:background-color .15s cubic-bezier(.2,.8,.2,1),color .15s cubic-bezier(.2,.8,.2,1),box-shadow .15s cubic-bezier(.2,.8,.2,1),opacity .15s cubic-bezier(.2,.8,.2,1),transform .25s cubic-bezier(.2,.8,.2,1)}button:not(:disabled):active,a:active{transform:scale(.97)}button:disabled{cursor:not-allowed}button:focus-visible,a:focus-visible{outline:2px solid rgb(120,140,255);outline-offset:3px}html{scroll-padding-top:100px}a{color:rgb(15,20,154)}a:hover{color:rgb(24,29,40)}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="font-family:var(--font-display);color:rgb(24,29,40);text-wrap:pretty;-webkit-font-smoothing:antialiased">
+
+<nav style="position:fixed;top:10px;left:0;right:0;z-index:50;padding:0 clamp(10px,2vw,32px);pointer-events:none;transform:translateY({{ nv.y }});transition:transform .25s cubic-bezier(.2,.8,.2,1)">
+<div style="position:relative;max-width:1376px;margin:0 auto;padding:6px 6px 6px 20px;border-radius:120px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);box-sizing:border-box;display:flex;align-items:center;gap:4px;pointer-events:auto;overflow:hidden">
+<a href="Home.dc.html" style="display:block;line-height:44px;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:16px;font-weight:500;color:rgb(24,29,40);text-decoration:none;white-space:nowrap;margin-right:auto">Viktoriia Seliverstova</a>
+<sc-if value="{{ nv.wide }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" style="padding:12px 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;color:rgb(24,29,40);background:{{ n.bg }}" style-hover="background:rgba(24,29,40,.08)">{{ n.label }}</a></sc-for><a href="mailto:viktoriia.seliver@gmail.com?subject=20-minute%20walkthrough" style="padding:12px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px;text-decoration:none;white-space:nowrap">Book a 20-min call</a></sc-if>
+<sc-if value="{{ nv.narrow }}" hint-placeholder-val="{{ false }}"><button onClick="{{ nv.toggle }}" aria-expanded="{{ nv.open }}" style="flex-shrink:0;min-height:44px;padding:0 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px">{{ nv.btn }}</button></sc-if>
+<i aria-hidden="true" style="position:absolute;left:0;bottom:0;height:3px;width:{{ progress }}%;background:rgb(15,20,154)"></i>
+</div>
+<sc-if value="{{ nv.open }}" hint-placeholder-val="{{ false }}"><div style="max-width:1376px;margin:8px auto 0;padding:8px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.78));backdrop-filter:blur(24px) saturate(190%);-webkit-backdrop-filter:blur(24px) saturate(190%);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 1px rgba(24,29,40,.06),0 20px 48px rgba(24,29,40,.18);box-sizing:border-box;display:flex;flex-direction:column;gap:4px;pointer-events:auto"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" onClick="{{ nv.close }}" style="padding:16px 18px;border-radius:20px;font-size:20px;font-weight:500;letter-spacing:-.03em;text-decoration:none;color:rgb(24,29,40);background:{{ n.bg }}">{{ n.label }}</a></sc-for><a href="mailto:viktoriia.seliver@gmail.com?subject=20-minute%20walkthrough" onClick="{{ nv.close }}" style="margin-top:4px;padding:16px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:16px;text-align:center;text-decoration:none">Book a 20-min call</a></div></sc-if>
+</nav>
+
+<main style="max-width:1440px;margin:0 auto;padding:84px clamp(16px,2.8vw,40px) 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px">
+
+<section id="hero" data-screen-label="01 NDA hero" style="display:grid;grid-template-columns:repeat({{ L.two }},minmax(0,1fr));gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:clamp(420px,64vh,640px);padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff;box-sizing:border-box">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span style="padding:10px 18px;border-radius:120px;background:rgb(15,20,154);font-size:16px;font-weight:500">{{ c.industry }}</span><span style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:120px;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45);font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em"><i style="width:8px;height:8px;border-radius:50%;background:rgb(236,146,60)"></i>UNDER NDA</span></div>
+<div style="display:flex;flex-direction:column;gap:16px"><h1 style="margin:0;font-weight:500;font-size:clamp(30px,7vw,112px);line-height:.88;letter-spacing:-.055em">{{ c.title.a }}<span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.03em;color:rgb(215,221,236)">{{ c.title.b }}</span></h1><p style="margin:0;font-size:clamp(16px,1.5vw,22px);line-height:1.4;color:rgb(215,221,236);max-width:520px">{{ c.lead }}</p></div>
+<dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;border-top:1px solid rgba(255,255,255,.2);padding-top:16px"><sc-for list="{{ c.facts }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px"><dt style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">{{ f.k }}</dt><dd style="margin:0;font-size:16px">{{ f.v }}</dd></div></sc-for></dl>
+</div>
+<div aria-label="Product screens are under NDA; the structure is shown as a skeleton" style="position:relative;display:flex;flex-direction:column;gap:12px;min-height:clamp(320px,64vh,640px);padding:10px;border-radius:32px;background:{{ th.bg }};color:{{ th.fg }};box-sizing:border-box;transition:background .25s cubic-bezier(.2,.8,.2,1),color .25s cubic-bezier(.2,.8,.2,1)">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;opacity:.7">GHOST UI · REAL STRUCTURE, NO PIXELS</span><button onClick="{{ toggleTheme }}" aria-label="Toggle theme" style="display:inline-flex;align-items:center;gap:12px;min-height:44px;box-sizing:border-box;padding:6px 6px 6px 14px;border-radius:120px;font-size:14px;box-shadow:inset 0 0 0 1.5px currentColor">{{ th.label }}<span style="position:relative;display:inline-block;width:40px;height:24px;border-radius:120px;background:currentColor"><span style="position:absolute;top:4px;left:{{ th.knob }};width:16px;height:16px;border-radius:50%;background:{{ th.bg }};transition:left .15s cubic-bezier(.2,.8,.2,1)"></span></span></button></div>
+<div style="flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 4px"><sc-for list="{{ ghost.tiles }}" as="g" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:20px;background:{{ th.card }}"><i style="height:10px;width:60%;border-radius:4px;background:{{ th.bone }}"></i><i style="height:26px;width:40%;border-radius:4px;background:{{ th.shim }};background-size:200% 100%;animation:shimmer 2.4s linear infinite"></i></div></sc-for></div>
+<div style="flex:3;display:grid;grid-template-columns:2fr 1fr;gap:8px;padding:0 4px 4px">
+<div style="display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:20px;background:{{ th.card }}"><div style="display:flex;justify-content:space-between"><i style="height:10px;width:30%;border-radius:4px;background:{{ th.bone }}"></i><i style="height:10px;width:14%;border-radius:4px;background:{{ th.bone }}"></i></div><div style="flex:1;display:grid;grid-template-columns:repeat(24,1fr);gap:3px;align-items:end;min-height:120px"><sc-for list="{{ ghost.bars }}" as="b" hint-placeholder-count="24"><i style="height:{{ b.h }};border-radius:4px;background:{{ b.c }}"></i></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:20px;background:{{ th.card }}"><sc-for list="{{ ghost.rows }}" as="r" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid {{ th.rule }}"><i style="height:9px;width:{{ r.w }};border-radius:4px;background:{{ th.bone }}"></i><i style="height:9px;width:28px;border-radius:4px;background:{{ r.c }}"></i></div></sc-for></div>
+</div>
+</div>
+</section>
+
+<section id="scale" data-screen-label="02 Scale sheet" style="display:grid;grid-template-columns:repeat({{ L.four }},minmax(0,1fr));gap:12px">
+<sc-for list="{{ scale }}" as="s" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:{{ s.bg }};color:{{ s.fg }}">
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(22px,3.6vw,56px);line-height:1;letter-spacing:-.05em">{{ s.num }}</span><span style="font-size:16px;font-weight:500">{{ s.what }}</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ s.dots }}" as="d" hint-placeholder-count="6"><i style="width:14px;height:14px;border-radius:4px;background:{{ d.bg }}"></i></sc-for></div>
+</div></sc-for>
+</section>
+
+<section id="plate" data-screen-label="03 The plate" style="padding-top:clamp(40px,6vw,72px);display:flex;flex-direction:column;gap:12px">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">01 · WHAT IT DID</span>
+<div style="display:grid;grid-template-columns:repeat({{ L.two }},minmax(0,1fr));gap:12px">
+<sc-for list="{{ c.plates }}" as="p" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:300px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(15,20,154);color:#fff"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(215,221,236)">WHERE THE SCREENSHOT WOULD BE</span><p style="margin:0;font-weight:500;font-size:clamp(20px,2.6vw,40px);line-height:1.02;letter-spacing:-.045em">{{ p }}</p></div></sc-for>
+</div>
+</section>
+
+<section id="how" data-screen-label="04 How, not what" style="padding-top:clamp(40px,6vw,72px);display:flex;flex-direction:column;gap:12px">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">02 · HOW, NOT WHAT</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.95;letter-spacing:-.045em">My artefacts, <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">client content removed.</span></h2>
+<div style="display:grid;grid-template-columns:repeat({{ L.four }},minmax(0,1fr));gap:12px"><sc-for list="{{ artefacts }}" as="a" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:12px;padding:12px 12px 20px;border-radius:28px;background:rgb(238,238,238)"><div style="aspect-ratio:4/3;border-radius:20px;background:#fff;display:flex;flex-direction:column;gap:8px;padding:16px;box-sizing:border-box"><sc-for list="{{ a.lines }}" as="l" hint-placeholder-count="5"><i style="height:8px;width:{{ l.w }};border-radius:4px;background:{{ l.c }}"></i></sc-for></div><div style="display:flex;flex-direction:column;gap:4px;padding:0 8px"><span style="font-size:18px;font-weight:500">{{ a.t }}</span><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em;color:rgb(70,74,84)">{{ a.m }}</span></div></div></sc-for></div>
+</section>
+
+<section id="say" data-screen-label="05 What I can say" style="padding-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat({{ L.two }},minmax(0,1fr));gap:12px">
+<div style="display:flex;flex-direction:column;gap:16px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(172,173,178)">I CAN</span><div style="display:flex;flex-direction:column"><sc-for list="{{ c.can }}" as="x" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:clamp(16px,1.5vw,22px);line-height:1.3"><i style="width:18px;height:18px;border-radius:50%;background:rgb(120,220,150);align-self:center"></i><span>{{ x }}</span></div></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:16px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(238,238,238)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">I CAN'T</span><div style="display:flex;flex-direction:column"><sc-for list="{{ c.cant }}" as="x" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid rgb(210,210,212);font-size:clamp(16px,1.5vw,22px);line-height:1.3"><i style="width:18px;height:18px;border-radius:50%;background:rgb(236,146,60);align-self:center"></i><span>{{ x }}</span></div></sc-for></div><p style="margin:0;font-size:16px;line-height:1.45;color:rgb(70,74,84)">Want the originals? On a 20-minute call I walk through the real screens.</p></div>
+</section>
+
+<section id="log" data-screen-label="06 Release log" style="padding-top:clamp(40px,6vw,72px);display:flex;flex-direction:column;gap:12px">
+<span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(15,20,154)">03 · WHAT SHIPPED</span>
+<div style="display:flex;flex-direction:column;padding:8px clamp(20px,3vw,40px);border-radius:32px;background:rgb(238,238,238)"><sc-for list="{{ releases }}" as="r" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:{{ L.relCols }};gap:6px 24px;padding:16px 0;border-bottom:1px solid rgb(210,210,212);align-items:baseline"><span style="font-family:var(--font-display);font-weight:500;font-size:14px;color:rgb(70,74,84)">{{ r.date }}</span><span style="padding:4px 10px;border-radius:120px;background:{{ r.bg }};color:{{ r.fg }};font-family:var(--font-display);font-weight:500;font-size:12px;justify-self:start">{{ r.tag }}</span><span style="font-size:18px;font-weight:500">{{ r.text }}</span></div></sc-for></div>
+</section>
+
+<dc-import name="Contact" a="The real screens, " b="on a call." hint-size="100%,560px"></dc-import>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  // TEMPLATE for NDA cases: duplicate the file, edit CASE only. Bracketed values are placeholders.
+  static CASE = {
+    industry: 'Fintech', 
+    title: { a: 'Multi-asset ', b: 'trading.' },
+    lead: 'iOS, Android and web. Light and dark from one token set. Live on App Store and Google Play.',
+    facts: [{ k: 'ROLE', v: 'Product Designer' }, { k: 'COMPANY', v: 'Under NDA' }, { k: 'YEARS', v: '2023–2024' }, { k: 'PLATFORMS', v: 'iOS · Android · web' }],
+    scale: [{ num: '3', what: 'platforms', n: 3, of: 3 }, { num: '2', what: 'themes, 1 token set', n: 2, of: 2 }, { num: '[N]', what: 'screens designed', n: 0, of: 12 }, { num: '[N]', what: 'releases shipped', n: 0, of: 8 }],
+    plates: ['[What the main screen did for the user, in one sentence.]', '[What the second key flow did, in one sentence.]'],
+    artefacts: [{ t: 'Research plan', m: '[N] INTERVIEWS · [WEEKS]' }, { t: 'Token sheet', m: 'LIGHT + DARK · 1 SOURCE' }, { t: 'User journey', m: '[N] STEPS · [N] ROLES' }, { t: 'QA checklist', m: '[N] ITEMS · 3 PLATFORMS' }],
+    can: ['Role, scope and years', 'Decisions and the trade-offs behind them', 'How the light and dark themes share one token set', 'Platforms and where it is live'],
+    cant: ['Client and product names', 'Real screens and data', 'Business numbers'],
+    releases: [{ date: '[MM.YYYY]', tag: 'iOS', text: '[what shipped]' }, { date: '[MM.YYYY]', tag: 'Android', text: '[what shipped]' }, { date: '[MM.YYYY]', tag: 'Web', text: '[what shipped]' }, { date: '[MM.YYYY]', tag: 'Tokens', text: '[what shipped]' }]
+  };
+  state = { progress: 0, dark: true, w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  componentDidMount() {
+    this._navS = () => { const y = window.scrollY, d = y - (this._ly || 0); this._ly = y; const h = y > 240 && d > 6 ? true : (d < -6 || y < 240) ? false : !!this.state.navHidden; if (h !== !!this.state.navHidden) this.setState({ navHidden: h }); };
+    window.addEventListener('scroll', this._navS, { passive: true });
+    this._onScroll = () => { const d = document.documentElement; const p = Math.max(0, Math.min(100, d.scrollTop / Math.max(1, d.scrollHeight - d.clientHeight) * 100)); if (Math.abs(p - this.state.progress) > .5) this.setState({ progress: p }); };
+    this._onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('scroll', this._onScroll, { passive: true }); window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._navS); window.removeEventListener('scroll', this._onScroll); window.removeEventListener('resize', this._onResize); }
+  _nv() { const w = this.state.w || 1440, narrow = w < 640, m = !!this.state.menu; return { y: this.state.navHidden && !m ? 'calc(-100% - 16px)' : '0px', wide: !narrow, narrow, open: narrow && m, btn: m ? 'Close' : 'Menu', toggle: () => this.setState({ menu: !m }), close: () => this.setState({ menu: false }), links: [["Home.dc.html#work","Proof"],["Work.dc.html","All work"],["About.dc.html","About"]].map(([h, t]) => ({ href: h, label: t, bg: t === "" ? 'rgba(24,29,40,.08)' : 'transparent' })) }; }
+  renderVals() {
+    const C = Component.CASE, { progress, dark, w } = this.state;
+    const bp = w < 640 ? 'm' : w < 1100 ? 't' : 'd';
+    const INK = 'rgb(24,29,40)', COB = 'rgb(15,20,154)', PER = 'rgb(160,172,255)';
+    const th = dark
+      ? { bg: INK, fg: '#fff', card: 'rgba(255,255,255,.07)', bone: 'rgba(255,255,255,.22)', shim: 'linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.4),rgba(255,255,255,.18))', rule: 'rgba(255,255,255,.12)', label: 'Dark', knob: '20px' }
+      : { bg: 'rgb(238,238,238)', fg: INK, card: '#fff', bone: 'rgb(210,210,212)', shim: 'linear-gradient(90deg,rgb(210,210,212),rgb(238,238,238),rgb(210,210,212))', rule: 'rgb(238,238,238)', label: 'Light', knob: '4px' };
+    const H = [40, 55, 48, 70, 62, 80, 74, 58, 66, 90, 84, 72, 60, 76, 88, 95, 70, 64, 78, 86, 92, 80, 68, 74];
+    const styles = [[COB, '#fff'], ['rgb(238,238,238)', INK], ['rgb(238,238,238)', INK], ['rgb(238,238,238)', INK]];
+    return {
+      nv: this._nv(),
+      c: C, progress, th,
+      L: { two: bp === 'm' ? 1 : 2, four: bp === 'm' ? 1 : bp === 't' ? 2 : 4, relCols: bp === 'm' ? 'minmax(0,1fr)' : '110px 90px minmax(0,1fr)' },
+      toggleTheme: () => this.setState({ dark: !dark }),
+      ghost: {
+        tiles: [1, 2, 3].map(() => ({})),
+        bars: H.map((h, i) => ({ h: h + '%', c: i >= 18 ? COB : th.bone })),
+        rows: [70, 55, 80, 45, 65, 60].map((p, i) => ({ w: p + '%', c: i % 3 === 0 ? COB : th.bone }))
+      },
+      scale: C.scale.map((s, i) => ({ ...s, bg: styles[i % 4][0], fg: styles[i % 4][1], dots: Array.from({ length: s.of }, (_, j) => ({ bg: j < s.n ? (i === 0 ? PER : COB) : (i === 0 ? 'rgba(255,255,255,.18)' : 'rgba(15,20,154,.15)') })) })),
+      releases: C.releases.map(r => ({ ...r, bg: r.tag === 'Tokens' ? COB : INK, fg: '#fff' })),
+      artefacts: C.artefacts.map((a, i) => ({ ...a, lines: [[80, 0], [60, 1], [90, 0], [45, 0], [70, i % 2]].map(([wd, acc]) => ({ w: wd + '%', c: acc ? COB : 'rgb(210,210,212)' })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

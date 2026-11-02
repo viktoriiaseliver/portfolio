@@ -1,0 +1,106 @@
+/* Seliverstova portfolio — design tokens (final, Oct 2026).
+   Every value used on the site. Do not add new ones; map anything new to the nearest token. */
+:root {
+  /* Colour — by role */
+  --ink: rgb(24,29,40);            /* text, dark panels, primary button */
+  --cobalt: rgb(15,20,154);        /* brand panels, lead roles, results, contact */
+  --white: #fff;                   /* page, cards on grey */
+  --grey-238: rgb(238,238,238);    /* cards and panels on white */
+  --grey-210: rgb(210,210,212);    /* rules, empty image slots */
+  --text-muted: rgb(70,74,84);     /* secondary text on white — 7.6:1 */
+  --muted-on-ink: rgb(172,173,178);/* labels on ink only */
+  --mist: rgb(215,221,236);        /* secondary text on cobalt / ink */
+  --periwinkle: rgb(160,172,255);  /* data on dark, "designers" dots */
+  --peach: rgb(255,209,190);       /* sketchbook, lessons, illustration */
+  --orange: rgb(236,146,60);       /* warnings, to-confirm, lost context */
+  --green: rgb(120,220,150);       /* "available" status dot only */
+  --focus: rgb(120,140,255);       /* focus ring */
+
+  /* White on ink / cobalt */
+  --on-dark-fill: rgba(255,255,255,.1);
+  --on-dark-line: rgba(255,255,255,.2);
+  --on-dark-ring: rgba(255,255,255,.45);
+  --on-dark-glass: rgba(255,255,255,.72);
+  /* Ink on white */
+  --hover: rgba(24,29,40,.08);
+  --shadow-ink: rgba(24,29,40,.14);
+  --line: rgba(24,29,40,.22);
+  --scrim: rgba(24,29,40,.32);
+  --cobalt-tint: rgba(15,20,154,.08);
+  --cobalt-tint-strong: rgba(15,20,154,.3);
+
+  /* Type families (Google Fonts) */
+  --font-display: "Instrument Sans", system-ui, sans-serif;  /* everything, incl. labels */
+  --font-editorial: "Instrument Serif", Georgia, serif;      /* italic accent, second half of headlines */
+  --font-tile: "Arimo", "Helvetica Neue", Arial, sans-serif; /* numbers, 700 */
+  /* No mono font anywhere. */
+
+  /* Type scale — 15 sizes. Floor: 12px. */
+  --t-number-xl: clamp(64px,18vw,280px);   /* lh .82  ls -.085em  Arimo 700 */
+  --t-hero:      clamp(34px,8vw,132px);    /* lh .88  ls -.055em  500 */
+  --t-display:   clamp(30px,7vw,112px);    /* lh .88  ls -.055em  500 */
+  --t-h2:        clamp(26px,4.6vw,72px);   /* lh .95  ls -.045em  500 */
+  --t-number-l:  clamp(30px,4vw,64px);     /* lh 1    ls -.05em   Arimo 700 */
+  --t-h3:        clamp(22px,3.6vw,56px);   /* lh .95  ls -.045em  500 */
+  --t-h4:        clamp(20px,2.6vw,40px);   /* lh 1.05 ls -.03em   500 */
+  --t-h5:        clamp(18px,2vw,30px);     /* lh 1.1  ls -.03em   500 */
+  --t-lead:      clamp(16px,1.5vw,22px);   /* lh 1.4  ls -.01em   400 */
+  --t-number-s:  20px;                     /* Arimo 700 */
+  --t-ui-l:      18px;                     /* 500 */
+  --t-body:      16px;                     /* lh 1.45, buttons */
+  --t-small:     14px;                     /* lh 1.45 */
+  --t-label:     12px;                     /* 500, UPPERCASE, ls +.06em */
+  --t-label-s:   12px;                     /* 500, UPPERCASE, ls +.04em */
+
+  /* Radii — 7 */
+  --r-mark: 4px;     /* bars, data marks */
+  --r-tile: 12px;    /* small tiles, swatches, tabs inside lists */
+  --r-inner: 20px;   /* inner panels, image slots */
+  --r-card: 28px;    /* cards */
+  --r-surface: 32px; /* surfaces, heroes */
+  --r-pill: 120px;   /* buttons, chips, nav */
+  --r-dot: 50%;
+
+  /* Gaps — 4-point */
+  --g-2: 2px; --g-4: 4px; --g-6: 6px; --g-8: 8px; --g-12: 12px;
+  --g-16: 16px; --g-24: 24px; --g-32: 32px; --g-40: 40px; --g-48: 48px;
+
+  /* Layout */
+  --page-x: clamp(16px,2.8vw,40px);
+  --page-max: 1440px;
+  --nav-max: 1376px;
+  --panel-pad: clamp(20px,3vw,40px);
+  --card-pad: 24px;
+  --section-top: clamp(64px,10vw,128px);
+  --block-top: clamp(40px,6vw,72px);
+  --content-top: 84px;   /* below the fixed nav */
+  /* Breakpoints: >=1100 desktop · 640–1099 tablet · <640 phone. Check down to 320. */
+
+  /* Motion — one curve, four speeds */
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --d-fast: .15s;  /* hover, colour, focus */
+  --d-base: .25s;  /* press, tabs, menu, switches, nav hide */
+  --d-slow: .4s;   /* bars grow, sheet slides, cross-fade */
+  --d-morph: .6s;  /* diagram morph only */
+
+  /* Glass — floating things only (nav, menu sheet, filter bar, filter pill, chips over photos) */
+  --glass-light-bg: linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));
+  --glass-light-filter: blur(20px) saturate(190%) brightness(1.04);
+  --glass-light-shadow: inset 0 1px 1px rgba(255,255,255,.95), inset 0 -1px 1px rgba(255,255,255,.35), inset 0 0 0 1px rgba(255,255,255,.45), 0 0 0 1px rgba(24,29,40,.06), 0 12px 32px rgba(24,29,40,.12);
+  --glass-sheet-bg: linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.95));
+  --glass-sheet-filter: blur(24px) saturate(190%);
+  --glass-sheet-shadow: inset 0 1px 1px rgba(255,255,255,.95), inset 0 0 0 1px rgba(255,255,255,.5), 0 0 0 1px rgba(24,29,40,.06), 0 20px 48px rgba(24,29,40,.18);
+  --glass-dark-bg: linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08));
+  --glass-dark-filter: blur(20px) saturate(180%);
+  --glass-dark-shadow: inset 0 1px 1px rgba(255,255,255,.45), inset 0 0 0 1px rgba(255,255,255,.18), 0 8px 24px rgba(0,0,0,.18);
+
+  /* Shadows */
+  --shadow-lift: 0 16px 40px rgba(24,29,40,.14);   /* card hover */
+  --shadow-device: 0 4.2px 11.2px rgba(0,0,0,.25); /* phone frames */
+}
+
+a, button { transition: background-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease), box-shadow var(--d-fast) var(--ease), opacity var(--d-fast) var(--ease), transform var(--d-base) var(--ease); }
+button:not(:disabled):active, a:active { transform: scale(.97); }
+button:disabled { cursor: not-allowed; opacity: .4; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

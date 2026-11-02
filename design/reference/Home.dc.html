@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/fonts-local.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/tokens/effects.css">
+<link rel="stylesheet" href="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/styles.css">
+<script src="_ds/seliverstova-portfolio-design-system-0efa5974-b8e8-4c9a-96dd-c9a4cf6d650d/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>html,body{margin:0;background:#fff}a,button{transition:background-color .15s cubic-bezier(.2,.8,.2,1),color .15s cubic-bezier(.2,.8,.2,1),box-shadow .15s cubic-bezier(.2,.8,.2,1),opacity .15s cubic-bezier(.2,.8,.2,1),transform .25s cubic-bezier(.2,.8,.2,1)}button:not(:disabled):active,a:active{transform:scale(.97)}button:disabled{cursor:not-allowed}button:focus-visible,a:focus-visible{outline:2px solid rgb(120,140,255);outline-offset:3px}a{color:rgb(15,20,154)}a:hover{color:rgb(24,29,40)}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+</helmet>
+<div style="font-family:var(--font-display);color:rgb(24,29,40);text-wrap:pretty;-webkit-font-smoothing:antialiased">
+<nav style="position:fixed;top:10px;left:0;right:0;z-index:50;padding:0 clamp(10px,2vw,32px);pointer-events:none;transform:translateY({{ nv.y }});transition:transform .25s cubic-bezier(.2,.8,.2,1)">
+<div style="position:relative;max-width:1376px;margin:0 auto;padding:6px 6px 6px 20px;border-radius:120px;background:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.42));backdrop-filter:blur(20px) saturate(190%) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(190%) brightness(1.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(24,29,40,.06),0 12px 32px rgba(24,29,40,.12);box-sizing:border-box;display:flex;align-items:center;gap:4px;pointer-events:auto;overflow:hidden">
+<a href="#top" style="display:block;line-height:44px;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:16px;font-weight:500;color:rgb(24,29,40);text-decoration:none;white-space:nowrap;margin-right:auto">Viktoriia Seliverstova</a>
+<sc-if value="{{ nv.wide }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" style="padding:12px 14px;border-radius:120px;font-size:14px;text-decoration:none;white-space:nowrap;color:rgb(24,29,40);background:{{ n.bg }}" style-hover="background:rgba(24,29,40,.08)">{{ n.label }}</a></sc-for><a href="#contact" style="padding:12px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px;text-decoration:none;white-space:nowrap">Contact</a></sc-if>
+<sc-if value="{{ nv.narrow }}" hint-placeholder-val="{{ false }}"><button onClick="{{ nv.toggle }}" aria-expanded="{{ nv.open }}" style="flex-shrink:0;min-height:44px;padding:0 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:14px">{{ nv.btn }}</button></sc-if>
+</div>
+<sc-if value="{{ nv.open }}" hint-placeholder-val="{{ false }}"><div style="max-width:1376px;margin:8px auto 0;padding:8px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.78));backdrop-filter:blur(24px) saturate(190%);-webkit-backdrop-filter:blur(24px) saturate(190%);box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 1px rgba(24,29,40,.06),0 20px 48px rgba(24,29,40,.18);box-sizing:border-box;display:flex;flex-direction:column;gap:4px;pointer-events:auto"><sc-for list="{{ nv.links }}" as="n" hint-placeholder-count="3"><a href="{{ n.href }}" onClick="{{ nv.close }}" style="padding:16px 18px;border-radius:20px;font-size:20px;font-weight:500;letter-spacing:-.03em;text-decoration:none;color:rgb(24,29,40);background:{{ n.bg }}">{{ n.label }}</a></sc-for><a href="#contact" onClick="{{ nv.close }}" style="margin-top:4px;padding:16px 18px;border-radius:120px;background:rgb(24,29,40);color:#fff;font-size:16px;text-align:center;text-decoration:none">Contact</a></div></sc-if>
+</nav>
+<main id="top" style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,2.8vw,40px) 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px">
+
+<section id="hero" data-screen-label="01 Hero" style="min-height:100svh;box-sizing:border-box;padding:84px 0 0;display:flex;flex-direction:column;gap:12px">
+<div style="flex:1;border-radius:32px;background:rgb(24,29,40);color:#fff;padding:clamp(20px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:40px;box-sizing:border-box;overflow:hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<span style="padding:10px 18px;border-radius:120px;background:rgb(15,20,154);font-size:16px;font-weight:500">Senior Product Designer</span>
+<span style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:16px"><i style="width:9px;height:9px;border-radius:50%;background:rgb(120,220,150);animation:pulse 2.4s ease-in-out infinite"></i><span>Available now · {{ location }}</span></span>
+</div>
+<h1 style="margin:0;font-weight:500;font-size:clamp(30px,7vw,112px);line-height:.92;letter-spacing:-.05em;max-width:1300px;text-wrap:balance">{{ head.a }}<span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.03em;color:rgb(215,221,236)">{{ head.b }}</span></h1>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:12px"><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><sc-for list="{{ peopleA }}" as="p" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:20px 22px;border-radius:20px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgb(172,173,178)">{{ p.c }}</span><span style="font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.05;letter-spacing:-.03em">{{ p.who }}</span></div></sc-for></div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><sc-for list="{{ peopleB }}" as="p" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:20px 22px;border-radius:20px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgb(172,173,178)">{{ p.c }}</span><span style="font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.05;letter-spacing:-.03em">{{ p.who }}</span></div></sc-for></div></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:16px 40px;flex-wrap:wrap;padding:14px 4px 0">
+<p style="margin:0;font-size:clamp(16px,1.5vw,22px);line-height:1.35;letter-spacing:-.01em;max-width:720px">I take products from research to release, and I stay until they work in real use.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><a href="#work" style="padding:16px 26px;border-radius:120px;background:rgb(15,20,154);color:#fff;font-size:16px;text-decoration:none" style-hover="opacity:.9">See case studies</a><a href="#" style="padding:16px 22px;border-radius:120px;color:rgb(24,29,40);font-size:16px;text-decoration:none;box-shadow:inset 0 0 0 1.5px rgb(24,29,40)" style-hover="background:rgb(24,29,40);color:#fff">Download CV</a></div>
+</div>
+</section>
+
+<section id="facts" data-screen-label="02 Quick facts" style="padding-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">9</span><span style="font-size:18px;font-weight:500">years</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:3px;height:28px"><sc-for list="{{ years }}" as="y" hint-placeholder-count="9"><i style="flex:1;border-radius:4px;background:{{ y.bg }}"></i></sc-for></div><div style="display:flex;justify-content:space-between;font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(70,74,84)"><span>2017</span><span style="color:rgb(15,20,154)">leading since 2023</span><span>2026</span></div></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">4</span><span style="font-size:18px;font-weight:500">designers led</span></div>
+<div style="display:flex;align-items:center;gap:8px"><i style="width:44px;height:44px;border-radius:50%;background:rgb(15,20,154);box-shadow:0 0 0 4px rgb(238,238,238),0 0 0 6px rgb(15,20,154)"></i><i style="width:16px;height:2px;background:rgb(172,173,178)"></i><i style="width:36px;height:36px;border-radius:50%;background:rgb(24,29,40)"></i><i style="width:36px;height:36px;border-radius:50%;background:rgb(24,29,40)"></i><i style="width:36px;height:36px;border-radius:50%;background:rgb(24,29,40)"></i><i style="width:36px;height:36px;border-radius:50%;background:rgb(24,29,40)"></i></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">7</span><span style="font-size:18px;font-weight:500">industries</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ markets }}" as="m" hint-placeholder-count="7"><span style="padding:7px 11px;border-radius:120px;background:#fff;font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em">{{ m }}</span></sc-for></div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border-radius:28px;background:rgb(238,238,238)">
+<span style="font-size:18px;font-weight:500">Languages</span>
+<div style="display:flex;flex-direction:column;gap:12px"><sc-for list="{{ langs }}" as="l" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:84px minmax(0,1fr) 54px;gap:12px;align-items:center;font-size:14px"><span>{{ l.n }}</span><div style="height:8px;border-radius:12px;background:#fff;overflow:hidden"><div style="height:100%;border-radius:12px;background:rgb(15,20,154);width:{{ l.w }}"></div></div><span style="font-family:var(--font-display);font-weight:500;font-size:12px;text-align:right">{{ l.lv }}</span></div></sc-for></div>
+</div>
+</section>
+
+<section id="work" data-screen-label="03 Proof" style="padding-top:clamp(64px,10vw,128px);display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding:0 4px"><h2 style="margin:0;font-weight:500;font-size:clamp(26px,4.6vw,72px);line-height:.95;letter-spacing:-.045em">Proof, <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">not adjectives.</span></h2><a href="Work.dc.html" style="display:inline-flex;align-items:center;min-height:44px;font-size:16px;text-decoration:none">All 44 works →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:12px">
+
+<a href="#work" style="display:flex;flex-direction:column;border-radius:32px;overflow:hidden;background:rgb(24,29,40);color:#fff;text-decoration:none;min-height:520px" style-hover="box-shadow:0 16px 40px rgba(24,29,40,.22)">
+<div style="flex:1;min-height:220px;background:url(assets/work/19.jpg) center/cover no-repeat rgb(210,210,212)"></div>
+<div style="display:flex;flex-direction:column;gap:16px;padding:26px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:grid;grid-template-columns:64px minmax(0,1fr) 72px;gap:12px;align-items:center"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(172,173,178)">BEFORE</span><i style="height:20px;border-radius:4px;background:rgba(255,255,255,.2)"></i><span style="font-family:var(--font-tile);font-weight:700;font-size:20px;text-align:right">15 min</span></div>
+<div style="display:grid;grid-template-columns:64px minmax(0,1fr) 72px;gap:12px;align-items:center"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(172,173,178)">AFTER</span><div><i style="display:block;width:20%;height:20px;border-radius:4px;background:rgb(120,140,255)"></i></div><span style="font-family:var(--font-tile);font-weight:700;font-size:20px;text-align:right">3 min</span></div>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap"><span style="font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.03em;max-width:420px">To process a traffic violation</span><span style="font-size:14px;color:rgb(215,221,236)">Field app for officers →</span></div>
+</div></a>
+
+<a href="#work" style="display:flex;flex-direction:column;border-radius:32px;overflow:hidden;background:rgb(15,20,154);color:#fff;text-decoration:none;min-height:520px" style-hover="box-shadow:0 16px 40px rgba(15,20,154,.3)">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:26px 26px 0">
+<span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(34px,8vw,132px);line-height:.85;letter-spacing:-.055em">4 weeks</span>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px"><sc-for list="{{ weeks }}" as="w" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:8px"><i style="height:44px;border-radius:12px;background:rgba(255,255,255,{{ w.o }})"></i><span style="font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(215,221,236)">{{ w.t }}</span></div></sc-for></div>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;padding:26px"><span style="font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.03em;max-width:420px">From concept to launch, in the middle of a lockdown</span><span style="font-size:14px;color:rgb(215,221,236)">Delivery platform · 100+ restaurants</span></div>
+</a>
+
+<a href="#work" style="display:flex;flex-direction:column;border-radius:32px;overflow:hidden;background:rgb(238,238,238);color:rgb(24,29,40);text-decoration:none;min-height:520px" style-hover="box-shadow:0 16px 40px rgba(24,29,40,.14)">
+<div style="flex:1;min-height:220px;background:url(assets/work/01.jpg) center/cover no-repeat rgb(210,210,212)"></div>
+<div style="display:flex;flex-direction:column;gap:16px;padding:26px">
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><span style="font-family:var(--font-tile);font-weight:700;font-size:clamp(30px,4vw,64px);line-height:1;letter-spacing:-.05em">−40%</span><div style="display:flex;gap:4px"><sc-for list="{{ ten }}" as="t" hint-placeholder-count="10"><i style="width:18px;height:30px;border-radius:4px;background:{{ t.bg }}"></i></sc-for></div></div>
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap"><span style="font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.03em;max-width:420px">less time on core tasks</span><span style="font-size:14px;color:rgb(70,74,84)">IWMS · warehouse teams →</span></div>
+</div></a>
+
+<a href="#work" style="display:flex;flex-direction:column;border-radius:32px;overflow:hidden;background:#fff;color:rgb(24,29,40);text-decoration:none;min-height:520px;box-shadow:inset 0 0 0 1px rgb(172,173,178)" style-hover="box-shadow:inset 0 0 0 1px rgb(24,29,40)">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:26px 26px 0">
+<div style="display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:4px"><sc-for list="{{ grid }}" as="g" hint-placeholder-count="100"><i style="aspect-ratio:1;border-radius:4px;background:{{ g.bg }}"></i></sc-for></div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;font-family:var(--font-display);font-weight:500;font-size:12px;color:rgb(70,74,84)"><span style="display:inline-flex;align-items:center;gap:6px"><i style="width:10px;height:10px;border-radius:4px;background:rgb(15,20,154)"></i>87% COMPONENT REUSE ACROSS 3 MARKETS</span><span>US · DE · AE</span></div>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;padding:26px"><span style="font-size:clamp(18px,2vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.03em;max-width:420px"><span style="font-family:var(--font-tile);font-weight:700">400+</span> components in 1 design system across the US, Germany and the UAE</span><span style="font-size:14px;color:rgb(70,74,84)">OOKA →</span></div>
+</a>
+</div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px;padding:28px clamp(20px,3vw,40px);border-radius:28px;background:rgb(238,238,238)"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgb(70,74,84)">Products I designed are used at</span><div style="display:flex;flex-wrap:wrap;gap:12px 40px;align-items:baseline"><span style="font-size:clamp(20px,2.6vw,40px);font-weight:500;letter-spacing:-.045em">JW Marriott Hotels</span><span style="font-size:clamp(20px,2.6vw,40px);font-weight:700;letter-spacing:-.03em;font-family:var(--font-tile)">Metro Cash &amp; Carry</span></div></div>
+</section>
+
+<section id="how" data-screen-label="04 Hand me / Engineers" style="padding-top:clamp(64px,10vw,128px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(15,20,154);color:#fff">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgb(215,221,236)">What you can hand me</span><h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.98;letter-spacing:-.045em">A whole <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">product area.</span></h2></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 56px;gap:12px;align-items:stretch">
+<div style="display:flex;flex-direction:column;gap:6px"><sc-for list="{{ layers }}" as="l" hint-placeholder-count="5"><div style="padding:13px 16px;border-radius:12px;background:rgba(255,255,255,{{ l.o }});font-size:18px;font-weight:500;letter-spacing:-.01em">{{ l.t }}</div></sc-for></div>
+<div style="display:flex;align-items:center;justify-content:center;border-radius:12px;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em">1 DESIGNER</span></div>
+</div>
+<p style="margin:0;font-size:16px;line-height:1.45;color:rgb(215,221,236)">Last role: the only designer on an AI meeting assistant. Before that: led a team of 4 designers on enterprise and government systems for a Swedish software company.</p>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(24,29,40);color:#fff">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgb(172,173,178)">How I work with engineers</span><h2 style="margin:0;font-weight:500;font-size:clamp(22px,3.6vw,56px);line-height:.98;letter-spacing:-.045em">My designs <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">get built.</span></h2></div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ pipe }}" as="s" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-tile);font-weight:700;font-size:14px;background:{{ s.dot }};color:#fff">{{ s.n }}</span><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)"><span style="font-size:18px;font-weight:500;margin-right:6px">{{ s.t }}</span><sc-for list="{{ s.chips }}" as="c" hint-placeholder-count="0"><span style="padding:5px 10px;border-radius:120px;background:rgba(255,255,255,.1);font-family:var(--font-display);font-weight:500;font-size:12px">{{ c }}</span></sc-for></div></div></sc-for>
+</div>
+<p style="margin:0;font-size:16px;line-height:1.45;color:rgb(172,173,178)">I ship my own iOS apps with Claude Code and Cursor, so I design with the build in mind.</p>
+</div>
+</section>
+
+<section id="apps" data-screen-label="05 My apps" style="padding-top:clamp(64px,10vw,128px);display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:0 4px"><h2 style="margin:0;font-weight:500;font-size:clamp(26px,4.6vw,72px);line-height:.95;letter-spacing:-.045em">Designed it. <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">Built it.</span></h2><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.06em;color:rgb(70,74,84)">3 IOS APPS · SWIFTUI · CLAUDE CODE · CURSOR</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px">
+<sc-for list="{{ apps }}" as="a" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:16px;padding:clamp(20px,3vw,40px);border-radius:32px;background:rgb(238,238,238);align-items:center">
+<div style="width:min(100%,240px);aspect-ratio:9/19;border-radius:40px;background:rgb(24,29,40);padding:9px;box-sizing:border-box;box-shadow:0 4.2px 11.2px rgba(0,0,0,.25)"><div style="width:100%;height:100%;border-radius:32px;overflow:hidden;display:flex;background:rgb(210,210,212)"><image-slot id="{{ a.slot }}" placeholder="{{ a.ph }}" style="flex:1"></image-slot></div></div>
+<div style="align-self:stretch;display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:clamp(18px,2vw,30px);font-weight:500;letter-spacing:-.03em">{{ a.name }}</span><span style="font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.04em;color:rgb(70,74,84)">IN APP STORE REVIEW</span></div><span style="font-size:16px;line-height:1.4;color:rgb(70,74,84)">{{ a.what }}</span></div>
+</div></sc-for>
+</div>
+</section>
+
+<section id="experience" data-screen-label="06 Experience" style="padding-top:clamp(64px,10vw,128px);display:flex;flex-direction:column;gap:24px">
+<h2 style="margin:0;padding:0 4px;font-weight:500;font-size:clamp(26px,4.6vw,72px);line-height:.95;letter-spacing:-.045em">Nine years <span style="font-family:var(--font-editorial);font-weight:400;font-style:italic;letter-spacing:-.02em">on one line.</span></h2>
+<div style="padding:12px;border-radius:32px;background:rgb(238,238,238)"><dc-import name="Timeline" hint-size="100%,640px"></dc-import></div>
+<p style="margin:0;padding:0 4px;font-size:16px;line-height:1.5;color:rgb(70,74,84)">V. N. Karazin Kharkiv National University, BA · ECV Nice, Web and Graphic Design · ESDAC Nice, Design Produit</p>
+</section>
+
+<dc-import name="Contact" status="Available now · {{ location }}" show-about="{{ true }}" min-h="80svh" hint-size="100%,640px"></dc-import>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;firstSentence&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A — People in hard conditions&quot;,&quot;B — Blank page to release&quot;,&quot;C — Complex to clear&quot;],&quot;default&quot;:&quot;A — People in hard conditions&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;location&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Remote across Europe&quot;,&quot;Remote or hybrid on the Riviera&quot;],&quot;default&quot;:&quot;Remote across Europe&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { active: '', menu: false, w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  componentDidMount() {
+    this._navS = () => { const y = window.scrollY, d = y - (this._ly || 0); this._ly = y; const h = y > 240 && d > 6 ? true : (d < -6 || y < 240) ? false : !!this.state.navHidden; if (h !== !!this.state.navHidden) this.setState({ navHidden: h }); };
+    window.addEventListener('scroll', this._navS, { passive: true });
+    this._rs = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this._rs);
+    this._io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) this.setState({ active: e.target.id }); }), { rootMargin: '-45% 0px -45% 0px' });
+    setTimeout(() => document.querySelectorAll('main section[id]').forEach(s => this._io.observe(s)), 50);
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._navS); this._io && this._io.disconnect(); }
+  _nv() { const w = this.state.w || 1440, narrow = w < 640, m = !!this.state.menu; return { y: this.state.navHidden && !m ? 'calc(-100% - 16px)' : '0px', wide: !narrow, narrow, open: narrow && m, btn: m ? 'Close' : 'Menu', toggle: () => this.setState({ menu: !m }), close: () => this.setState({ menu: false }), links: [["#work","Proof"],["Work.dc.html","All work"],["About.dc.html","About"]].map(([h, t]) => ({ href: h, label: t, bg: t === "Proof" ? 'rgba(24,29,40,.08)' : 'transparent' })) }; }
+  renderVals() {
+    const HEADS = {
+      'A — People in hard conditions': { a: 'I design software for people who ', b: 'can\u2019t afford to fight it.' },
+      'B — Blank page to release': { a: 'I take complex products from a blank page ', b: 'to release.' },
+      'C — Complex to clear': { a: 'I turn complicated workflows into software ', b: 'people pick up with little or no training.' }
+    };
+    const head = HEADS[this.props.firstSentence] || HEADS['A — People in hard conditions'];
+    const location = (this.props.location ?? 'Remote across Europe') === 'Remote or hybrid on the Riviera' ? 'Remote across Europe or hybrid on the French Riviera' : 'Remote across Europe';
+    const act = this.state.active;
+    const NAV = [['work', 'Proof'], ['how', 'How I work'], ['apps', 'My apps'], ['experience', 'Experience'], ['Work.dc.html', 'All work'], ['About.dc.html', 'About']];
+    const COB = 'rgb(15,20,154)', INK = 'rgb(24,29,40)';
+    const EXP = [
+      [2017, 2019, 'Designer', 'Design studio', 0],
+      [2019, 2023, 'UX/UI and Graphic Designer', 'Techstack Ltd', 0],
+      [2022, 2023, 'Product Designer', 'OOKA Technologies', 0],
+      [2023, 2023, 'UX/UI Design Team Lead', 'PokerMatch', 1],
+      [2023, 2024, 'Product Designer', 'Multi-asset trading platform', 0],
+      [2024, 2024, 'UX/UI Design Team Lead', 'Develit AB, Sweden', 1],
+      [2023, 2025, 'Senior UX/UI Designer', 'One Discovery', 0],
+      [2025, 2026, 'Head Product Designer', 'AI meeting assistant', 1]
+    ];
+    const fmt = (s, e) => { const a = Math.floor(s), b = Math.floor(e); if (a === b) return String(a); return (e - s) < 1.6 ? '’' + String(a).slice(2) + '–’' + String(b).slice(2) : a + '–' + b; };
+    return {
+      nv: this._nv(),
+      head, location,
+      nav: NAV.map(n => ({ href: n[0].includes('.') ? n[0] : '#' + n[0], label: n[1], bg: act === n[0] ? 'rgba(24,29,40,.08)' : 'transparent' })),
+      peopleA: [
+        { c: 'In gloves', who: 'Warehouse and site teams' },
+        { c: 'On the road', who: 'Traffic officers' }
+      ],
+      peopleB: [
+        { c: 'Weak internet at sea', who: 'Ship crews' },
+        { c: 'Mid-lockdown', who: 'Restaurant staff' }
+      ],
+      years: Array.from({ length: 9 }, (_, i) => ({ bg: i >= 6 ? COB : 'rgb(172,173,178)' })),
+      markets: ['Operations & government', 'Payments & iGaming', 'E-commerce', 'Hospitality', 'Healthcare', 'HR tech', 'Media & web'],
+      langs: [{ n: 'English', w: '100%', lv: 'C2' }, { n: 'French', w: '50%', lv: 'B1' }, { n: 'Ukrainian', w: '100%', lv: 'NATIVE' }],
+      weeks: [{ t: 'W1 CONCEPT', o: '.25' }, { t: 'W2', o: '.45' }, { t: 'W3', o: '.7' }, { t: 'W4 LAUNCH', o: '1' }],
+      ten: Array.from({ length: 10 }, (_, i) => ({ bg: i < 6 ? COB : 'rgba(15,20,154,.15)' })),
+      grid: Array.from({ length: 100 }, (_, i) => ({ bg: i < 87 ? COB : 'rgb(210,210,212)' })),
+      layers: ['Brand', 'Website', 'Onboarding', 'Design system', 'Product UI'].map((t, i) => ({ t, o: (0.1 + i * 0.06).toFixed(2) })),
+      pipe: [
+        { n: '01', t: 'Design', chips: ['Figma'], dot: 'rgba(255,255,255,.14)' },
+        { n: '02', t: 'Hand off to', chips: ['Vue.js', 'React', 'SwiftUI'], dot: 'rgba(255,255,255,.14)' },
+        { n: '03', t: 'Review the build', chips: ['Design QA'], dot: 'rgba(255,255,255,.14)' },
+        { n: '04', t: 'Release', chips: [], dot: COB }
+      ],
+      apps: [
+        { name: 'Gamut', what: 'Plan your palette, not just your posts.', slot: 'app-gamut', ph: 'Gamut screen' },
+        { name: 'Togo', what: 'A dog diary for the whole family.', slot: 'app-togo', ph: 'Togo screen' },
+        { name: 'Timer', what: 'Know when to leave, not just when it starts.', slot: 'app-timer', ph: 'Timer screen' }
+      ],
+      axis: Array.from({ length: 9 }, (_, i) => String(2017 + i)),
+      exp: EXP.map(([s, e, r, c, lead]) => { const end = e === s ? s + 1 : e; return { r, c, y: e === s ? String(s) : ((end - s) < 2 ? '’' + String(s).slice(2) + '–’' + String(e).slice(2) : s + '–' + e), left: ((s - 2017) / 9 * 100) + '%', width: ((end - s) / 9 * 100) + '%', bg: lead ? COB : INK }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

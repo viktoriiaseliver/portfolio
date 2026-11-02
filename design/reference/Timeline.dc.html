@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="overflow-x:auto;border-radius:24px;background:#fff;padding:clamp(16px,2.6vw,32px);scrollbar-width:thin">
+<div style="min-width:900px;display:flex;flex-direction:column;gap:4px">
+<div style="display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px"><span></span><div style="display:grid;grid-template-columns:repeat({{ spanN }},minmax(0,1fr));font-size:12px;font-weight:500;color:rgb(70,74,84)"><sc-for list="{{ axis }}" as="x" hint-placeholder-count="10"><span style="padding-left:4px;border-left:1px solid rgb(210,210,212)">{{ x }}</span></sc-for></div></div>
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="9"><button onMouseEnter="{{ e.pick }}" onFocus="{{ e.pick }}" onClick="{{ e.pick }}" style="display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px;align-items:center;width:calc(100% + 16px);min-height:48px;padding:4px 8px;margin:0 -8px;border-radius:12px;text-align:left;background:{{ e.rowBg }}"><span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:16px;font-weight:500;letter-spacing:-.01em">{{ e.r }}</span><span style="font-size:14px;color:rgb(70,74,84)">{{ e.c }}</span></span><span style="position:relative;display:block;height:40px"><span style="position:absolute;top:0;bottom:0;left:{{ e.left }};width:{{ e.width }};border-radius:12px;background:{{ e.bg }};box-shadow:{{ e.ring }};color:{{ e.fg }};display:flex;align-items:center;padding:0 8px;box-sizing:border-box;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden">{{ e.y }}</span></span></button></sc-for>
+<div style="display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px;padding-top:6px"><span style="font-size:14px;color:rgb(70,74,84);align-self:center">Building now</span><div style="display:flex;justify-content:flex-end;align-items:center;gap:8px"><sc-for list="{{ apps }}" as="a" hint-placeholder-count="3"><span title="{{ a.t }}" style="width:40px;height:40px;border-radius:12px;background:rgb(15,20,154);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-tile);font-weight:700;font-size:14px">{{ a.s }}</span></sc-for><span style="font-size:12px;font-weight:500;letter-spacing:.04em;line-height:1.4;color:rgb(70,74,84);margin-left:4px">GAMUT · TOGO · TIMER<br>IN APP STORE REVIEW</span></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline;padding:16px;margin-top:8px;border-radius:20px;background:rgb(238,238,238)"><span style="font-size:12px;font-weight:500;letter-spacing:.04em;color:rgb(70,74,84)">{{ sel.y }}</span><span style="font-size:18px;font-weight:500">{{ sel.r }} · {{ sel.c }}</span><sc-if value="{{ sel.hasLine }}" hint-placeholder-val="{{ true }}"><span style="font-size:16px;color:rgb(70,74,84)">{{ sel.line }}</span></sc-if></div>
+<div style="display:flex;gap:20px;flex-wrap:wrap;padding-top:14px;font-size:12px;font-weight:500;letter-spacing:.06em;color:rgb(70,74,84)"><span style="display:inline-flex;align-items:center;gap:6px"><i style="width:12px;height:12px;border-radius:4px;background:rgb(15,20,154)"></i>LEAD ROLE</span><span style="display:inline-flex;align-items:center;gap:6px"><i style="width:12px;height:12px;border-radius:4px;background:rgb(24,29,40)"></i>SENIOR / PRODUCT ROLE</span><span style="display:inline-flex;align-items:center;gap:6px"><i style="width:12px;height:12px;border-radius:4px;box-shadow:inset 0 0 0 1.5px rgb(236,146,60)"></i>TO CONFIRM</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:720},&quot;aiRole&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Product design lead&quot;,&quot;Head Product Designer&quot;,&quot;Senior Product Designer&quot;],&quot;default&quot;:&quot;Head Product Designer&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { sel: 0 };
+  renderVals() {
+    const COB = 'rgb(15,20,154)', INK = 'rgb(24,29,40)';
+    const role = this.props.aiRole ?? 'Head Product Designer';
+    // One source for every timeline on the site. [start, end, role, company, lead, toConfirm, label, line]
+    const EXP = [
+      [2025, 2026, role, 'AI meeting-assistant platform', 1, 0, '2025–2026', 'Design system, web app, brand and marketing site from scratch, plus the AI agent layer.'],
+      [2023, 2025, 'Senior UX/UI Designer', 'One Discovery', 0, 0, '2023–2025', ''],
+      [2023.85, 2024.7, 'Product designer', 'Multi-asset trading platform', 0, 0, 'Nov 2023 – Sep 2024', 'Native iOS and Android trading app, released to the stores, and acquisition landing pages.'],
+      [2024, 2024, 'UX/UI Design Team Lead', 'Develit AB', 1, 0, '2024', 'Government and enterprise systems: construction, warehouses, fleet, traffic.'],
+      [2023, 2023, 'UX/UI Design Team Lead', 'PokerMatch', 1, 0, '2023', 'Platform redesign, payments, bonuses and launches in Ukraine and Kazakhstan.'],
+      [2022, 2023, 'Product designer', 'OOKA Technologies', 0, 0, '2022–2023', 'One design system and store for the US, Germany and the UAE.'],
+      [2021, 2022, 'Designer', 'Freelance', 0, 0, '2021–2022', 'Stores, websites and a mobile guide for small teams.'],
+      [2019.85, 2023, 'UX/UI and Graphic Designer', 'Techstack', 0, 0, '2019–2023', 'Products in hospitality, healthcare, HR tech and media.'],
+      [2017.42, 2019.85, 'UI and Graphic Designer', 'Design studio', 0, 0, 'Jun 2017 – Nov 2019', 'UI for web and mobile apps, landing pages and websites; brand identities, print and marketing visuals; wireframes, prototypes and usability tests.']
+    ];
+    const sel = this.state.sel;
+    const spanN = Math.max(1, (new Date().getFullYear() + 1) - 2017);
+    return {
+      spanN, axis: Array.from({ length: spanN }, (_, i) => String(2017 + i)),
+      exp: EXP.map(([s, e, r, c, lead, tbc, yFull], i) => { const end = e === s ? s + 1 : e; const ys = Math.floor(s), ye = Math.floor(e); const y = ys === ye ? String(ys) : (end - s) <= 2.5 ? '’' + String(ys).slice(2) + '–’' + String(ye).slice(2) : ys + '–' + ye; return { r, c, y, pick: () => this.setState({ sel: i }), rowBg: sel === i ? 'rgb(238,238,238)' : 'transparent', left: ((s - 2017) / spanN * 100) + '%', width: ((end - s) / spanN * 100) + '%', bg: tbc ? 'transparent' : lead ? COB : INK, fg: tbc ? INK : '#fff', ring: tbc ? 'inset 0 0 0 1.5px rgb(236,146,60)' : 'none' }; }),
+      sel: { y: EXP[sel][6], r: EXP[sel][2], c: EXP[sel][3], line: EXP[sel][7], hasLine: !!EXP[sel][7] },
+      apps: [{ s: 'G', t: 'Gamut' }, { s: 'T', t: 'Togo' }, { s: 'Ti', t: 'Timer' }]
+    };
+  }
+}
+</script>
+</body>
+</html>
