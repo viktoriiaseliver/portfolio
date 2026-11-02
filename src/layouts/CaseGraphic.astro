@@ -6,14 +6,14 @@ import Ph from '../components/atoms/Ph.astro';
 import Chip from '../components/atoms/Chip.astro';
 import Facts from '../components/molecules/Facts.astro';
 import SectionHead from '../components/molecules/SectionHead.astro';
-import { url } from '../lib/url';
+import { url, bg } from '../lib/url';
 import { visible, SHOW_PLACEHOLDERS } from '../lib/placeholder';
 import { EMAIL } from '../data/site';
 import type { GraphicCase } from '../cases/types';
 
 interface Props { c: GraphicCase }
 const { c } = Astro.props;
-const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
 const title = `${c.title.a}${c.title.b}`.replace(/[[\]]/g, '');
 const facts = c.facts.filter((f) => visible(f.v));
 const formats = c.formats.filter(visible);
@@ -74,7 +74,7 @@ const stepStyle = ['grey', 'peach', 'grey', 'ink'];
 
   <section id="next" class="section">
     <a class="gnext" href={url(c.next.href)}>
-      <span class="gnext-img" style={`background-image:url(${url(c.next.img)})`}></span>
+      <span class="gnext-img" style={`background-image:${bg(c.next.img)}`}></span>
       <span class="gnext-row"><span class="gnext-l"><span class="label">NEXT · {c.next.cat}</span><span class="h5"><Ph v={c.next.name} /></span></span><span class="gnext-arr">→</span></span>
     </a>
   </section>

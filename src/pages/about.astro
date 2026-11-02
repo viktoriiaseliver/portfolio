@@ -11,17 +11,17 @@ import Marks from '../components/atoms/Marks.astro';
 import Panel from '../components/molecules/Panel.astro';
 import SectionHead from '../components/molecules/SectionHead.astro';
 import { url } from '../lib/url';
-import { CV_URL, EMAIL } from '../data/site';
+import { CV_URL, HAS_CV, EMAIL } from '../data/site';
 import { intro, langs, nums, tabs, dsSteps, stages, aiTools, markets, studied, beyond, lookingFor } from '../data/about';
 
-const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About', active: true }];
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About', active: true }];
 const stops = [['what', 'WHAT I DO'], ['how', 'HOW I WORK'], ['path', 'PATH'], ['beyond', 'BEYOND'], ['contact', 'CONTACT']];
 const code = [[70, 0, 0], [50, 12, .2], [85, 12, .4], [40, 24, .6], [60, 12, .8], [30, 0, 1]];
 const team = Array.from({ length: 17 }, (_, i) => (i === 8 ? 'me' : [5, 7, 9, 11].includes(i) ? 'des' : ''));
 const hasProduct = (p: string) => !p.startsWith('[');
 const lastStage = stages.length - 1;
 ---
-<Base title="About — Viktoriia Seliverstova" description={intro} nav={nav}>
+<Base og="about.png" title="About — Viktoriia Seliverstova" description={intro} nav={nav}>
 <main class="page about">
 
   <section id="hero" class="ahero">
@@ -33,11 +33,11 @@ const lastStage = stages.length - 1;
           <p class="ahero-p mist">{intro}</p>
         </div>
         <div class="ahero-foot">
-          <div class="ahero-btns"><Button href={url(CV_URL)} variant="white" size="lg">Download CV</Button><Button href="#contact" variant="outline-light" size="lg">Let's talk</Button></div>
+          <div class="ahero-btns">{HAS_CV && <Button href={url('/cv')} variant="white" size="lg">Download CV</Button>}<Button href="#contact" variant="outline-light" size="lg">Let's talk</Button></div>
           <div class="ahero-langs">{langs.map((l) => <span><span class="serif hi">{l.hi}</span><span class="label on-ink-muted">{l.n} · {l.lv}</span></span>)}</div>
         </div>
       </div>
-      <button type="button" class="portrait" aria-pressed="false" aria-label="Portrait: photo, hover for the illustrated self-portrait" data-portrait>
+      <button type="button" class="portrait" aria-pressed="false" aria-label="PHOTO DRAWN — portrait; hover or tap for the illustrated self-portrait" data-portrait>
         <div class="portrait-layer"><Slot label="Photo portrait" /></div>
         <div class="portrait-layer ill"><Slot label="Illustrated self-portrait, with Stitch" /></div>
         <span class="portrait-chips"><span class="label pc photo">PHOTO</span><span class="label pc drawn">DRAWN</span></span>
@@ -100,7 +100,7 @@ const lastStage = stages.length - 1;
           <div class="team">
             <p class="h5 team-p">I've led teams of up to 4 designers inside cross-functional groups of up to 17 — and I still design hands-on every day.</p>
             <div class="team-r">
-              <div class="team-dots" aria-label="4 designers inside a group of 17">{team.map((k) => <i class={k}></i>)}</div>
+              <div class="team-dots" role="img" aria-label="4 designers inside a group of 17">{team.map((k) => <i class={k}></i>)}</div>
               <div class="team-key label-s mist"><span><i class="me"></i>ME</span><span><i class="des"></i>DESIGNERS</span><span><i></i>BA · ENGINEERS · QA · PO</span></div>
             </div>
           </div>

@@ -1,0 +1,17 @@
+---
+// /cv → the CV PDF. Until the PDF is added (CV_URL in data/site.ts) it sends visitors to the contact block.
+import { url } from '../lib/url';
+import { CV_URL, HAS_CV } from '../data/site';
+const target = HAS_CV ? url(CV_URL) : url('/about#contact');
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CV — Viktoriia Seliverstova</title>
+  <meta name="robots" content="noindex" />
+  <meta http-equiv="refresh" content={`0; url=${target}`} />
+  <link rel="canonical" href={target} />
+</head>
+<body><a href={target}>{HAS_CV ? 'Download the CV (PDF)' : 'Contact Viktoriia'}</a></body>
+</html>

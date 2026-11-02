@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/atoms/Button.astro';
+import Slot from '../components/atoms/Slot.astro';
+import Panel from '../components/molecules/Panel.astro';
+import { url } from '../lib/url';
+
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
+---
+<Base title="Page not found — Viktoriia Seliverstova" description="This page went on a walk with Stitch." nav={nav}>
+  <meta slot="head" name="robots" content="noindex" />
+  <main class="page nf">
+    <Panel tone="dark" class="nf-panel">
+      <div class="nf-text">
+        <span class="num nf-code">404</span>
+        <h1 class="display">This page went on a walk <span class="serif mist">with Stitch.</span></h1>
+        <div class="nf-btns"><Button href={url('/works')} variant="white" size="lg" arrow>Works</Button><Button href={url('/')} variant="outline-light" size="lg">Home</Button></div>
+      </div>
+      <div class="nf-img"><Slot label="Stitch, out on a walk" /></div>
+    </Panel>
+  </main>
+</Base>
+
+<style>
+  .nf :global(.nf-panel) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; min-height: calc(100svh - var(--content-top) - 12px); align-items: stretch; }
+  @media (max-width: 639px) { .nf :global(.nf-panel) { grid-template-columns: minmax(0, 1fr); } }
+  .nf-text { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+  .nf-code { font-size: var(--t-number-l); color: var(--periwinkle); }
+  .nf-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .nf-img { display: flex; min-height: 280px; border-radius: var(--r-inner); overflow: hidden; }
+</style>

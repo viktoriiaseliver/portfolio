@@ -6,7 +6,7 @@ Personal site of a Senior Product Designer. Built with [Astro](https://astro.bui
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/portfolio/
+npm run dev      # http://localhost:4321/portfolio/  (BASE_PATH=/ npm run dev for the root)
 npm run build    # static site in dist/
 ```
 
@@ -43,10 +43,32 @@ Atomic tokens → atoms → molecules → organisms. Reference: `DESIGN-SYSTEM.m
 
 Pushing to `main` publishes the site to GitHub Pages (`.github/workflows/deploy.yml`).
 One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
-The site lives under `/portfolio`; for a custom domain, change `site` and `base` in `astro.config.mjs`.
+
+### Custom domain (seliver.design)
+
+1. At the domain registrar add DNS records for GitHub Pages: four `A` records for `@` → 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153, and `CNAME` `www` → `viktoriiaseliver.github.io`.
+2. Add a file `public/CNAME` containing `seliver.design`.
+3. In `.github/workflows/deploy.yml` set `SITE_URL: https://seliver.design` and `BASE_PATH: /`.
+4. Settings → Pages → Custom domain: `seliver.design`, then tick **Enforce HTTPS** once the certificate is issued.
+
+`robots.txt` and the sitemap are generated with the right URLs; robots.txt only takes effect at the domain root, i.e. after step 3.
+
+## Launch
+
+**v1 scope:** Home, Works (`/works`), About, 404, Construction CRM (`/work/construction-crm`), Gamut (`/products/gamut`), CV (`/cv`).
+Multi-asset trading (NDA) is built but set to `draft: true` until it is part of the launch.
+
+**Before going live (owner):**
+- CV PDF → `public/`, path in `CV_URL` (`src/data/site.ts`). Until then every "Download CV" button is hidden and `/cv` opens the contact block.
+- Second flagship case (OOKA, PokerMatch or AI meeting assistant) once the facts are in: copy `src/cases/construction-crm.ts`, fill it, add the slug to `LIVE_CASES`.
+- Old Readymag case links for cards without a new page: `OLD_CASES` in `src/data/work.ts` (fix the AnOther link, duplicate Results and borrowed texts there first).
+- Images: drop files into `public/assets/…` and pass `src` to the slots; run `node scripts/images.mjs` to make AVIF/WebP.
+- Social previews: `node scripts/og.cjs` regenerates `public/og/*.png` after headline changes.
+
+**Checks (all passing):** `scripts/audit.cjs`, `scripts/states.cjs`, Lighthouse ≥ 95 on every page (performance 95–100, accessibility, best practices and SEO 100).
 
 ## Status
 
-Done: Home, Work, About, case layouts (open: Construction CRM; NDA: Multi-asset trading; graphic: template only).
-Next: Gamut page.
+Done: Home, Works, About, Gamut, 404, case layouts (open: Construction CRM; NDA: Multi-asset trading, draft; graphic: template only), design system, launch prep.
+Next (owner's site plan): more flagships and B/C cases, /ai, Togo and Timer pages, graphic pages, illustrations.
 Still needed from the owner: portrait, app screenshots, graphic project images, CV PDF (`CV_URL` in `src/data/site.ts`).

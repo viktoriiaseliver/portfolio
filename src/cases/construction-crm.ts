@@ -36,5 +36,5 @@ export default {
   ],
   stations: [{ t: 'Office' }, { t: 'Warehouse' }, { t: 'Truck' }, { t: 'Site' }],
   explored: { alternative: '[alternative]', reason: '[reason]' },
-  next: { href: '/work', cat: 'OPERATIONS & GOVERNMENT', name: 'Fleet Management', num: '35%', pct: 35, what: 'faster routine tasks' }
+  next: { href: '/works', cat: 'OPERATIONS & GOVERNMENT', name: 'Fleet Management', num: '35%', pct: 35, what: 'faster routine tasks' }
 } satisfies OpenCase;

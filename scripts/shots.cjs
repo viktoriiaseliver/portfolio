@@ -1,7 +1,7 @@
 // Full-page screenshots of every page at given widths: node scripts/shots.cjs outDir [baseUrl]
 const { chromium } = require('playwright');
 const OUT = process.argv[2], BASE = process.argv[3] || 'http://localhost:4321/portfolio/';
-const PAGES = ['', 'work', 'about', 'work/construction-crm', 'work/multi-asset-trading'];
+const PAGES = ['', 'works', 'about', 'work/construction-crm', 'products/gamut', '404'];
 (async () => {
   const b = await chromium.launch();
   for (const w of [1440, 768, 390]) {

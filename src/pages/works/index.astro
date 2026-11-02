@@ -10,23 +10,24 @@ import Heading from '../../components/atoms/Heading.astro';
 import Phone from '../../components/atoms/Phone.astro';
 import Segmented from '../../components/atoms/Segmented.astro';
 import Panel from '../../components/molecules/Panel.astro';
-import { url } from '../../lib/url';
-import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES } from '../../data/work';
+import { url, bg } from '../../lib/url';
+import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES, OLD_CASES } from '../../data/work';
 
-const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work', active: true }, { href: '/about', label: 'About' }];
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work', active: true }, { href: '/about', label: 'About' }];
 const pad = (n: number) => String(n).padStart(2, '0');
 const plats = (p: (typeof products)[number]) => p.tags.filter((t) => t === 'Web' || t === 'Mobile');
 const shortMeta = (m: string) => { const parts = m.split(' · '); return parts[0] + ' · ' + parts[parts.length - 1]; };
-const hrefOf = (p: (typeof products)[number]) => (LIVE_CASES.includes(p.slug) ? url('/work/' + p.slug) : null);
+// New case page first, then the old portfolio case, otherwise no link.
+const hrefOf = (p: (typeof products)[number]) => (LIVE_CASES.includes(p.slug) ? url('/work/' + p.slug) : OLD_CASES[p.slug] ?? null);
 
 const items = products.map((p, i) => ({ ...p, i, plat: plats(p).join(' '), href: hrefOf(p), short: shortMeta(p.m) }));
 const groups = industries.map((g) => ({ ...g, items: items.filter((p) => p.ind === g.key) }));
-const preview = items.map((p) => ({ t: p.t, r: p.r, d: p.d, m: p.m, tags: p.tags, img: p.img ? url(p.img) : '', href: p.href, ind: industries.find((x) => x.key === p.ind)!.label.toUpperCase() }));
+const preview = items.map((p) => ({ t: p.t, r: p.r, d: p.d, m: p.m, tags: p.tags, img: p.img ? bg(p.img) : '', href: p.href, ind: industries.find((x) => x.key === p.ind)!.label.toUpperCase() }));
 const Arrow = '→';
 const platItems = (pills: string[]) => pills.map((p) => ({ label: p, attrs: { 'data-plat-pick': p === 'All' ? '' : p } }));
 const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attrs: { 'data-view-pick': k }, class: k === 'index' ? 'only-d' : undefined }));
 ---
-<Base title="Work — Viktoriia Seliverstova" description="25 products I designed for companies in 7 industries, 5 apps I build on my own, and the graphic work behind them." nav={nav}>
+<Base og="works.png" title="Work — Viktoriia Seliverstova" description="25 products I designed for companies in 7 industries, 5 apps I build on my own, and the graphic work behind them." nav={nav}>
 <main id="top" class="page work g12" data-work data-section="all" data-view="rows">
 
   <section class="console g12">
@@ -99,11 +100,11 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
         <h2 class="group-t">{g.label}</h2>
         <p class="group-sub muted">{g.sub}</p>
       </header>
-      <div class="rows" role="list">
+      <div class="rows">
         {g.items.map((p) => {
           const Tag = p.href ? 'a' : 'div';
           return (
-            <Tag role="listitem" class="row" href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat} tabindex={p.href ? undefined : 0}>
+            <Tag class="row" href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat} tabindex={p.href ? undefined : 0}>
               <div class="row-t"><span class="row-title">{p.t}</span><span class="label-s row-m">{p.m}</span></div>
               <span class="num row-r">{p.r}</span>
               <span class="row-arr" aria-hidden="true">{Arrow}</span>
@@ -111,12 +112,12 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
           );
         })}
       </div>
-      <div class="mrows" role="list">
+      <div class="mrows">
         {g.items.map((p, idx) => {
           const Tag = p.href ? 'a' : 'div';
           return (
-            <Tag role="listitem" class="mrow" href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat}>
-              <span class:list={['mthumb', { alt: idx % 2 === 1 }]} style={p.img ? `background-image:url(${url(p.img)})` : undefined}>{!p.img && <span data-thumb-no></span>}</span>
+            <Tag class="mrow" href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat}>
+              <span class:list={['mthumb', { alt: idx % 2 === 1 }]} style={p.img ? `background-image:${bg(p.img)}` : undefined}>{!p.img && <span data-thumb-no></span>}</span>
               <span class="mrow-b"><span class="mrow-txt"><span class="mrow-t">{p.t}</span>{p.r && <span class="num mrow-r">{p.r}</span>}<span class="muted mrow-m">{p.short}</span></span><i class="mchev" aria-hidden="true"></i></span>
             </Tag>
           );
@@ -128,7 +129,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
           return (
             <Tag class:list={['card', { dark: !!p.img }]} href={p.href ?? undefined} data-p={p.i} data-ind={p.ind} data-plat={p.plat}>
               {p.href && <span class="card-arr" aria-hidden="true">{Arrow}</span>}
-              {p.img && <div class="card-img" style={`background-image:url(${url(p.img)})`}></div>}
+              {p.img && <div class="card-img" style={`background-image:${bg(p.img)}`}></div>}
               <div class="card-b">
                 {p.r && <span class="num card-r">{p.r}</span>}
                 <div class="card-tt"><span class="card-t">{p.t}</span><span class="card-d">{p.d}</span></div>
@@ -609,7 +610,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
     if (sel == null) { panel.innerHTML = ''; return; }
     const p = PREV[sel];
     const head = p.img
-      ? `<div class="ip-img" style="background-image:url(${p.img})"></div>`
+      ? `<div class="ip-img" style="background-image:${p.img}"></div>`
       : `<div class="ip-big"><span class="label mist">${esc(p.ind)}</span><span class="num">${esc(p.r || p.t)}</span></div>`;
     const link = p.href ? `<a class="btn btn-white on-brand has-arr" href="${p.href}">View case<span class="arr" aria-hidden="true">→</span></a>` : '';
     panel.innerHTML = `${head}<div class="ip-b"><span class="ip-t">${esc(p.t)}</span>${p.r && p.img ? `<span class="num ip-r">${esc(p.r)}</span>` : ''}<span class="ip-d mist">${esc(p.d)}</span><span class="label-s on-ink-muted">${esc(p.m)}</span><div class="ip-foot"><div class="ip-tags">${p.tags.map((t) => `<span>${esc(t)}</span>`).join('')}</div>${link}</div></div>`;
@@ -686,7 +687,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
       if (!fine.matches || phone.matches) return;
       const p = PREV[+row.dataset.p!];
       float.innerHTML = p.img
-        ? `<div class="fl-img" style="background-image:url(${p.img})"></div>`
+        ? `<div class="fl-img" style="background-image:${p.img}"></div>`
         : `<div class="fl-big"><span class="label mist">${esc(p.ind)}</span><span class="num">${esc(p.r || p.t)}</span><span class="fl-d mist">${esc(p.d)}</span></div>`;
       place(e.clientX, e.clientY);
       float.hidden = false;

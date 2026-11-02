@@ -5,7 +5,7 @@ import Button from '../atoms/Button.astro';
 import Status from '../molecules/Status.astro';
 import Heading from '../atoms/Heading.astro';
 import { url } from '../../lib/url';
-import { EMAIL, TELEGRAM, LINKEDIN, CV_URL, WALKTHROUGH, STATUS } from '../../data/site';
+import { EMAIL, TELEGRAM, LINKEDIN, CV_URL, HAS_CV, WALKTHROUGH, STATUS } from '../../data/site';
 
 interface Props {
   a?: string; b?: string; status?: string; label?: string;
@@ -26,7 +26,7 @@ const links = [
   { t: 'Telegram ↗', href: TELEGRAM, ext: true },
   { t: 'LinkedIn ↗', href: LINKEDIN, ext: true },
   ...(showAbout ? [{ t: 'About me →', href: url('/about'), ext: false }] : []),
-  { t: 'Download CV', href: url(CV_URL), ext: false }
+  ...(HAS_CV ? [{ t: 'Download CV', href: url('/cv'), ext: false }] : [])
 ];
 ---
 <section id="contact" class="contact section">
