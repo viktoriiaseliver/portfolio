@@ -1,0 +1,36 @@
+---
+// Exploded view: the layers of one screen pulled apart (isometric) when the block comes into view.
+// Numbered labels on the side say what each layer is. Reduced motion: shown already apart, no movement.
+import Slot from '../atoms/Slot.astro';
+interface Props { layers: { label: string; ph?: string; image?: string }[]; title?: string; class?: string }
+const { layers, title, class: cls } = Astro.props;
+const n = layers.length;
+---
+<div class:list={['xv', cls]} data-xv>
+  <div class="xv-stage" aria-hidden="true">
+    {layers.map((l, i) => <div class="xv-layer" style={`--i:${i};--z:${n - i}`}><Slot label={l.ph ?? l.label} src={l.image} /><span class="num xv-pin">{i + 1}</span></div>)}
+  </div>
+  <ol class="xv-list" aria-label={title ?? 'Layers'}>
+    {layers.map((l, i) => <li><span class="num xv-n">{String(i + 1).padStart(2, '0')}</span><span>{l.label}</span></li>)}
+  </ol>
+</div>
+
+<style>
+  .xv { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 40px; align-items: center; padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--grey-238); }
+  @media (max-width: 899px) { .xv { grid-template-columns: minmax(0, 1fr); } }
+  .xv-stage { position: relative; aspect-ratio: 4 / 3; perspective: 1600px; }
+  .xv-layer { position: absolute; left: 18%; top: 22%; width: 64%; aspect-ratio: 16 / 10; display: flex; border-radius: var(--r-tile); overflow: visible; z-index: var(--z);
+    transform: rotateX(55deg) rotateZ(-40deg) translateZ(0); transform-style: preserve-3d; box-shadow: var(--shadow-lift); transition: transform var(--d-morph) var(--ease); transition-delay: calc(var(--i) * 60ms); }
+  .xv-layer :global(.slot) { border-radius: var(--r-tile); box-shadow: var(--ring-1) var(--white); }
+  .xv.open .xv-layer { transform: rotateX(55deg) rotateZ(-40deg) translateZ(calc((var(--z) - 1) * 56px)); }
+  .xv-pin { position: absolute; left: -12px; bottom: -12px; width: 28px; height: 28px; border-radius: var(--r-dot); display: flex; align-items: center; justify-content: center; background: var(--ink); color: var(--white); font-size: var(--t-label); }
+  .xv-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+  .xv-list li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--grey-210); font-size: var(--t-ui-l); font-weight: 500; }
+  .xv-n { font-size: var(--t-body); color: var(--cobalt); }
+  @media (prefers-reduced-motion: reduce) { .xv .xv-layer { transform: rotateX(55deg) rotateZ(-40deg) translateZ(calc((var(--z) - 1) * 56px)); } }
+</style>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('open'); io.unobserve(e.target); } }), { threshold: 0.35 });
+  document.querySelectorAll('[data-xv]').forEach((el) => io.observe(el));
+</script>

@@ -10,6 +10,9 @@ import Segmented from '../components/atoms/Segmented.astro';
 import Panel from '../components/molecules/Panel.astro';
 import FactCard from '../components/molecules/FactCard.astro';
 import CaseHero from '../components/organisms/CaseHero.astro';
+import BeforeAfter from '../components/organisms/BeforeAfter.astro';
+import ExplodedView from '../components/organisms/ExplodedView.astro';
+import Note from '../components/molecules/Note.astro';
 import Ph from '../components/atoms/Ph.astro';
 import { url, bg } from '../lib/url';
 import { filled, visible, SHOW_PLACEHOLDERS } from '../lib/placeholder';
@@ -111,11 +114,26 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
             <article class="dec">
               <div class="dec-head"><span class="num dec-n">{String(i + 1).padStart(2, '0')}</span><h3 class="dec-t">{d.t}</h3></div>
               <div class="dec-shot"><Slot label={d.ph} src={d.image} />{d.pins.map(([x, y], j) => <span class="pin" style={`left:${x}%;top:${y}%`}>{j + 1}</span>)}</div>
+              {d.note && visible(d.note.text) && <Note label={d.note.label}><Ph v={d.note.text} /></Note>}
               {notes.length > 0 && <div class="dec-notes" data-full style={`--cols:${notes.length}`}>{notes.map(([k, v]) => <div><span class="label muted">{k}</span><span class="dec-v"><Ph v={v} /></span></div>)}</div>}
             </article>
           );
         })}
       </div>
+
+      {c.compare && (
+        <div class="chap compare">
+          <span class="label chap-k">{c.compare.label}</span>
+          <BeforeAfter label={c.compare.label} before={c.compare.before} after={c.compare.after} />
+        </div>
+      )}
+
+      {c.exploded && c.exploded.layers.length > 0 && (
+        <div class="chap" data-full>
+          <span class="label chap-k">{c.exploded.title}</span>
+          <ExplodedView title={c.exploded.title} layers={c.exploded.layers} />
+        </div>
+      )}
 
       <div id="journey" class="chap journey" data-chapter data-journey>
         <div class="j-head">

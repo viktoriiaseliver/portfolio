@@ -22,7 +22,10 @@ export type OpenCase = {
   result: { sign: string; n: number; unit: string; a: string; b: string; howMeasured?: string; extra?: { n: string; what: string }[]; lesson?: { text: string; why: string } };
   problem: { a: string; b: string; context: string[] };
   insights: { n: string; quote: string; src: string }[];
-  decisions: { t: string; ph: string; image?: string; notes: [string, string][]; pins: [number, number][] }[];
+  decisions: { t: string; ph: string; image?: string; notes: [string, string][]; pins: [number, number][]; note?: { label: string; text: string } }[];
+  // Optional flagship blocks (used by OOKA, PokerMatch…): shown only when filled.
+  compare?: { label: string; before: { ph: string; image?: string }; after: { ph: string; image?: string } };
+  exploded?: { title: string; layers: { label: string; ph?: string; image?: string }[] };
   stations: { t: string; image?: string }[];
   explored: { alternative: string; reason: string; image?: string };
   next: Next & { num: string; pct: number; what: string };

@@ -16,6 +16,9 @@ import Facts from '../components/molecules/Facts.astro';
 import Status from '../components/molecules/Status.astro';
 import FactCard from '../components/molecules/FactCard.astro';
 import Timeline from '../components/organisms/Timeline.astro';
+import BeforeAfter from '../components/organisms/BeforeAfter.astro';
+import ExplodedView from '../components/organisms/ExplodedView.astro';
+import Note from '../components/molecules/Note.astro';
 
 const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
 const colors = [
@@ -99,6 +102,13 @@ const motion = [['--d-fast', 'hover, colour, focus'], ['--d-base', 'press, tabs,
       <Panel tone="white" radius="card" pad="card" class="row-line line"><Facts tone="light" items={[{ k: 'CLIENT', v: 'Client' }, { k: 'PRINT', v: 'A1 · 2 colours' }]} /></Panel>
     </div>
     <div class="grid-3">{(['dark', 'brand', 'soft', 'white', 'line', 'warm'] as const).map((t) => <Panel tone={t} radius="card" class="tone-demo"><span class="label">Panel · {t}</span></Panel>)}</div>
+  </section>
+
+  <section class="section stack">
+    <SectionHead a="Case " b="components." aside="before / after slider · exploded view · note" />
+    <BeforeAfter label="Drag to compare before and after" before={{ ph: 'Before screen' }} after={{ ph: 'After screen' }} />
+    <ExplodedView title="Layers of one screen" layers={[{ label: 'Tokens and theme' }, { label: 'Components' }, { label: 'Layout and data' }, { label: 'Screen' }]} />
+    <div class="grid-3"><Note label="Note">Warm note, next to a visual.</Note><Note label="Note" tone="soft">Soft note on white.</Note><Note label="Note" tone="brand">Brand note.</Note></div>
   </section>
 
   <section class="section stack">
