@@ -11,6 +11,9 @@ import Phone from '../../components/atoms/Phone.astro';
 import Segmented from '../../components/atoms/Segmented.astro';
 import Panel from '../../components/molecules/Panel.astro';
 import { url, bg } from '../../lib/url';
+import Illustration from '../../components/atoms/Illustration.astro';
+import { industryScenes } from '../../data/illustrations';
+import { published as aiPublished } from '../../data/ai';
 import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES, OLD_CASES } from '../../data/work';
 
 const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work', active: true }, { href: '/about', label: 'About' }];
@@ -99,6 +102,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
         <div class="group-top"><span class="label-s group-no" data-group-no></span><Badge data-group-count>{g.items.length}</Badge></div>
         <h2 class="group-t">{g.label}</h2>
         <p class="group-sub muted">{g.sub}</p>
+        {industryScenes[g.key] && <Illustration src={industryScenes[g.key].src} label={industryScenes[g.key].label} ratio="4 / 3" class="group-scene" />}
       </header>
       <div class="rows">
         {g.items.map((p) => {
@@ -195,6 +199,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
       <Chip tone="dark" size="s" class="tag-status"><Dot tone="green" size={7} />IN DAILY USE</Chip>
       <div class="kvit-h"><Heading as="h3" size="h3" a="How I work " b="with AI" class="ai-h" /><p class="body mist">My everyday setup: a system of AI agents with rules I wrote and keep improving.</p></div>
       <div class="ai-grid">{ai.map((x) => <div class="ai-item"><span class="ai-t">{x.t}</span><span class="mist ai-d">{x.d}</span></div>)}</div>
+      {aiPublished && <Button href={url('/ai')} variant="white" onBrand arrow class="ai-more">How I work with AI</Button>}
     </Panel>
   </section>
 
@@ -465,6 +470,8 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
   .did { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .did > .label { margin-right: 6px; }
   .appcard-t > :global(.btn) { align-self: flex-start; }
+  .group-h :global(.group-scene) { margin-top: 8px; }
+  .aicard :global(.ai-more) { align-self: flex-start; }
   .kvit, .aicard { display: flex; flex-direction: column; gap: 24px; }
   .kvit { justify-content: space-between; gap: 40px; }
   .kvit-h { display: flex; flex-direction: column; gap: 12px; }

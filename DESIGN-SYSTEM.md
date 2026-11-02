@@ -56,3 +56,8 @@ node scripts/audit.cjs      # overflow, text < 12px, contrast, tap targets — e
 node scripts/states.cjs     # menu, filter sheet, dropdown, views, focus, reduced motion, loops
 node scripts/shots.cjs out/ # full-page screenshots; python3 scripts/diff.py before/ after/ to compare
 ```
+
+### Illustration (atom) and the /ai page
+- `atoms/Illustration.astro` is a frame for the owner's drawings. With an empty `src` it is hidden on the built site and shows a placeholder in `npm run dev`.
+- All drawings are listed in one file: `src/data/illustrations.ts`. That covers the 7 industry scenes (shown in the Works group headers) and the agents diagram (on /ai). To put a drawing on the site, paste its path into `src`.
+- `/ai` is built from `src/data/ai.ts`. While `published = false`, the page carries noindex, stays out of the sitemap and nothing links to it. Set it to `true` once the video is ready; the Works AI card then gets a "How I work with AI" button.
