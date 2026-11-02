@@ -1,9 +1,0 @@
----
-// Image slot: shows the image when `src` is set, otherwise a caption saying what goes here.
-import { url } from '../lib/url';
-interface Props { label: string; src?: string; alt?: string; class?: string }
-const { label, src, alt, class: cls } = Astro.props;
----
-<div class:list={['slot', cls]}>
-  {src ? <img src={url(src)} alt={alt ?? label} loading="lazy" /> : <span aria-hidden="true">{label}</span>}
-</div>

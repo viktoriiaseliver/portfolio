@@ -1,0 +1,132 @@
+---
+// Living style guide: every token and component in one place. Not linked from the site; noindex.
+import Base from '../layouts/Base.astro';
+import Button from '../components/atoms/Button.astro';
+import Chip from '../components/atoms/Chip.astro';
+import Badge from '../components/atoms/Badge.astro';
+import Dot from '../components/atoms/Dot.astro';
+import Heading from '../components/atoms/Heading.astro';
+import Marks from '../components/atoms/Marks.astro';
+import Segmented from '../components/atoms/Segmented.astro';
+import Slot from '../components/atoms/Slot.astro';
+import Phone from '../components/atoms/Phone.astro';
+import Panel from '../components/molecules/Panel.astro';
+import SectionHead from '../components/molecules/SectionHead.astro';
+import Facts from '../components/molecules/Facts.astro';
+import Status from '../components/molecules/Status.astro';
+import FactCard from '../components/molecules/FactCard.astro';
+import Timeline from '../components/organisms/Timeline.astro';
+
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+const colors = [
+  ['--ink', 'text, dark panels, primary button'], ['--cobalt', 'brand panels, lead roles, results'], ['--white', 'page, cards on grey'],
+  ['--grey-238', 'cards and panels on white'], ['--grey-210', 'rules, empty image slots'], ['--text-muted', 'secondary text on white · 8.9:1'],
+  ['--muted-on-ink', 'labels on ink only · 7.5:1'], ['--mist', 'secondary text on cobalt / ink'], ['--periwinkle', 'data on dark'],
+  ['--peach', 'sketchbook, lessons'], ['--orange', 'warnings, to confirm'], ['--green', 'available status only'], ['--focus', 'focus ring']
+];
+const contrast = [
+  ['Ink on white', '--white', '--ink', '16.9:1'], ['Muted on white', '--white', '--text-muted', '8.9:1'], ['Muted on grey 238', '--grey-238', '--text-muted', '7.6:1'],
+  ['White on cobalt', '--cobalt', '--white', '13.2:1'], ['Mist on cobalt', '--cobalt', '--mist', '9.7:1'], ['White on ink', '--ink', '--white', '16.9:1'],
+  ['Mist on ink', '--ink', '--mist', '12.4:1'], ['Muted-on-ink on ink', '--ink', '--muted-on-ink', '7.5:1'], ['Cobalt on white', '--white', '--cobalt', '13.2:1'],
+  ['Periwinkle on ink', '--ink', '--periwinkle', '7.9:1']
+];
+const type = [['--t-number-xl', 'num num-xl', '87%'], ['--t-hero', 'text-hero', 'Hi, I’m'], ['--t-display', 'display', 'Display'], ['--t-h2', 'h2', 'Heading 2'], ['--t-h3', 'h3', 'Heading 3'], ['--t-h4', 'h4', 'Heading 4'], ['--t-h5', 'h5', 'Heading 5'], ['--t-number-l', 'num num-l', '400+'], ['--t-lead', 'lead', 'Lead paragraph'], ['--t-body', 'body', 'Body text and buttons'], ['--t-small', 'small', 'Small text'], ['--t-label', 'label', 'Label'], ['--t-label-s', 'label-s', 'Label small']];
+const radii = ['--r-mark', '--r-tile', '--r-inner', '--r-card', '--r-surface', '--r-pill'];
+const motion = [['--d-fast', 'hover, colour, focus'], ['--d-base', 'press, tabs, menu, nav hide'], ['--d-slow', 'bars, sheet, cross-fade'], ['--d-morph', 'diagram morph only']];
+---
+<Base title="Design system — Viktoriia Seliverstova" description="Tokens and components of the portfolio." nav={nav}>
+<meta slot="head" name="robots" content="noindex" />
+<main class="page sys">
+  <Panel tone="dark" class="sys-hero">
+    <span class="label on-ink-muted">Design system</span>
+    <Heading as="h1" size="display" a="Tokens → atoms → " b="molecules → organisms." bTone="mist" />
+    <p class="lead mist">Every page is built from these pieces. Primitives live in <code>styles/tokens.css</code>, roles in <code>styles/semantic.css</code>, atoms in <code>styles/atoms.css</code> + <code>components/atoms</code>, molecules and organisms in <code>components/</code>.</p>
+  </Panel>
+
+  <section class="section stack">
+    <SectionHead a="Colour " b="by role." aside="13 primitives" />
+    <div class="grid-4">{colors.map(([v, role], i) => <Panel tone="soft" radius="card" pad="none" class:list={["sw", { "span-all": i === colors.length - 1 && colors.length % 4 === 1 }]}><i style={`background:var(${v})`}></i><div><code>{v}</code><span class="small muted">{role}</span></div></Panel>)}</div>
+    <SectionHead a="Contrast " b="pairs." size="h3" aside="WCAG AA: 4.5:1 text · 3:1 large" />
+    <div class="grid-4">{contrast.map(([n, bg, fg, r]) => <div class="pair" style={`background:var(${bg});color:var(${fg})`}><span class="h5">Aa</span><span class="small">{n}</span><span class="num">{r}</span></div>)}</div>
+  </section>
+
+  <section class="section stack">
+    <SectionHead a="Type " b="scale." aside="Instrument Sans · Instrument Serif · Arimo · floor 12px" />
+    <Panel tone="soft" class="type">{type.map(([v, cls, t]) => <div class="type-row"><code>{v}</code><span class={cls}>{t}</span></div>)}</Panel>
+  </section>
+
+  <section class="section stack">
+    <SectionHead a="Radii, " b="motion." />
+    <div class="grid-2">
+      <Panel tone="soft" class="radii">{radii.map((r) => <div><i style={`border-radius:var(${r})`}></i><code>{r}</code></div>)}</Panel>
+      <Panel tone="soft" class="motion">{motion.map(([v, use]) => <div class="type-row"><code>{v}</code><span class="small">{use}</span></div>)}<p class="small muted">One curve: <code>--ease</code>. Under prefers-reduced-motion every loop stops and counters jump to the final value.</p></Panel>
+    </div>
+  </section>
+
+  <section class="section stack">
+    <SectionHead a="Atoms." aside="components/atoms" />
+    <Panel tone="white" class="row-line"><span class="label muted">Button · md 48 / lg 52 / sm 44</span>
+      <div class="row"><Button variant="brand" size="lg">Brand</Button><Button variant="ink">Ink</Button><Button variant="ink" arrow>Ink with arrow</Button><Button variant="outline" size="lg">Outline</Button><Button variant="text">Text</Button><Button variant="ink" size="sm">Small →</Button></div>
+    </Panel>
+    <Panel tone="dark" class="row-line"><span class="label on-ink-muted">Button on dark</span>
+      <div class="row"><Button variant="white" size="lg">White</Button><Button variant="outline-light" size="lg">Outline light</Button><Button variant="white" arrow>White with arrow</Button></div>
+    </Panel>
+    <Panel tone="brand" class="row-line"><span class="label mist">Button on brand</span>
+      <div class="row"><Button variant="white" size="lg" onBrand>White on brand</Button><Button variant="outline-light" size="lg">Outline light</Button></div>
+    </Panel>
+    <Panel tone="soft" class="row-line"><span class="label muted">Chip · Badge · Dot</span>
+      <div class="row"><Chip tone="white">White</Chip><Chip tone="soft" class="on-white">Soft</Chip><Chip tone="ink">Ink</Chip><Chip tone="brand">Brand</Chip><Chip tone="white" size="s">LABEL CHIP</Chip><Badge>25</Badge><Dot tone="live" /><Dot tone="orange" /><Dot tone="periwinkle" /><Dot tone="brand" /></div>
+    </Panel>
+    <Panel tone="dark" class="row-line"><span class="label on-ink-muted">Chips on dark</span>
+      <div class="row"><Chip tone="dark">Dark</Chip><Chip tone="dark" ring tall dot="var(--periwinkle)">With dot</Chip><Chip tone="outline-dark" size="s"><Dot tone="orange" size={8} />UNDER NDA</Chip><Badge tone="on-dark">14</Badge></div>
+    </Panel>
+    <Panel tone="white" class="row-line"><span class="label muted">Segmented · 38px pill, 44px hit area</span>
+      <div class="row"><Segmented label="Demo" items={[{ label: 'All', selected: true }, { label: 'Web' }, { label: 'Mobile' }]} /><Segmented label="Demo" tone="soft" items={[{ label: 'Short · 1 min' }, { label: 'Full · 5 min', selected: true }]} /><Segmented label="Demo" tone="ink" size="lg" class="soft-track" items={[{ label: 'Before', selected: true }, { label: 'After' }]} /></div>
+    </Panel>
+    <div class="grid-3">
+      <Panel tone="soft" class="row-line"><span class="label muted">Marks</span><Marks total={9} on={6} style="--on:var(--muted-on-ink);--off:var(--cobalt)" /><Marks total={10} on={6} height="30px" gap={4} style="--on:var(--cobalt);--off:var(--cobalt-tint-strong);--off-o:.5" /></Panel>
+      <Panel tone="soft" class="row-line"><span class="label muted">Slot</span><div class="slot-demo"><Slot label="Image slot · caption says what goes here" /></div></Panel>
+      <Panel tone="soft" class="row-line phone-demo"><span class="label muted">Phone</span><Phone label="App screen" /></Panel>
+    </div>
+  </section>
+
+  <section class="section stack">
+    <SectionHead a="Molecules." aside="components/molecules" />
+    <div class="grid-4">
+      <FactCard n={9} unit="years"><Marks total={9} on={6} style="--on:var(--muted-on-ink);--off:var(--cobalt)" /></FactCard>
+      <FactCard tone="brand" n="−8" unit="min per order"><Marks total={8} style="--on:var(--periwinkle)" /></FactCard>
+      <Panel tone="dark" radius="card" pad="card" class="row-line"><Status text="Available now · Remote across Europe" class="mist" /><Facts items={[{ k: 'ROLE', v: 'Lead designer' }, { k: 'YEAR', v: '2024' }]} /></Panel>
+      <Panel tone="white" radius="card" pad="card" class="row-line line"><Facts tone="light" items={[{ k: 'CLIENT', v: 'Client' }, { k: 'PRINT', v: 'A1 · 2 colours' }]} /></Panel>
+    </div>
+    <div class="grid-3">{(['dark', 'brand', 'soft', 'white', 'line', 'warm'] as const).map((t) => <Panel tone={t} radius="card" class="tone-demo"><span class="label">Panel · {t}</span></Panel>)}</div>
+  </section>
+
+  <section class="section stack">
+    <SectionHead a="Organisms." aside="components/organisms · Nav, Contact, Timeline, CaseHero" />
+    <Panel tone="soft" pad="inset"><Timeline /></Panel>
+  </section>
+</main>
+</Base>
+
+<style>
+  .sys :global(.sys-hero) { display: flex; flex-direction: column; gap: 24px; }
+  code { font-family: var(--font-display); font-size: var(--t-label); font-weight: 500; letter-spacing: .02em; }
+  .sys :global(.sw) { display: flex; flex-direction: column; overflow: hidden; }
+  .sys :global(.sw i) { height: 88px; box-shadow: inset 0 -1px 0 var(--hover); }
+  .sys :global(.sw div) { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px 18px; }
+  .sys :global(.span-all) { grid-column: 1 / -1; }
+  .pair { display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: var(--r-card); box-shadow: var(--ring-1) var(--hover); }
+  .sys :global(.type) { display: flex; flex-direction: column; }
+  .type-row { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--grey-210); overflow: hidden; }
+  .sys :global(.radii) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .sys :global(.radii div) { display: flex; flex-direction: column; gap: 8px; }
+  .sys :global(.radii i) { height: 72px; background: var(--cobalt); }
+  .sys :global(.motion) { display: flex; flex-direction: column; gap: 8px; }
+  .sys :global(.row-line) { display: flex; flex-direction: column; gap: 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .sys :global(.on-white) { background: var(--white); }
+  .sys :global(.soft-track) { background: var(--grey-238); padding: 4px; }
+  .slot-demo { display: flex; height: 160px; border-radius: var(--r-inner); overflow: hidden; }
+  .sys :global(.phone-demo .phone) { width: 120px; }
+  .sys :global(.tone-demo) { min-height: 120px; }
+</style>

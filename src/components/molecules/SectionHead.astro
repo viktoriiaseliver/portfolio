@@ -1,0 +1,16 @@
+---
+// Section heading row: two-part headline on the left, a label or link on the right.
+import Heading from '../atoms/Heading.astro';
+interface Props { a: string; b?: string; size?: 'h2' | 'h3'; as?: 'h1' | 'h2'; aside?: string; align?: 'baseline' | 'end'; class?: string; [attr: string]: unknown }
+const { a, b, size = 'h2', as = 'h2', aside, align = 'baseline', class: cls, ...rest } = Astro.props;
+---
+<div class:list={['sec-head', { end: align === 'end' }, cls]} {...rest}>
+  <Heading as={as} size={size} a={a} b={b} />
+  {aside && <span class="label muted">{aside}</span>}
+  <slot />
+</div>
+
+<style is:global>
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding: 0 4px; }
+  .sec-head.end { align-items: flex-end; }
+</style>

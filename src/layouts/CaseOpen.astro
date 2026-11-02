@@ -1,8 +1,16 @@
 ---
 import Base from './Base.astro';
-import Contact from '../components/Contact.astro';
-import Slot from '../components/Slot.astro';
-import Ph from '../components/Ph.astro';
+import Contact from '../components/organisms/Contact.astro';
+import Slot from '../components/atoms/Slot.astro';
+import Button from '../components/atoms/Button.astro';
+import Chip from '../components/atoms/Chip.astro';
+import Heading from '../components/atoms/Heading.astro';
+import Marks from '../components/atoms/Marks.astro';
+import Segmented from '../components/atoms/Segmented.astro';
+import Panel from '../components/molecules/Panel.astro';
+import FactCard from '../components/molecules/FactCard.astro';
+import CaseHero from '../components/organisms/CaseHero.astro';
+import Ph from '../components/atoms/Ph.astro';
 import { url } from '../lib/url';
 import { filled, visible, SHOW_PLACEHOLDERS } from '../lib/placeholder';
 import type { OpenCase } from '../cases/types';
@@ -34,34 +42,26 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
 <Base title={`${c.title.a}${c.title.b} — Viktoriia Seliverstova`} description={c.lead} nav={nav} progress depth>
 <main class="page case" data-case data-depth="full">
 
-  <section id="hero" class="chero">
-    <div class="chero-text">
-      <div class="chero-top"><span class="chero-ind">{c.industry}</span><span class="label on-ink-muted">{c.kicker}</span></div>
-      <div class="chero-mid"><h1 class="chero-h">{c.title.a}<span class="serif mist">{c.title.b}</span></h1><p class="chero-lead mist">{c.lead}</p></div>
-      <dl class="facts">{c.facts.map((f) => <div><dt class="label on-ink-muted">{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
-    </div>
-    <div class="chero-cover" style={`background-image:url(${url(c.cover)})`}>
+  <CaseHero industry={c.industry} title={c.title} lead={c.lead} facts={c.facts}>
+    <span slot="badge" class="label on-ink-muted">{c.kicker}</span>
+    <div slot="visual" class="chero-cover" style={`background-image:url(${url(c.cover)})`}>
       <div class="chero-chips">{c.chips.map((r) => <div class="gchip-dark"><div class="num gchip-n">{r.num}</div><div class="gchip-w">{r.what}</div></div>)}</div>
     </div>
-  </section>
+  </CaseHero>
 
-  <section id="facts" class="quick">
-    <div class="qcard cobalt">
-      <div class="q-head"><span class="num q-n">{R.sign}{R.n}</span><span class="q-l">{R.unit} {R.b}</span></div>
-      <div class="q-foot"><div class="q-blocks">{Array.from({ length: R.n }, () => <i></i>)}</div><span class="label-s mist" style="letter-spacing:0">1 BLOCK = 1 MINUTE</span></div>
-    </div>
-    <div class="qcard">
-      <div class="q-head"><span class="num q-n">{c.workflow.n}</span><span class="q-l">{c.workflow.what}</span></div>
+  <section id="facts" class="grid-4">
+    <FactCard tone="brand" n={`${R.sign}${R.n}`} unit={`${R.unit} ${R.b}`}>
+      <div class="q-foot"><Marks total={R.n} style="--on:var(--periwinkle)" /><span class="label-s mist" style="letter-spacing:0">1 BLOCK = 1 MINUTE</span></div>
+    </FactCard>
+    <FactCard n={c.workflow.n} unit={c.workflow.what}>
       <div class="q-foot"><div class="q-flow"><div class="q-apps"><i></i><i></i><i></i><i class="ph-m"></i></div><span class="muted">→</span><i class="q-one"></i></div><span class="label-s muted" style="letter-spacing:0">{c.workflow.caption}</span></div>
-    </div>
-    <div class="qcard">
-      <div class="q-head"><span class="num q-n">{c.roles.length}</span><span class="q-l">roles, one order</span></div>
-      <div class="q-roles">{c.roles.map((r) => <span><i></i>{r}</span>)}</div>
-    </div>
-    <div class="qcard">
-      <span class="q-l">My zone</span>
+    </FactCard>
+    <FactCard n={c.roles.length} unit="roles, one order">
+      <div class="q-roles">{c.roles.map((r) => <Chip tone="white"><i class="role-ic"></i>{r}</Chip>)}</div>
+    </FactCard>
+    <FactCard title="My zone">
       <div class="q-zone">{c.zone.map((t, i) => <div class:list={{ last: i === c.zone.length - 1 }}>{t}</div>)}</div>
-    </div>
+    </FactCard>
   </section>
 
   <section class="cbody">
@@ -75,13 +75,10 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
       <div id="problem" class="chap" data-chapter>
         <span class="label chap-k"><span data-chap-n="problem">01</span> · PROBLEM</span>
         <div class="prob-head">
-          <h2 class="h3 prob-h">{c.problem.a}<span class="serif">{c.problem.b}</span></h2>
-          <div class="ba-tabs" role="tablist" aria-label="Before or after">
-            <button type="button" role="tab" aria-selected="true" data-ba="0">Before</button>
-            <button type="button" role="tab" aria-selected="false" data-ba="1">After</button>
-          </div>
+          <Heading size="h3" a={c.problem.a} b={c.problem.b} class="prob-h" />
+          <Segmented items={[{ label: 'Before', selected: true, attrs: { 'data-ba': '0' } }, { label: 'After', attrs: { 'data-ba': '1' } }]} label="Before or after" role="tablist" tone="ink" size="lg" class="soft-track" />
         </div>
-        <div class="prob-panel">
+        <Panel tone="soft" pad="inset" class="prob-panel">
           <div class="dia" role="img" aria-label="Before: one order spread across three web apps and a mobile app, with lost context between them" data-dia>
             <svg class="dia-links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{BEFORE.map(([x, y]) => <line x1="50" y1="52" x2={x} y2={y} />)}</svg>
             <i class="dia-line"></i>
@@ -95,19 +92,19 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
               <p>{c.problem.context.map((s, i) => <>{i > 0 && ' '}<Ph v={s} /></>)}</p>
             </div>
           )}
-        </div>
+        </Panel>
       </div>
 
       {showResearch && (
         <div id="research" class="chap" data-chapter data-full>
           <span class="label chap-k"><span data-chap-n="research">02</span> · RESEARCH</span>
-          <h2 class="h3">What I <span class="serif">found.</span></h2>
+          <Heading size="h3" a="What I " b="found." />
           <div class="ins">{c.insights.filter((i) => visible(i.quote)).map((i) => <div class="ins-c"><span class="num ins-n">{i.n}</span><div class="ins-t"><span class="serif ins-q muted">“<Ph v={i.quote} />”</span><span class="label-s muted"><Ph v={i.src} /></span></div></div>)}</div>
         </div>
       )}
 
       <div id="decisions" class="chap decs" data-chapter>
-        <div class="decs-head"><span class="label chap-k"><span data-chap-n="decisions">03</span> · DECISIONS</span><h2 class="h3">Three <span class="serif">decisions.</span></h2></div>
+        <div class="decs-head"><span class="label chap-k"><span data-chap-n="decisions">03</span> · DECISIONS</span><Heading size="h3" a="Three " b="decisions." /></div>
         {c.decisions.map((d, i) => {
           const notes = d.notes.filter(([, v]) => visible(v));
           return (
@@ -122,8 +119,8 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
 
       <div id="journey" class="chap journey" data-chapter data-journey>
         <div class="j-head">
-          <div class="j-title"><span class="label mist"><span data-chap-n="journey">04</span> · IN USE</span><h2 class="h3">The path of <span class="serif">one order.</span></h2></div>
-          <div class="j-ctrl"><button type="button" class="j-play" data-play>Pause</button><button type="button" class="j-arr" aria-label="Previous step" data-step-prev>←</button><button type="button" class="j-arr fwd" aria-label="Next step" data-step-next>→</button></div>
+          <div class="j-title"><span class="label mist"><span data-chap-n="journey">04</span> · IN USE</span><Heading size="h3" a="The path of " b="one order." /></div>
+          <div class="j-ctrl"><Button variant="outline-light" data-play>Pause</Button><button type="button" class="icon-btn j-arr" aria-label="Previous step" data-step-prev>←</button><button type="button" class="icon-btn j-arr fwd" aria-label="Next step" data-step-next>→</button></div>
         </div>
         <div class="j-stations">{c.stations.map((s, i) => <button type="button" class:list={['j-st', { on: i === 0 }]} aria-pressed={i === 0 ? 'true' : 'false'} data-station={i}><i></i><span><span class="label-s mist" style="letter-spacing:0">{String(i + 1).padStart(2, '0')}</span><span class="j-st-t">{s.t}</span></span></button>)}</div>
         <div class="j-screen">
@@ -149,7 +146,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
         {R.lesson && visible(R.lesson.why) && <div class="lesson" data-full><span class="label">WHAT I'D DO DIFFERENTLY</span><p class="serif">{R.lesson.text} <Ph v={R.lesson.why} /></p></div>}
         <a class="next" href={url(c.next.href)}>
           <span class="next-l"><span class="label muted">NEXT CASE · {c.next.cat}</span><span class="h5">{c.next.name}</span></span>
-          <span class="next-r"><span class="num next-n">{c.next.num}</span><span class="next-ten">{Array.from({ length: 10 }, (_, i) => <i class:list={{ on: i < nextOn }}></i>)}</span><span class="muted next-w">{c.next.what} →</span></span>
+          <span class="next-r"><span class="num next-n">{c.next.num}</span><Marks total={10} on={nextOn} height="24px" gap={4} class="next-ten" style="--on:var(--cobalt);--off:var(--cobalt-tint-strong);--off-o:.5" /><span class="muted next-w">{c.next.what} →</span></span>
         </a>
       </div>
     </div>
@@ -160,23 +157,10 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
 </Base>
 
 <style>
-  .case { padding-top: var(--content-top); }
   :global(html) { scroll-padding-top: 100px; }
   .case[data-depth='short'] [data-full] { display: none !important; }
 
   /* Hero */
-  .chero { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  @media (max-width: 639px) { .chero { grid-template-columns: minmax(0, 1fr); } }
-  .chero-text { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: clamp(420px, 64vh, 640px); padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--ink); color: var(--white); }
-  .chero-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .chero-ind { padding: 10px 18px; border-radius: var(--r-pill); background: var(--cobalt); font-size: var(--t-body); font-weight: 500; }
-  .chero-mid { display: flex; flex-direction: column; gap: 16px; }
-  .chero-h { font-weight: 500; font-size: var(--t-display); line-height: .88; letter-spacing: -.055em; }
-  .chero-h .serif { letter-spacing: -.03em; }
-  .chero-lead { font-size: var(--t-lead); line-height: 1.4; max-width: 520px; }
-  .facts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; border-top: 1px solid var(--on-dark-line); padding-top: 16px; }
-  .facts div { display: flex; flex-direction: column; gap: 4px; }
-  .facts dd { margin: 0; font-size: var(--t-body); }
   .chero-cover { position: relative; min-height: clamp(320px, 64vh, 640px); border-radius: var(--r-surface); overflow: hidden; background: var(--grey-210) center / cover no-repeat; }
   .chero-chips { position: absolute; left: 10px; right: 10px; bottom: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .gchip-dark { padding: 14px 16px; border-radius: var(--r-inner); background: var(--glass-dark-bg); backdrop-filter: var(--glass-dark-filter); -webkit-backdrop-filter: var(--glass-dark-filter); box-shadow: var(--glass-dark-shadow); color: var(--white); }
@@ -184,25 +168,15 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   .gchip-w { font-size: var(--t-small); margin-top: 4px; opacity: .9; }
 
   /* Quick look */
-  .quick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-  @media (max-width: 1099px) { .quick { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 639px) { .quick { grid-template-columns: minmax(0, 1fr); } }
-  .qcard { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: var(--card-pad); border-radius: var(--r-card); background: var(--grey-238); }
-  .qcard.cobalt { background: var(--cobalt); color: var(--white); }
-  .q-head { display: flex; align-items: baseline; gap: 12px; }
-  .q-n { font-size: var(--t-number-l); line-height: 1; letter-spacing: -.05em; }
-  .q-l { font-size: var(--t-ui-l); font-weight: 500; }
   .q-foot { display: flex; flex-direction: column; gap: 8px; }
-  .q-blocks { display: flex; gap: 3px; height: 28px; }
-  .q-blocks i { flex: 1; border-radius: var(--r-mark); background: var(--periwinkle); }
   .q-flow { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; gap: 12px; }
   .q-apps { display: flex; gap: 4px; align-items: flex-end; }
   .q-apps i { width: 26px; height: 18px; border-radius: var(--r-mark); background: var(--ink); }
   .q-apps i.ph-m { width: 12px; height: 22px; }
   .q-one { height: 28px; border-radius: var(--r-mark); background: var(--cobalt); }
   .q-roles { display: flex; flex-wrap: wrap; gap: 6px; }
-  .q-roles span { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px 7px 8px; border-radius: var(--r-pill); background: var(--white); font-size: var(--t-small); }
-  .q-roles i { width: 10px; height: 16px; border-radius: 5px 5px 2px 2px; background: var(--ink); }
+  .q-roles :global(.chip) { padding: 7px 12px 7px 8px; }
+  .role-ic { width: 10px; height: 16px; border-radius: 5px 5px 2px 2px; background: var(--ink); }
   .q-zone { display: flex; flex-direction: column; gap: 6px; }
   .q-zone div { padding: 9px 14px; border-radius: var(--r-tile); background: var(--ink); color: var(--white); font-size: var(--t-body); font-weight: 500; }
   .q-zone div.last { background: var(--cobalt); }
@@ -210,9 +184,10 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   /* Body + chapter rail */
   .cbody { padding-top: var(--block-top); display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(20px, 2.6vw, 40px); align-items: start; }
   .rail { position: sticky; top: 96px; z-index: 10; display: flex; flex-direction: column; gap: 4px; padding: 8px; border-radius: var(--r-inner); background: var(--glass-light-bg); backdrop-filter: var(--glass-light-filter); -webkit-backdrop-filter: var(--glass-light-filter); box-shadow: var(--glass-light-shadow); overflow-x: auto; scrollbar-width: none; }
-  .rail-a { flex: none; display: flex; gap: 12px; align-items: baseline; padding: 11px 14px; border-radius: var(--r-pill); font-size: var(--t-small); text-decoration: none; white-space: nowrap; color: var(--ink); transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease); }
+  .rail-a { flex: none; display: flex; gap: 12px; align-items: center; min-height: var(--control-min); padding: 0 14px; border-radius: var(--r-pill); font-size: var(--t-small); text-decoration: none; white-space: nowrap; color: var(--ink); transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease); }
   .rail-a.on { background: var(--ink); color: var(--white); }
-  .rail-n { opacity: .6; letter-spacing: 0; }
+  .rail-n { color: var(--text-secondary); letter-spacing: 0; }
+  .rail-a.on .rail-n { color: var(--mist); }
   .rail-skip { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; margin-top: 8px; border-radius: var(--r-pill); font-size: var(--t-small); text-decoration: none; white-space: nowrap; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
   @media (max-width: 1099px) {
     .cbody { grid-template-columns: minmax(0, 1fr); }
@@ -226,10 +201,8 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   /* Problem diagram */
   .prob-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
   .prob-h { max-width: 18ch; }
-  .ba-tabs { display: flex; gap: 2px; padding: 4px; border-radius: var(--r-pill); background: var(--grey-238); }
-  .ba-tabs button { min-height: 44px; padding: 0 22px; border-radius: var(--r-pill); font-size: var(--t-body); font-weight: 500; }
-  .ba-tabs button[aria-selected='true'] { background: var(--ink); color: var(--white); }
-  .prob-panel { display: flex; flex-direction: column; gap: 12px; padding: 10px; border-radius: var(--r-surface); background: var(--grey-238); }
+  .prob-head :global(.soft-track) { background: var(--grey-238); padding: 4px; }
+  .prob-panel { display: flex; flex-direction: column; gap: 12px; }
   .dia { position: relative; aspect-ratio: 16 / 9; min-height: 260px; border-radius: var(--r-inner); background: var(--white); overflow: hidden; }
   @media (max-width: 639px) { .dia { aspect-ratio: 4 / 3; } }
   .dia-links { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity var(--d-slow) var(--ease); }
@@ -283,8 +256,9 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   .j-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
   .j-title { display: flex; flex-direction: column; gap: 12px; }
   .j-ctrl { display: flex; gap: 8px; }
-  .j-play { min-height: 48px; padding: 0 18px; border-radius: var(--r-pill); font-size: var(--t-body); box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
-  .j-arr { width: 48px; height: 48px; border-radius: var(--r-dot); font-size: var(--t-ui-l); box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
+  .j-ctrl :global(.btn) { font-weight: 400; padding: 0 18px; }
+  .j-arr { box-shadow: var(--ring-15) var(--on-dark-ring); }
+  .j-arr[aria-disabled='true'] { opacity: .4; cursor: default; }
   .j-arr.fwd { background: var(--white); color: var(--cobalt); box-shadow: none; }
   .j-stations { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
   .j-st { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; text-align: left; }
@@ -330,9 +304,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   .next-l { display: flex; flex-direction: column; gap: 4px; }
   .next-r { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .next-n { font-size: var(--t-h4); letter-spacing: -.045em; }
-  .next-ten { display: flex; gap: 4px; }
-  .next-ten i { width: 10px; height: 24px; border-radius: var(--r-mark); background: var(--cobalt-tint-strong); opacity: .5; }
-  .next-ten i.on { background: var(--cobalt); opacity: 1; }
+  .next-r :global(.next-ten) { width: 136px; }
   .next-w { font-size: var(--t-small); }
 </style>
 
@@ -393,8 +365,8 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
     stations.forEach((b, i) => { b.classList.toggle('lit', i <= s); b.setAttribute('aria-pressed', String(i === s)); });
     shots.forEach((el, i) => { el.hidden = i !== s; });
     endChip.hidden = s !== last;
-    prevBtn.style.opacity = s === 0 ? '.35' : '1';
-    nextBtn.style.opacity = s === last ? '.35' : '1';
+    prevBtn.setAttribute('aria-disabled', String(s === 0));
+    nextBtn.setAttribute('aria-disabled', String(s === last));
   };
   const setPlaying = (p: boolean) => { playing = p; playBtn.textContent = p ? 'Pause' : 'Play'; };
   stations.forEach((b, i) => b.addEventListener('click', () => { setPlaying(false); setStep(i); }));

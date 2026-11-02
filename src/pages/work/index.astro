@@ -1,7 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Contact from '../../components/Contact.astro';
-import Slot from '../../components/Slot.astro';
+import Contact from '../../components/organisms/Contact.astro';
+import Slot from '../../components/atoms/Slot.astro';
+import Button from '../../components/atoms/Button.astro';
+import Chip from '../../components/atoms/Chip.astro';
+import Badge from '../../components/atoms/Badge.astro';
+import Dot from '../../components/atoms/Dot.astro';
+import Heading from '../../components/atoms/Heading.astro';
+import Phone from '../../components/atoms/Phone.astro';
+import Segmented from '../../components/atoms/Segmented.astro';
+import Panel from '../../components/molecules/Panel.astro';
 import { url } from '../../lib/url';
 import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES } from '../../data/work';
 
@@ -15,6 +23,8 @@ const items = products.map((p, i) => ({ ...p, i, plat: plats(p).join(' '), href:
 const groups = industries.map((g) => ({ ...g, items: items.filter((p) => p.ind === g.key) }));
 const preview = items.map((p) => ({ t: p.t, r: p.r, d: p.d, m: p.m, tags: p.tags, img: p.img ? url(p.img) : '', href: p.href, ind: industries.find((x) => x.key === p.ind)!.label.toUpperCase() }));
 const Arrow = '→';
+const platItems = (pills: string[]) => pills.map((p) => ({ label: p, attrs: { 'data-plat-pick': p === 'All' ? '' : p } }));
+const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attrs: { 'data-view-pick': k }, class: k === 'index' ? 'only-d' : undefined }));
 ---
 <Base title="Work — Viktoriia Seliverstova" description="25 products I designed for companies in 7 industries, 5 apps I build on my own, and the graphic work behind them." nav={nav}>
 <main id="top" class="page work g12" data-work data-section="all" data-view="rows">
@@ -27,7 +37,7 @@ const Arrow = '→';
     </div>
     <p class="console-lead">25 products I designed for companies in 7 industries, 5 apps I build on my own, and the graphic work behind them.</p>
     <div class="tabs" role="tablist" aria-label="Section">
-      {sections.map(([k, label, n]) => <button type="button" role="tab" class="tab" data-section-tab={k} aria-selected={k === 'all' ? 'true' : 'false'}><span>{label}</span><span class="num tab-n">{n}</span></button>)}
+      {sections.map(([k, label, n]) => <button type="button" role="tab" class="tab" data-section-tab={k} aria-selected={k === 'all' ? 'true' : 'false'}><span>{label}</span><Badge tone="on-dark" class="tab-n">{n}</Badge></button>)}
     </div>
   </section>
 
@@ -41,15 +51,11 @@ const Arrow = '→';
           {industries.map((g) => <button type="button" class="frow" data-ind-pick={g.key}><span class="fdot" aria-hidden="true"></span><span class="frow-l">{g.label}</span><span class="num frow-n"></span></button>)}
         </div>
       </div>
-      <div class="seg" role="group" aria-label="Platform">
-        {['All', 'Web', 'Mobile', 'iOS'].map((p) => <button type="button" class="seg-b" data-plat-pick={p === 'All' ? '' : p}>{p}</button>)}
-      </div>
+      <Segmented items={platItems(['All', 'Web', 'Mobile', 'iOS'])} label="Platform" />
       <span class="fbar-sp"></span>
       <span class="fbar-count muted" aria-live="polite"><b class="num" data-count>25</b> <span data-noun>projects</span></span>
-      <button type="button" class="clear" data-clear hidden>Clear</button>
-      <div class="seg" role="tablist" aria-label="View">
-        {[['rows', 'Rows'], ['index', 'Index'], ['cards', 'Cards']].map(([k, l]) => <button type="button" role="tab" class:list={['seg-b', { 'only-d': k === 'index' }]} data-view-pick={k}>{l}</button>)}
-      </div>
+      <Button variant="text" data-clear hidden>Clear</Button>
+      <Segmented items={viewItems([['rows', 'Rows'], ['index', 'Index'], ['cards', 'Cards']])} label="View" />
     </div>
   </div>
   <button type="button" class="dd-scrim" aria-label="Close" hidden data-dd-scrim></button>
@@ -63,12 +69,12 @@ const Arrow = '→';
   </div>
   <div class="sheet" role="dialog" aria-modal="true" aria-label="Filters" hidden data-sheet>
     <button type="button" class="sheet-scrim" aria-label="Close filters" data-sheet-close></button>
-    <div class="sheet-panel">
+    <div class="sheet-panel" tabindex="-1">
       <div class="sheet-grab"><i></i></div>
-      <div class="sheet-head"><span class="sheet-title">Filter</span><button type="button" class="clear" data-clear hidden>Clear all</button></div>
+      <div class="sheet-head"><span class="sheet-title">Filter</span><Button variant="text" data-clear hidden>Clear all</Button></div>
       <div class="sheet-body">
-        <div class="sheet-grp"><span class="label muted">VIEW</span><div class="seg full">{[['rows', 'Rows'], ['cards', 'Cards']].map(([k, l]) => <button type="button" class="seg-b" data-view-pick={k}>{l}</button>)}</div></div>
-        <div class="sheet-grp"><span class="label muted">PLATFORM</span><div class="seg full">{['All', 'Web', 'Mobile', 'iOS'].map((p) => <button type="button" class="seg-b" data-plat-pick={p === 'All' ? '' : p}>{p}</button>)}</div></div>
+        <div class="sheet-grp"><span class="label muted">VIEW</span><Segmented items={viewItems([['rows', 'Rows'], ['cards', 'Cards']])} label="View" class="full" /></div>
+        <div class="sheet-grp"><span class="label muted">PLATFORM</span><Segmented items={platItems(['All', 'Web', 'Mobile', 'iOS'])} label="Platform" class="full" /></div>
         <div class="sheet-grp"><span class="label muted">INDUSTRY</span>
           <div class="sheet-list">
             <button type="button" class="frow" data-ind-pick=""><span class="fdot" aria-hidden="true"></span><span class="frow-l">All industries</span><span class="num frow-n"></span></button>
@@ -82,14 +88,14 @@ const Arrow = '→';
 
   <section class="empty" hidden data-empty>
     <span class="h2">Nothing here yet.</span>
-    <button type="button" class="btn btn-ink" data-clear-all>Clear filters</button>
+    <Button variant="ink" data-clear-all>Clear filters</Button>
   </section>
 
   <!-- Product work, grouped by industry -->
   {groups.map((g) => (
     <section class="group g12 only-product" data-group={g.key}>
       <header class="group-h">
-        <div class="group-top"><span class="label-s group-no" data-group-no></span><span class="num badge" data-group-count>{g.items.length}</span></div>
+        <div class="group-top"><span class="label-s group-no" data-group-no></span><Badge data-group-count>{g.items.length}</Badge></div>
         <h2 class="group-t">{g.label}</h2>
         <p class="group-sub muted">{g.sub}</p>
       </header>
@@ -126,7 +132,7 @@ const Arrow = '→';
               <div class="card-b">
                 {p.r && <span class="num card-r">{p.r}</span>}
                 <div class="card-tt"><span class="card-t">{p.t}</span><span class="card-d">{p.d}</span></div>
-                <div class="card-foot"><span class="label-s card-m">{p.m}</span><div class="card-tags">{p.tags.map((t) => <span>{t}</span>)}</div></div>
+                <div class="card-foot"><span class="label-s card-m">{p.m}</span><div class="card-tags">{p.tags.map((t) => <Chip tone={p.img ? 'dark' : 'white'} size="s" class="tag">{t}</Chip>)}</div></div>
               </div>
             </Tag>
           );
@@ -153,47 +159,47 @@ const Arrow = '→';
 
   <button type="button" class="banner" data-to="mine" data-banner>
     <span class="h5 banner-t">I also build my own products — from the first sketch to the App Store.</span>
-    <span class="btn btn-white">See My products<span class="arr" aria-hidden="true">{Arrow}</span></span>
+    <span class="btn btn-white has-arr">See My products<span class="arr" aria-hidden="true">{Arrow}</span></span>
   </button>
 
   <!-- My products -->
   <section id="mine" class="section g12 mine" data-mine>
-    <h2 class="big-h s-half">My <span class="serif">products</span></h2>
+    <Heading size="display" a="My " b="products" class="big-h s-half" />
     <div class="s-half mine-intro">
       <p class="muted body">I build small, focused apps on my own: the idea, the design, the SwiftUI code with Claude Code and Cursor, and the App Store page. Every decision is mine to defend and every bug is mine to fix — that is the best product school I know.</p>
-      <div class="pills">{stack.map((x) => <span class="label-s pill-grey">{x}</span>)}</div>
+      <div class="pills">{stack.map((x) => <Chip tone="soft" size="s" class="pill-s">{x}</Chip>)}</div>
     </div>
     {apps.map((a) => (
-      <article class="appcard g12">
-        <div class="s-phone appcard-ph"><div class="phone"><div><Slot label={a.ph} /></div></div></div>
+      <Panel as="article" tone="dark" class="appcard g12">
+        <div class="s-phone appcard-ph"><Phone label={a.ph} /></div>
         <div class="s-apptext appcard-t">
           <div class="appcard-head">
-            <span class="label-s glass-tag"><i class="dot" style="width:7px;height:7px;background:var(--orange)"></i>{a.status}</span>
-            <h3 class="big-h">{a.name}</h3>
+            <Chip tone="dark" size="s" class="tag-status"><Dot tone="orange" size={7} />{a.status}</Chip>
+            <h3 class="display big-h">{a.name}</h3>
             <span class="serif slogan mist">{a.slogan}</span>
             <p class="body mist">{a.d}</p>
           </div>
           <div class="dec"><span class="label on-ink-muted">DECISIONS I MADE</span>{a.dec.map((t, i) => <div class="dec-row"><span class="num dec-n">0{i + 1}</span><span>{t}</span></div>)}</div>
-          <div class="did"><span class="label on-ink-muted">WHAT I DID</span>{a.did.map((w) => <span class="did-chip">{w}</span>)}</div>
-          {a.page && <a class="btn btn-white" href={url(a.page)}>Open product page<span class="arr" aria-hidden="true">{Arrow}</span></a>}
+          <div class="did"><span class="label on-ink-muted">WHAT I DID</span>{a.did.map((w) => <Chip tone="dark">{w}</Chip>)}</div>
+          {a.page && <Button href={url(a.page)} variant="white" arrow>Open product page</Button>}
         </div>
-      </article>
+      </Panel>
     ))}
-    <article class="s-half kvit" data-not-ios>
-      <span class="label-s tag-white">CONCEPT</span>
-      <div class="kvit-h"><h3 class="big-h">Kvit</h3><span class="serif slogan muted">Receipts, grocery prices and a food budget in one place.</span></div>
-      <div class="did"><span class="label muted">WHAT I DID</span><span class="did-chip light">Idea</span><span class="did-chip light">research</span><span class="did-chip light">product design</span></div>
-    </article>
-    <article class="s-half aicard" data-not-ios>
-      <span class="label-s glass-tag"><i class="dot" style="width:7px;height:7px;background:var(--green)"></i>IN DAILY USE</span>
-      <div class="kvit-h"><h3 class="ai-h">How I work <span class="serif">with AI</span></h3><p class="body mist">My everyday setup: a system of AI agents with rules I wrote and keep improving.</p></div>
+    <Panel as="article" tone="soft" class="s-half kvit" data-not-ios>
+      <Chip tone="white" size="s" class="tag-status">CONCEPT</Chip>
+      <div class="kvit-h"><h3 class="display big-h">Kvit</h3><span class="serif slogan muted">Receipts, grocery prices and a food budget in one place.</span></div>
+      <div class="did"><span class="label muted">WHAT I DID</span><Chip tone="white">Idea</Chip><Chip tone="white">research</Chip><Chip tone="white">product design</Chip></div>
+    </Panel>
+    <Panel as="article" tone="brand" class="s-half aicard" data-not-ios>
+      <Chip tone="dark" size="s" class="tag-status"><Dot tone="green" size={7} />IN DAILY USE</Chip>
+      <div class="kvit-h"><Heading as="h3" size="h3" a="How I work " b="with AI" class="ai-h" /><p class="body mist">My everyday setup: a system of AI agents with rules I wrote and keep improving.</p></div>
       <div class="ai-grid">{ai.map((x) => <div class="ai-item"><span class="ai-t">{x.t}</span><span class="mist ai-d">{x.d}</span></div>)}</div>
-    </article>
+    </Panel>
   </section>
 
   <!-- Graphic & illustration -->
   <section id="graphic" class="section g12 graphic" data-graphic>
-    <h2 class="big-h s-half">Graphic &amp; <span class="serif">illustration</span></h2>
+    <Heading size="display" a="Graphic & " b="illustration" class="big-h s-half" />
     <p class="s-half muted body graphic-p">Brand systems, illustration, print and icons. 14 projects, plus product work where the visual side carried the result.</p>
     <div class="gtypes">
       <span class="label muted gtypes-k">TYPE</span>
@@ -206,8 +212,8 @@ const Arrow = '→';
       </div>
     ))}
     <div class="vis">
-      <div class="vis-l"><span class="vis-t">Product work with a strong visual side</span><div class="pills">{visualProducts.map((x) => <span class="pill-grey">{x}</span>)}</div></div>
-      <button type="button" class="btn btn-ink" data-to="product">All product work<span class="arr" aria-hidden="true">{Arrow}</span></button>
+      <div class="vis-l"><span class="vis-t">Product work with a strong visual side</span><div class="pills">{visualProducts.map((x) => <Chip tone="soft">{x}</Chip>)}</div></div>
+      <Button variant="ink" arrow data-to="product">All product work</Button>
     </div>
   </section>
 
@@ -219,7 +225,7 @@ const Arrow = '→';
 <style>
   /* 12-col grid: 12 / 12 / 4 columns at desktop / tablet / phone */
   .g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
-  .work { padding-top: var(--content-top); padding-bottom: 16px; row-gap: 12px; }
+  .work { padding-bottom: 16px; row-gap: 12px; }
   .work > *, .full { grid-column: 1 / -1; min-width: 0; }
   .s-half { grid-column: span 6; }
   .s-phone { grid-column: span 4; }
@@ -232,10 +238,9 @@ const Arrow = '→';
     .s-gfx { grid-column: span 2; }
   }
   .body { font-size: var(--t-body); line-height: 1.5; max-width: 62ch; }
-  .big-h { font-weight: 500; font-size: var(--t-display); line-height: .86; letter-spacing: -.055em; }
+  .big-h { line-height: .86; }
   .pills { display: flex; gap: 4px; flex-wrap: wrap; }
-  .pill-grey { padding: 7px 12px; border-radius: var(--r-pill); background: var(--grey-238); font-size: var(--t-small); }
-  .label-s.pill-grey { font-size: var(--t-label); letter-spacing: 0; }
+  .pills :global(.pill-s) { letter-spacing: 0; }
 
   /* Section visibility */
   .work:not([data-section='all']):not([data-section='product']) .only-product { display: none !important; }
@@ -253,8 +258,8 @@ const Arrow = '→';
   .tab { display: flex; justify-content: flex-start; align-items: center; gap: 12px; min-height: 52px; padding: 0 18px; border-radius: var(--r-inner); font-size: var(--t-body); font-weight: 500; text-align: left; color: var(--white); transition: background var(--d-base) var(--ease), color var(--d-base) var(--ease); }
   .tab:hover { box-shadow: inset 0 0 0 1.5px var(--on-dark-glass); }
   .tab[aria-selected='true'] { background: var(--white); color: var(--cobalt); }
-  .tab-n { min-width: 28px; height: 28px; padding: 0 6px; border-radius: var(--r-pill); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-small); background: var(--on-dark-line); color: var(--white); }
-  .tab[aria-selected='true'] .tab-n { background: var(--cobalt); }
+  .tab-n { transition: background var(--d-base) var(--ease); }
+  .tab[aria-selected='true'] :global(.tab-n) { background: var(--cobalt); }
   @media (max-width: 1099px) { .console-h { grid-column: span 7; } .console-count { grid-column: span 5; } .console-lead { grid-column: span 10; } }
   @media (max-width: 639px) {
     .console-h, .console-count, .console-lead { grid-column: span 4; }
@@ -273,7 +278,8 @@ const Arrow = '→';
   .dd { position: relative; flex-shrink: 0; }
   .dd-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px 0 18px; border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 500; }
   .dd-btn.set { background: var(--ink); color: var(--white); }
-  .dd-k { opacity: .6; }
+  .dd-k { color: var(--text-secondary); }
+  .dd-btn.set .dd-k { color: var(--mist); }
   .chev { width: 7px; height: 7px; margin: 0 2px 3px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform var(--d-base) var(--ease); }
   .dd-btn[aria-expanded='true'] .chev { transform: rotate(-135deg); }
   .dd-list { position: absolute; top: calc(100% + 10px); left: 0; width: 340px; padding: 6px; border-radius: var(--r-inner); background: var(--glass-sheet-bg); backdrop-filter: var(--glass-sheet-filter); -webkit-backdrop-filter: var(--glass-sheet-filter); box-shadow: var(--glass-sheet-shadow); display: flex; flex-direction: column; gap: 2px; z-index: 2; }
@@ -285,13 +291,8 @@ const Arrow = '→';
   .frow[aria-pressed='true'] .fdot::after { content: '✓'; }
   .frow-l { flex: 1; min-width: 0; }
   .frow-n { font-size: var(--t-small); color: var(--text-muted); }
-  .seg { display: flex; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: var(--hover); flex-shrink: 0; }
-  .seg-b { flex: 1 0 auto; min-height: 38px; padding: 0 14px; border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 500; white-space: nowrap; }
-  .seg-b[aria-pressed='true'] { background: var(--white); box-shadow: 0 1px 4px var(--shadow-ink); }
-  .seg.full .seg-b { min-height: 40px; }
-  @media (max-width: 1099px) { .only-d { display: none; } }
-  .clear { min-height: 44px; padding: 0 12px; border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 500; color: var(--cobalt); }
-  .clear:hover { background: var(--cobalt-tint); }
+  .sheet :global(.seg.full .seg-b) { min-height: 40px; }
+  @media (max-width: 1099px) { .work :global(.only-d) { display: none; } }
 
   /* Phone filter pill + sheet */
   .fpill-wrap { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 45; display: flex; justify-content: center; pointer-events: none; }
@@ -306,6 +307,7 @@ const Arrow = '→';
   .fpill-n { padding: 0 10px 0 6px; font-size: var(--t-small); }
   .sheet { position: fixed; inset: 0; z-index: 70; display: flex; flex-direction: column; justify-content: flex-end; }
   .sheet-scrim { position: absolute; inset: 0; background: var(--scrim); cursor: default; }
+  .sheet-panel:focus { outline: none; }
   .sheet-panel { position: relative; max-height: 86svh; display: flex; flex-direction: column; border-radius: var(--r-card) var(--r-card) 0 0; background: var(--glass-sheet-bg); backdrop-filter: var(--glass-sheet-filter); -webkit-backdrop-filter: var(--glass-sheet-filter); box-shadow: var(--glass-sheet-shadow); padding-bottom: env(safe-area-inset-bottom); animation: sheet-in var(--d-slow) var(--ease); }
   @keyframes sheet-in { from { transform: translateY(100%); } }
   .sheet-grab { display: flex; justify-content: center; padding: 10px 0 0; }
@@ -326,7 +328,6 @@ const Arrow = '→';
   .group-h { grid-column: span 3; display: flex; flex-direction: column; gap: 12px; padding-top: 16px; border-top: 2px solid var(--ink); }
   .group-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .group-no { color: var(--cobalt); letter-spacing: .06em; }
-  .badge { min-width: 28px; height: 28px; padding: 0 6px; border-radius: var(--r-pill); display: inline-flex; align-items: center; justify-content: center; font-size: var(--t-small); background: var(--cobalt); color: var(--white); }
   .group-t { font-weight: 500; font-size: var(--t-h4); line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
   .group-sub { font-size: var(--t-body); line-height: 1.5; max-width: 56ch; }
   .rows, .mrows, .cards, .more { grid-column: span 9; }
@@ -399,8 +400,7 @@ const Arrow = '→';
   .card-foot { margin-top: auto; display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }
   .card-m { line-height: 1.5; }
   .card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-  .card-tags span { padding: 5px 10px; border-radius: var(--r-pill); font-size: var(--t-label); background: var(--white); }
-  .card.dark .card-tags span { background: var(--on-dark-fill); }
+  .card-tags :global(.tag) { padding: 5px 10px; font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
   .more { display: flex; justify-content: center; align-items: center; gap: 8px; min-height: 48px; border-radius: var(--r-pill); font-size: var(--t-body); font-weight: 500; box-shadow: inset 0 0 0 1.5px var(--ink); }
 
   /* Index */
@@ -447,15 +447,15 @@ const Arrow = '→';
   .mine { row-gap: 12px; }
   .mine > .big-h, .graphic > .big-h { margin-bottom: 12px; align-self: end; }
   .mine-intro { align-self: end; margin-bottom: 12px; display: flex; flex-direction: column; gap: 12px; }
-  .appcard { grid-column: 1 / -1; row-gap: 24px; padding: var(--panel-pad); border-radius: var(--r-surface); background: var(--ink); color: var(--white); align-items: center; }
+  .appcard { grid-column: 1 / -1; row-gap: 24px; align-items: center; }
   .appcard-ph { display: flex; justify-content: center; }
-  .appcard-ph .phone { width: min(100%, 280px); aspect-ratio: 9 / 19.5; border-radius: 44px; }
-  .appcard-ph .phone > div { border-radius: 36px; }
-  @media (max-width: 639px) { .appcard-ph .phone { width: min(100%, 220px); } }
+  .appcard-ph :global(.phone) { width: min(100%, 280px); aspect-ratio: 9 / 19.5; border-radius: 44px; }
+  .appcard-ph :global(.phone > div) { border-radius: 36px; }
+  @media (max-width: 639px) { .appcard-ph :global(.phone) { width: min(100%, 220px); } }
   .appcard-t { min-width: 0; display: flex; flex-direction: column; gap: 24px; }
   .appcard-head { display: flex; flex-direction: column; gap: 12px; }
   .appcard-head .big-h { line-height: .84; }
-  .glass-tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-pill); background: var(--on-dark-fill); }
+  .work :global(.tag-status) { align-self: flex-start; padding: 8px 12px; }
   .slogan { font-size: var(--t-h5); line-height: 1.12; }
   .dec { display: flex; flex-direction: column; }
   .dec > .label { padding-bottom: 8px; }
@@ -463,16 +463,12 @@ const Arrow = '→';
   .dec-n { color: var(--periwinkle); }
   .did { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .did > .label { margin-right: 6px; }
-  .did-chip { padding: 7px 12px; border-radius: var(--r-pill); background: var(--on-dark-fill); font-size: var(--t-small); }
-  .did-chip.light { background: var(--white); }
-  .appcard-t > .btn { align-self: flex-start; }
-  .kvit, .aicard { display: flex; flex-direction: column; gap: 24px; padding: var(--panel-pad); border-radius: var(--r-surface); }
-  .kvit { justify-content: space-between; gap: 40px; background: var(--grey-238); }
-  .aicard { background: var(--cobalt); color: var(--white); }
-  .tag-white { align-self: flex-start; padding: 8px 12px; border-radius: var(--r-pill); background: var(--white); }
+  .appcard-t > :global(.btn) { align-self: flex-start; }
+  .kvit, .aicard { display: flex; flex-direction: column; gap: 24px; }
+  .kvit { justify-content: space-between; gap: 40px; }
   .kvit-h { display: flex; flex-direction: column; gap: 12px; }
   .kvit .big-h { line-height: .84; }
-  .ai-h { font-weight: 500; font-size: var(--t-number-l); line-height: .9; letter-spacing: -.055em; }
+  .ai-h { font-size: var(--t-number-l); line-height: .9; letter-spacing: -.055em; }
   .ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   @media (max-width: 639px) { .ai-grid { grid-template-columns: minmax(0, 1fr); } }
   .ai-item { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--r-inner); background: var(--on-dark-fill); }
@@ -615,7 +611,7 @@ const Arrow = '→';
     const head = p.img
       ? `<div class="ip-img" style="background-image:url(${p.img})"></div>`
       : `<div class="ip-big"><span class="label mist">${esc(p.ind)}</span><span class="num">${esc(p.r || p.t)}</span></div>`;
-    const link = p.href ? `<a class="btn btn-white to-cobalt" href="${p.href}">View case<span class="arr" aria-hidden="true">→</span></a>` : '';
+    const link = p.href ? `<a class="btn btn-white on-brand has-arr" href="${p.href}">View case<span class="arr" aria-hidden="true">→</span></a>` : '';
     panel.innerHTML = `${head}<div class="ip-b"><span class="ip-t">${esc(p.t)}</span>${p.r && p.img ? `<span class="num ip-r">${esc(p.r)}</span>` : ''}<span class="ip-d mist">${esc(p.d)}</span><span class="label-s on-ink-muted">${esc(p.m)}</span><div class="ip-foot"><div class="ip-tags">${p.tags.map((t) => `<span>${esc(t)}</span>`).join('')}</div>${link}</div></div>`;
   }
 
@@ -637,7 +633,23 @@ const Arrow = '→';
 
   // Phone sheet
   const sheet = document.querySelector<HTMLElement>('[data-sheet]')!;
-  const setSheet = (open: boolean) => { sheet.hidden = !open; document.body.style.overflow = open ? 'hidden' : ''; apply(); };
+  const sheetPanel = sheet.querySelector<HTMLElement>('.sheet-panel')!;
+  const pillBtn = document.querySelector<HTMLElement>('[data-sheet-open]')!;
+  const setSheet = (open: boolean) => {
+    sheet.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+    apply();
+    // Focus moves into the sheet and comes back to the Filter button.
+    if (open) sheetPanel.focus(); else pillBtn.focus();
+  };
+  // Keep Tab inside the open sheet.
+  sheet.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = [...sheet.querySelectorAll<HTMLElement>('button:not([disabled]):not([hidden])')].filter((el) => el.offsetParent && !el.classList.contains('sheet-scrim'));
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === sheetPanel)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   document.addEventListener('click', (e) => {
     const t = (e.target as HTMLElement).closest<HTMLElement>('button');

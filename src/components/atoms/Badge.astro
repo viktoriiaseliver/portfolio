@@ -1,0 +1,6 @@
+---
+// Count badge atom.
+interface Props { tone?: 'brand' | 'on-dark'; class?: string; [attr: string]: unknown }
+const { tone = 'brand', class: cls, ...rest } = Astro.props;
+---
+<span class:list={['badge', `badge-${tone}`, cls]} {...rest}><slot /></span>

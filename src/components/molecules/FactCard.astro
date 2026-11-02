@@ -1,0 +1,15 @@
+---
+// Card with a stat head on top and a visual underneath (bars, dots, chips).
+import Panel from './Panel.astro';
+import StatHead from './StatHead.astro';
+interface Props { n?: string | number; unit?: string; title?: string; tone?: 'soft' | 'brand' | 'white'; class?: string; [attr: string]: unknown }
+const { n, unit, title, tone = 'soft', class: cls, ...rest } = Astro.props;
+---
+<Panel tone={tone} radius="card" pad="card" class:list={['fact-card', cls]} {...rest}>
+  {n != null ? <StatHead n={n} unit={unit} /> : <span class="stat-unit">{title}</span>}
+  <slot />
+</Panel>
+
+<style is:global>
+  .fact-card { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+</style>

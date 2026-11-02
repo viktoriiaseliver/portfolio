@@ -17,8 +17,9 @@ src/data/          all copy and numbers: site.ts (contacts, CV link), home.ts, w
 src/pages/         index.astro (Home), work/index.astro (Work), about.astro, work/[slug].astro (case pages)
 src/cases/         one file per case study; `layout` picks open / nda / graphic (types.ts has the schema)
 src/layouts/       Base, CaseOpen, CaseNda, CaseGraphic
-src/components/    Nav, Contact, Timeline, Slot (image placeholder), Ph (placeholder text)
-src/styles/        tokens.css (design tokens, final), global.css
+src/components/    atoms/, molecules/, organisms/ — see DESIGN-SYSTEM.md
+src/styles/        tokens.css (final primitives), semantic.css, base.css, layout.css, atoms.css
+scripts/           audit.cjs, states.cjs, shots.cjs, diff.py — accessibility, interaction and visual checks
 public/assets/     images (covers in public/assets/work/)
 design/            handoff: HANDOFF.md (spec), CONTENT.md (all copy), reference/*.dc.html (design files)
 ```
@@ -33,6 +34,10 @@ To link it from the Work list, add the slug to `LIVE_CASES` in `src/data/work.ts
 Text in `[brackets]` is a placeholder still to be written. The built site hides it (and any block that is still all placeholders);
 `npm run dev` shows it as a marked draft, so you can see what is missing. A case with `draft: true` is built only in dev
 (`_graphic-template.ts` is the graphic template).
+
+## Design system
+
+Atomic tokens → atoms → molecules → organisms. Reference: `DESIGN-SYSTEM.md` and the live page `/system`.
 
 ## Deploy
 

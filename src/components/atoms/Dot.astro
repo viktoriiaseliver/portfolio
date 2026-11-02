@@ -1,0 +1,6 @@
+---
+// Dot atom. `live` pulses (stops under reduced motion).
+interface Props { tone?: 'live' | 'green' | 'orange' | 'periwinkle' | 'brand'; size?: number; class?: string; [attr: string]: unknown }
+const { tone = 'live', size, class: cls, ...rest } = Astro.props;
+---
+<i class:list={['dot', `dot-${tone}`, cls]} style={size ? `width:${size}px;height:${size}px` : undefined} {...rest}></i>

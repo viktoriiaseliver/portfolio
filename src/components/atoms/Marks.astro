@@ -1,0 +1,6 @@
+---
+// Data marks: a row of `total` bars where the first `on` are filled. Colours via CSS vars --on / --off.
+interface Props { total: number; on?: number; height?: string; gap?: number; class?: string; style?: string; [attr: string]: unknown }
+const { total, on = total, height = '28px', gap = 3, class: cls, style = '', ...rest } = Astro.props;
+---
+<span class:list={['marks', cls]} style={`height:${height};gap:${gap}px;${style}`} aria-hidden="true" {...rest}>{Array.from({ length: total }, (_, i) => <i class:list={{ off: i >= on }}></i>)}</span>

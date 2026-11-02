@@ -1,71 +1,7 @@
+/* Design system entry: primitives → semantic tokens → base → layout → atoms.
+   Molecules and organisms keep their styles next to their markup in components/. */
 @import './tokens.css';
-
-/* Base */
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-html, body { margin: 0; background: var(--white); }
-body { font-family: var(--font-display); color: var(--ink); text-wrap: pretty; -webkit-font-smoothing: antialiased; }
-h1, h2, h3, h4, p { margin: 0; }
-img { display: block; max-width: 100%; }
-a { color: var(--cobalt); -webkit-tap-highlight-color: transparent; }
-a:hover { color: var(--ink); }
-button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; -webkit-tap-highlight-color: transparent; }
-i { font-style: normal; }
-[hidden] { display: none !important; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
-
-/* Page frame */
-.page { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--page-x) 12px; display: flex; flex-direction: column; gap: 12px; }
-
-/* Type */
-.serif { font-family: var(--font-editorial); font-weight: 400; font-style: italic; letter-spacing: -.02em; }
-.label { font-family: var(--font-display); font-weight: 500; font-size: var(--t-label); letter-spacing: .06em; text-transform: uppercase; }
-.label-s { font-family: var(--font-display); font-weight: 500; font-size: var(--t-label-s); letter-spacing: .04em; }
-.num { font-family: var(--font-tile); font-weight: 700; }
-.h2 { font-weight: 500; font-size: var(--t-h2); line-height: .95; letter-spacing: -.045em; }
-.h3 { font-weight: 500; font-size: var(--t-h3); line-height: .98; letter-spacing: -.045em; }
-.h5 { font-size: var(--t-h5); font-weight: 500; line-height: 1.15; letter-spacing: -.03em; }
-.muted { color: var(--text-muted); }
-.mist { color: var(--mist); }
-.on-ink-muted { color: var(--muted-on-ink); }
-
-/* Section rhythm */
-.section { padding-top: var(--section-top); }
-.block { padding-top: var(--block-top); }
-.sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding: 0 4px; }
-
-/* Buttons */
-.btn { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 22px; border-radius: var(--r-pill); font-size: var(--t-body); font-weight: 500; text-decoration: none; white-space: nowrap; }
-.btn-cobalt { background: var(--cobalt); color: var(--white); padding: 0 26px; min-height: 52px; font-weight: 400; }
-.btn-cobalt:hover { color: var(--white); opacity: .9; }
-.btn-outline { color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); min-height: 52px; font-weight: 400; }
-.btn-outline:hover { background: var(--ink); color: var(--white); }
-.btn-ink { background: var(--ink); color: var(--white); }
-.btn-ink:hover { background: var(--cobalt); color: var(--white); }
-.btn-white { background: var(--white); color: var(--ink); }
-.btn-white:hover { color: var(--ink); opacity: .9; }
-.btn .arr { width: 32px; height: 32px; border-radius: var(--r-dot); display: inline-flex; align-items: center; justify-content: center; background: var(--ink); color: var(--white); margin-right: -14px; }
-.btn-ink .arr { background: var(--white); color: var(--ink); }
-.btn-white.to-cobalt { color: var(--cobalt); }
-.btn-white.to-cobalt .arr { background: var(--cobalt); }
-
-/* Chips */
-.chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: var(--r-pill); font-size: var(--t-small); }
-.chip-label { padding: 7px 12px; border-radius: var(--r-pill); font-weight: 500; font-size: var(--t-label); }
-.dot { width: 9px; height: 9px; border-radius: var(--r-dot); display: inline-block; flex-shrink: 0; }
-.dot-live { background: var(--green); animation: pulse 2.4s ease-in-out infinite; }
-.status { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: var(--t-body); }
-
-/* Image slot placeholder (owner fills these later) */
-.slot { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; padding: 12px; text-align: center; background: var(--grey-210); color: var(--text-muted); font-size: var(--t-label); font-weight: 500; letter-spacing: .04em; min-height: 100%; }
-.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-/* Phone frame */
-.phone { aspect-ratio: 9 / 19; border-radius: 40px; background: var(--ink); padding: 9px; box-shadow: var(--shadow-device); }
-.phone > div { width: 100%; height: 100%; border-radius: 32px; overflow: hidden; display: flex; }
-
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-
-/* Draft placeholder (dev only) */
-.ph { font-family: var(--font-display); font-weight: 500; font-style: normal; font-size: var(--t-small); background: var(--cobalt-tint); border-bottom: 1.5px dotted var(--cobalt); padding: 0 4px; }
+@import './semantic.css';
+@import './base.css';
+@import './layout.css';
+@import './atoms.css';

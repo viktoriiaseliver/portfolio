@@ -14,3 +14,5 @@ Read design/HANDOFF.md first. References are in design/reference/*.dc.html (read
 - Shared parts are components: Nav, Contact, Timeline. Timeline data lives in one place.
 - Case studies are content files rendered by 3 layouts (open, nda, graphic). Adding a case = adding a content file.
 - Respect prefers-reduced-motion everywhere.
+- Build pages from the design system (DESIGN-SYSTEM.md): atoms, molecules, organisms in src/components/, classes in src/styles/atoms.css and layout.css.
+- Before pushing UI changes run scripts/audit.cjs and scripts/states.cjs against `astro preview`; both must come back clean.

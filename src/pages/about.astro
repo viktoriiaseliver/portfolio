@@ -1,8 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
-import Contact from '../components/Contact.astro';
-import Timeline from '../components/Timeline.astro';
-import Slot from '../components/Slot.astro';
+import Contact from '../components/organisms/Contact.astro';
+import Timeline from '../components/organisms/Timeline.astro';
+import Slot from '../components/atoms/Slot.astro';
+import Button from '../components/atoms/Button.astro';
+import Chip from '../components/atoms/Chip.astro';
+import Dot from '../components/atoms/Dot.astro';
+import Heading from '../components/atoms/Heading.astro';
+import Marks from '../components/atoms/Marks.astro';
+import Panel from '../components/molecules/Panel.astro';
+import SectionHead from '../components/molecules/SectionHead.astro';
 import { url } from '../lib/url';
 import { CV_URL, EMAIL } from '../data/site';
 import { intro, langs, nums, tabs, dsSteps, stages, aiTools, markets, studied, beyond, lookingFor } from '../data/about';
@@ -20,13 +27,13 @@ const lastStage = stages.length - 1;
   <section id="hero" class="ahero">
     <div class="ahero-top">
       <div class="ahero-text">
-        <span class="ahero-chip"><i class="dot dot-live"></i>Available for new roles</span>
+        <Chip tone="dark" ring class="ahero-chip"><Dot tone="live" />Available for new roles</Chip>
         <div class="ahero-mid">
-          <h1 class="ahero-h">Hi, I'm <span class="serif mist">Viktoriia.</span></h1>
+          <Heading as="h1" size="hero" a="Hi, I'm " b="Viktoriia." bTone="mist" class="ahero-h" />
           <p class="ahero-p mist">{intro}</p>
         </div>
         <div class="ahero-foot">
-          <div class="ahero-btns"><a class="btn btn-white big" href={url(CV_URL)}>Download CV</a><a class="btn ghost-light" href="#contact">Let's talk</a></div>
+          <div class="ahero-btns"><Button href={url(CV_URL)} variant="white" size="lg">Download CV</Button><Button href="#contact" variant="outline-light" size="lg">Let's talk</Button></div>
           <div class="ahero-langs">{langs.map((l) => <span><span class="serif hi">{l.hi}</span><span class="label on-ink-muted">{l.n} · {l.lv}</span></span>)}</div>
         </div>
       </div>
@@ -41,7 +48,7 @@ const lastStage = stages.length - 1;
         <a class="anum" href={url(href)}>
           <span class="num anum-n">{n}</span>
           <span class="anum-t mist">{t}<span aria-hidden="true">↓</span></span>
-          <span class="anum-marks">{Array.from({ length: total }, (_, i) => <i class:list={{ on: i < on }}></i>)}</span>
+          <Marks total={total} on={on} height="6px" class="anum-marks" style="--on:var(--periwinkle);--off:var(--on-dark-line)" />
         </a>
       ))}
     </div>
@@ -56,7 +63,7 @@ const lastStage = stages.length - 1;
     <div class="spine-body">
 
       <section id="what" class="asec" data-spy>
-        <div class="sec-head aend"><h2 class="h2">What I <span class="serif">do.</span></h2><span class="label muted">01 · FOUR STRENGTHS, ONE STAGE · PICK ONE</span></div>
+        <SectionHead a="What I " b="do." aside="01 · FOUR STRENGTHS, ONE STAGE · PICK ONE" align="end" />
         <div class="stage" data-stage>
           <div class="stage-tabs" role="tablist">
             {tabs.map((t, i) => <button type="button" role="tab" class="stage-tab" aria-selected={i === 0 ? 'true' : 'false'} data-tab={i}><span class="label stage-tab-n">0{i + 1}</span><span class="stage-tab-t">{t.t}</span></button>)}
@@ -85,7 +92,7 @@ const lastStage = stages.length - 1;
               {tabs.map((t, i) => (
                 <div class="stage-copy" data-copy={i} hidden={i !== 0}>
                   <p class="h5 stage-p">{t.text}</p>
-                  <div class="seeit"><span class="label muted">SEE IT IN</span><div class="seeit-links">{t.links.map(([l, h]) => <a href={url(h)}>{l} →</a>)}</div></div>
+                  <div class="seeit"><span class="label muted">SEE IT IN</span><div class="seeit-links">{t.links.map(([l, h]) => <Button href={url(h)} variant="ink" size="sm">{l} →</Button>)}</div></div>
                 </div>
               ))}
             </div>
@@ -101,8 +108,8 @@ const lastStage = stages.length - 1;
       </section>
 
       <section id="how" class="asec" data-spy>
-        <div class="sec-head aend"><h2 class="h2">How I <span class="serif">work.</span></h2><span class="label muted">02 · ONE PROJECT, START TO RELEASE · THE TOOLS RIDE ALONG</span></div>
-        <div class="how-panel">
+        <SectionHead a="How I " b="work." aside="02 · ONE PROJECT, START TO RELEASE · THE TOOLS RIDE ALONG" align="end" />
+        <Panel tone="dark" pad="inset" class="how-panel">
           <div class="stages-scroll"><div class="stages" data-stages>
             <i class="stages-line"></i><i class="stages-fill" data-stages-fill style="width:83.4%"></i>
             {stages.map(([t, d, tools], i) => (
@@ -111,20 +118,20 @@ const lastStage = stages.length - 1;
                 <span class="label stg-n">{String(i + 1).padStart(2, '0')}</span>
                 <span class="stg-t">{t}</span>
                 <p class="stg-d">{d}</p>
-                <div class="stg-tools">{tools.map((x) => <span class="label-s">{x}</span>)}</div>
+                <div class="stg-tools">{tools.map((x) => <Chip tone="dark" size="s">{x}</Chip>)}</div>
               </button>
             ))}
           </div></div>
           <div class="ai-band">
-            <p class="h3">AI does the volume. <span class="serif mist">I own the decisions.</span></p>
-            <div class="ai-kit"><span class="label mist">AI IN THE KIT</span><div class="ai-tools">{aiTools.map((t) => <span>{t}</span>)}</div></div>
+            <Heading as="p" size="h3" a="AI does the volume. " b="I own the decisions." bTone="mist" />
+            <div class="ai-kit"><span class="label mist">AI IN THE KIT</span><div class="ai-tools">{aiTools.map((t) => <Chip tone="dark" ring>{t}</Chip>)}</div></div>
           </div>
-        </div>
+        </Panel>
       </section>
 
       <section id="path" class="asec" data-spy>
-        <div class="sec-head aend"><h2 class="h2">Nine years <span class="serif">on one line.</span></h2><span class="label muted">03 · HOVER A BAR · THEN A MARKET</span></div>
-        <div class="path-panel">
+        <SectionHead a="Nine years " b="on one line." aside="03 · HOVER A BAR · THEN A MARKET" align="end" />
+        <Panel tone="soft" pad="inset" class="path-panel">
           <Timeline />
           <div class="path-row">
             <div class="mk">
@@ -140,11 +147,11 @@ const lastStage = stages.length - 1;
               <div>{studied.map(([y, s, d]) => <div class="st-row"><span class="label-s muted" style="letter-spacing:0">{y}</span><span class="st-t"><b>{s}</b><span class="muted"> — {d}</span></span></div>)}</div>
             </div>
           </div>
-        </div>
+        </Panel>
       </section>
 
       <section id="beyond" class="asec" data-spy>
-        <div class="sec-head aend"><h2 class="h2">Beyond <span class="serif">work.</span></h2><span class="label muted">04 · ONE SKETCHBOOK SPREAD</span></div>
+        <SectionHead a="Beyond " b="work." aside="04 · ONE SKETCHBOOK SPREAD" align="end" />
         <div class="book">
           <i class="book-fold" aria-hidden="true"></i>
           {beyond.map((b) => {
@@ -170,24 +177,20 @@ const lastStage = stages.length - 1;
 </Base>
 
 <style>
-  .about { padding-top: var(--content-top); gap: 0; }
+  .about { gap: 0; }
   :global(html) { scroll-padding-top: 100px; }
-  .aend { align-items: flex-end; }
 
   /* Hero */
   .ahero { position: relative; display: flex; flex-direction: column; border-radius: var(--r-surface); background: var(--ink); color: var(--white); overflow: hidden; }
   .ahero-top { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; padding: 10px; }
   .ahero-text { grid-column: span 3; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: var(--panel-pad); min-height: clamp(420px, 66vh, 640px); }
-  .ahero-chip { align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: var(--r-pill); background: var(--on-dark-fill); box-shadow: inset 0 0 0 1px var(--on-dark-fill); font-size: var(--t-body); }
+  .ahero-chip { align-self: flex-start; gap: 12px; padding: 10px 16px; font-size: var(--t-body); }
   .ahero-mid { display: flex; flex-direction: column; gap: 24px; }
-  .ahero-h { font-weight: 500; font-size: var(--t-hero); line-height: .86; letter-spacing: -.055em; }
+  .ahero-h { line-height: .86; }
   .ahero-h .serif { letter-spacing: -.03em; }
   .ahero-p { font-size: var(--t-lead); line-height: 1.4; max-width: 58ch; }
   .ahero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; }
   .ahero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn.big { min-height: 52px; padding: 0 26px; font-weight: 400; }
-  .ghost-light { min-height: 52px; color: var(--white); font-weight: 400; box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
-  .ghost-light:hover { color: var(--white); background: var(--on-dark-fill); }
   .ahero-langs { display: flex; gap: 24px; flex-wrap: wrap; }
   .ahero-langs > span { display: flex; flex-direction: column; gap: 2px; }
   .hi { font-size: var(--t-h5); line-height: 1; }
@@ -203,9 +206,6 @@ const lastStage = stages.length - 1;
   .anum:hover { background: var(--cobalt); color: var(--white); }
   .anum-n { font-size: var(--t-number-l); line-height: 1; letter-spacing: -.05em; }
   .anum-t { display: flex; justify-content: space-between; gap: 8px; font-size: var(--t-body); }
-  .anum-marks { display: flex; gap: 3px; height: 6px; }
-  .anum-marks i { flex: 1; border-radius: var(--r-mark); background: var(--on-dark-line); }
-  .anum-marks i.on { background: var(--periwinkle); }
   @media (max-width: 1099px) { .ahero-nums { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 639px) {
     .ahero-top { grid-template-columns: minmax(0, 1fr); }
@@ -281,8 +281,6 @@ const lastStage = stages.length - 1;
   .stage-p { line-height: 1.2; }
   .seeit { display: flex; flex-direction: column; gap: 12px; }
   .seeit-links { display: flex; gap: 6px; flex-wrap: wrap; }
-  .seeit-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); text-decoration: none; }
-  .seeit-links a:hover { background: var(--cobalt); color: var(--white); }
   .team { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; align-items: center; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--cobalt); color: var(--white); }
   .team-r { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
   .team-dots { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; max-width: 420px; }
@@ -297,7 +295,7 @@ const lastStage = stages.length - 1;
   @media (max-width: 639px) { .team { grid-template-columns: minmax(0, 1fr); } .team-r { align-items: flex-start; } .team-dots { justify-content: flex-start; } }
 
   /* How I work */
-  .how-panel { display: flex; flex-direction: column; gap: 12px; padding: 10px; border-radius: var(--r-surface); background: var(--ink); color: var(--white); }
+  .how-panel { display: flex; flex-direction: column; gap: 12px; }
   .stages-scroll { overflow-x: auto; scrollbar-width: thin; }
   .stages { position: relative; min-width: 1020px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; padding: 38px 8px 8px; }
   .stages-line, .stages-fill { position: absolute; left: 8.3%; top: 21px; height: 2px; }
@@ -311,16 +309,16 @@ const lastStage = stages.length - 1;
   .stg-t { font-size: var(--t-ui-l); font-weight: 500; letter-spacing: -.02em; }
   .stg-d { font-size: var(--t-small); line-height: 1.45; opacity: .85; }
   .stg-tools { margin-top: auto; display: flex; flex-wrap: wrap; gap: 4px; }
-  .stg-tools span { padding: 5px 9px; border-radius: var(--r-pill); background: var(--on-dark-fill); }
-  .stg.on .stg-tools span { background: var(--grey-238); }
+  .stg-tools :global(.chip) { padding: 5px 9px; letter-spacing: .04em; }
+  .stg.on .stg-tools :global(.chip) { background: var(--grey-238); color: var(--ink); }
   .ai-band { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; align-items: center; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--cobalt); }
   .ai-kit { display: flex; flex-direction: column; gap: 12px; justify-self: end; }
   .ai-tools { display: flex; flex-wrap: wrap; gap: 6px; }
-  .ai-tools span { padding: 8px 13px; border-radius: var(--r-pill); background: var(--on-dark-fill); box-shadow: inset 0 0 0 1px var(--on-dark-line); font-size: var(--t-small); }
+  .ai-tools :global(.chip) { padding: 8px 13px; }
   @media (max-width: 639px) { .ai-band { grid-template-columns: minmax(0, 1fr); } .ai-kit { justify-self: start; } }
 
   /* Path */
-  .path-panel { display: flex; flex-direction: column; gap: 12px; padding: 10px; border-radius: var(--r-surface); background: var(--grey-238); }
+  .path-panel { display: flex; flex-direction: column; gap: 12px; }
   .path-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; }
   @media (max-width: 1099px) { .path-row { grid-template-columns: minmax(0, 1fr); } }
   .mk { display: flex; flex-direction: column; gap: 16px; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--cobalt); color: var(--white); }
@@ -332,7 +330,7 @@ const lastStage = stages.length - 1;
   .mk-dot.on .mk-c { width: 22px; height: 22px; box-shadow: 0 0 0 6px var(--on-dark-line); }
   .mk-t { position: absolute; top: 100%; margin-top: 8px; font-size: var(--t-small); font-weight: 500; white-space: nowrap; opacity: .7; }
   .mk-dot.on .mk-t { opacity: 1; }
-  @media (max-width: 639px) { .mk-dot:not(.on) .mk-t { opacity: 0; } }
+  @media (max-width: 639px) { .mk-dot:not(.on) .mk-t { visibility: hidden; } }
   .mk-pop { position: absolute; top: 0; transform: translateX(-50%); padding: 8px 14px; border-radius: var(--r-tile); background: var(--white); color: var(--cobalt); font-size: var(--t-small); font-weight: 500; white-space: nowrap; transition: left var(--d-base) var(--ease); }
   .studied { display: flex; flex-direction: column; gap: 12px; padding: var(--panel-pad); border-radius: var(--r-inner); background: var(--white); }
   .st-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--grey-238); align-items: baseline; }

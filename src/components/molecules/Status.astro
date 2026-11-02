@@ -1,0 +1,11 @@
+---
+// Availability status: pulsing green dot + text.
+import Dot from '../atoms/Dot.astro';
+interface Props { text: string; class?: string; [attr: string]: unknown }
+const { text, class: cls, ...rest } = Astro.props;
+---
+<span class:list={['status', cls]} {...rest}><Dot tone="live" /><span>{text}</span></span>
+
+<style is:global>
+  .status { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: var(--t-body); }
+</style>

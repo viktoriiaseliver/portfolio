@@ -1,7 +1,11 @@
 ---
-import Slot from './Slot.astro';
-import { url } from '../lib/url';
-import { EMAIL, TELEGRAM, LINKEDIN, CV_URL, WALKTHROUGH, STATUS } from '../data/site';
+import Slot from '../atoms/Slot.astro';
+import Chip from '../atoms/Chip.astro';
+import Button from '../atoms/Button.astro';
+import Status from '../molecules/Status.astro';
+import Heading from '../atoms/Heading.astro';
+import { url } from '../../lib/url';
+import { EMAIL, TELEGRAM, LINKEDIN, CV_URL, WALKTHROUGH, STATUS } from '../../data/site';
 
 interface Props {
   a?: string; b?: string; status?: string; label?: string;
@@ -29,11 +33,11 @@ const links = [
   <div class:list={['contact-panel', { 'has-image': !!imageId }]} style={`min-height:${minH}`}>
     <div class="contact-main">
       <div class="contact-top">
-        <span class="status mist"><i class="dot dot-live"></i><span>{status}</span></span>
+        <Status text={status} class="mist" />
         {label && <span class="label-s mist" style="letter-spacing:.06em">{label}</span>}
-        <h2 class:list={['contact-h', { long }]}><span data-contact-a>{a}</span><span class="serif mist" data-contact-b>{b}</span></h2>
+        <h2 class:list={['contact-h', long ? 'h3' : 'display', { long }]}><span data-contact-a>{a}</span><span class="serif mist" data-contact-b>{b}</span></h2>
         {terms.length > 0 && (
-          <div class="contact-terms">{terms.map((t) => <span class="term"><i class="term-dot" style={`background:${t.c}`}></i>{t.t}</span>)}</div>
+          <div class="contact-terms">{terms.map((t) => <Chip tone="dark" ring tall dot={t.c}>{t.t}</Chip>)}</div>
         )}
       </div>
       <div class="contact-bottom">
@@ -42,8 +46,8 @@ const links = [
         </button>
         <div class="contact-row">
           <div class="contact-links">
-            <a class="contact-primary" href={primaryHref}>{primaryLabel}</a>
-            {links.map((l) => <a class="contact-link" href={l.href} target={l.ext ? '_blank' : undefined} rel={l.ext ? 'noopener' : undefined}>{l.t}</a>)}
+            <Button href={primaryHref} variant="white" size="lg" onBrand class="contact-primary">{primaryLabel}</Button>
+            {links.map((l) => <Button href={l.href} variant="outline-light" size="lg" target={l.ext ? '_blank' : undefined} rel={l.ext ? 'noopener' : undefined}>{l.t}</Button>)}
           </div>
           <span class="contact-copy-r mist">© 2026 Viktoriia Seliverstova</span>
         </div>
@@ -59,11 +63,12 @@ const links = [
   @media (min-width: 640px) { .contact-panel.has-image { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .contact-main { min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
   .contact-top { display: flex; flex-direction: column; gap: 20px; }
-  .contact-h { font-weight: 500; font-size: var(--t-display); line-height: .88; letter-spacing: -.05em; max-width: 16ch; }
-  .contact-h.long { font-size: var(--t-h3); line-height: 1; max-width: 28ch; }
+  .contact-h { letter-spacing: -.05em; max-width: 16ch; }
+  .contact-h.long { line-height: 1; max-width: 28ch; }
+  .contact-links :global(.contact-primary) { font-weight: 500; }
+  .contact-links :global(.btn) { white-space: normal; text-align: center; }
+  .contact-terms :global(.dot) { width: 10px; height: 10px; }
   .contact-terms { display: flex; flex-wrap: wrap; gap: 8px; }
-  .term { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px 0 12px; border-radius: var(--r-pill); background: var(--on-dark-fill); box-shadow: inset 0 0 0 1px var(--on-dark-line); font-size: var(--t-small); }
-  .term-dot { width: 10px; height: 10px; border-radius: var(--r-dot); }
   .contact-bottom { display: flex; flex-direction: column; gap: 18px; }
   .contact-email { align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; max-width: 100%; padding: 10px 0; font-size: clamp(18px, 2.6vw, 40px); font-weight: 500; letter-spacing: -.03em; color: var(--white); text-align: left; overflow-wrap: anywhere; }
   .contact-email:hover { opacity: .85; }
@@ -71,10 +76,6 @@ const links = [
   .contact-copy { padding: 6px 12px; border-radius: var(--r-pill); background: var(--white); color: var(--cobalt); font-size: var(--t-label); font-weight: 500; letter-spacing: .06em; }
   .contact-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
   .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
-  .contact-primary { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: var(--r-pill); background: var(--white); color: var(--cobalt); font-size: var(--t-body); font-weight: 500; text-decoration: none; }
-  .contact-primary:hover { color: var(--cobalt); opacity: .9; }
-  .contact-link { display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: var(--r-pill); color: var(--white); font-size: var(--t-body); text-decoration: none; box-shadow: inset 0 0 0 1.5px var(--on-dark-ring); }
-  .contact-link:hover { color: var(--white); background: var(--on-dark-fill); }
   .contact-copy-r { font-size: var(--t-small); }
   .contact-image { display: flex; min-height: 320px; border-radius: var(--r-inner); overflow: hidden; background: var(--on-dark-fill); }
 </style>
