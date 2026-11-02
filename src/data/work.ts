@@ -13,8 +13,8 @@ export const industries: Industry[] = [
 
 export type Product = { ind: string; t: string; r: string; d: string; m: string; tags: string[]; img: string; slug: string };
 
-// Case pages that exist. Add a slug here when its page is built (phase 2: construction-crm).
-export const LIVE_CASES: string[] = [];
+// Case pages that exist. Add a slug here when its page is built (file in src/cases/).
+export const LIVE_CASES: string[] = ['construction-crm'];
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const P = (ind: string, t: string, r: string, d: string, m: string, tags: string, img = ''): Product =>

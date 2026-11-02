@@ -1,0 +1,140 @@
+---
+import Base from './Base.astro';
+import Contact from '../components/Contact.astro';
+import Slot from '../components/Slot.astro';
+import Ph from '../components/Ph.astro';
+import { url } from '../lib/url';
+import { visible, SHOW_PLACEHOLDERS } from '../lib/placeholder';
+import { EMAIL } from '../data/site';
+import type { GraphicCase } from '../cases/types';
+
+interface Props { c: GraphicCase }
+const { c } = Astro.props;
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/work', label: 'All work' }, { href: '/about', label: 'About' }];
+const title = `${c.title.a}${c.title.b}`.replace(/[[\]]/g, '');
+const facts = c.facts.filter((f) => visible(f.v));
+const formats = c.formats.filter(visible);
+const stepStyle = ['grey', 'peach', 'grey', 'ink'];
+---
+<Base title={`${title} — Viktoriia Seliverstova`} description={c.kind} nav={nav} progress>
+<main class="page gcase">
+
+  <section id="hero" class="ghero">
+    <div class="ghero-img">
+      <Slot label={c.heroPh} src={c.heroImage} />
+      <div class="ghero-chips"><span class="kind">{c.kind}</span>{visible(c.year) && <span class="label year"><Ph v={c.year} /></span>}</div>
+    </div>
+    <div class="ghero-row">
+      <h1 class="ghero-h"><Ph v={c.title.a} /><span class="serif muted"><Ph v={c.title.b} /></span></h1>
+      <dl class="gfacts">{facts.map((f) => <div><dt class="label muted">{f.k}</dt><dd><Ph v={f.v} /></dd></div>)}</dl>
+    </div>
+  </section>
+
+  <section id="pieces" class="pieces">
+    {c.pieces.map((p) => (
+      <div class="piece" style={`--span:${p.span}`}>
+        <div class="piece-img" style={`aspect-ratio:${p.ar}`}><Slot label={p.ph} src={p.image} /></div>
+        {(visible(p.t) || visible(p.m)) && <div class="piece-t"><span><Ph v={p.t} /></span><span class="label-s muted"><Ph v={p.m} /></span></div>}
+      </div>
+    ))}
+  </section>
+
+  <section id="system" class="system">
+    {(!c.paletteDraft || SHOW_PLACEHOLDERS) && (
+      <div class="pal">
+        <span class="label on-ink-muted">PALETTE</span>
+        <div class="pal-body">
+          <div class="pal-sw">{c.palette.map((s) => <div title={s.c} style={`flex:${s.fl};background:${s.c}`}></div>)}</div>
+          <div class="pal-cap">{c.palette.map((s) => <span class="label-s on-ink-muted">{s.c}</span>)}</div>
+        </div>
+        {c.paletteDraft && <span class="pal-draft">draft · replace with the real colours</span>}
+      </div>
+    )}
+    <div class="type">
+      <span class="label muted">TYPE &amp; FORMAT</span>
+      <div class="type-aa"><span class="num aa">Aa</span>{visible(c.typeface) && <span class="serif muted tf"><Ph v={c.typeface} /></span>}</div>
+      <div class="formats">{formats.map((f) => <span class="label-s"><Ph v={f} /></span>)}</div>
+    </div>
+  </section>
+
+  <section id="process" class="process">
+    <div class="sec-head"><h2 class="h3">Sketch to <span class="serif">print.</span></h2><span class="label muted">{c.steps.length} STEPS</span></div>
+    <div class="steps" style={`--n:${c.steps.length}`}>
+      {c.steps.map((s, i) => (
+        <div class:list={['step', stepStyle[i % 4]]}>
+          <div class="step-img"><Slot label={s.ph} src={s.image} /></div>
+          <div class="step-t"><span class="num">{String(i + 1).padStart(2, '0')}</span><span>{s.t}</span></div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="next" class="section">
+    <a class="gnext" href={url(c.next.href)}>
+      <span class="gnext-img" style={`background-image:url(${url(c.next.img)})`}></span>
+      <span class="gnext-row"><span class="gnext-l"><span class="label">NEXT · {c.next.cat}</span><span class="h5"><Ph v={c.next.name} /></span></span><span class="gnext-arr">→</span></span>
+    </a>
+  </section>
+
+  <Contact a="Need a visual " b="identity?" primaryLabel="Let's talk" primaryHref={`mailto:${EMAIL}`} />
+</main>
+</Base>
+
+<style>
+  .gcase { padding-top: var(--content-top); }
+  .ghero { display: flex; flex-direction: column; gap: 12px; }
+  .ghero-img { position: relative; display: flex; min-height: clamp(420px, 78vh, 820px); border-radius: var(--r-surface); overflow: hidden; background: var(--peach); }
+  .ghero-chips { position: absolute; left: 12px; top: 12px; display: flex; gap: 6px; flex-wrap: wrap; pointer-events: none; }
+  .kind { padding: 9px 16px; border-radius: var(--r-pill); background: var(--ink); color: var(--white); font-size: var(--t-small); font-weight: 500; }
+  .year { padding: 9px 14px; border-radius: var(--r-pill); background: var(--glass-light-bg); backdrop-filter: var(--glass-light-filter); -webkit-backdrop-filter: var(--glass-light-filter); box-shadow: var(--glass-light-shadow); }
+  .ghero-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; align-items: end; padding: 14px 4px 0; }
+  @media (max-width: 639px) { .ghero-row { grid-template-columns: minmax(0, 1fr); } }
+  .ghero-h { font-weight: 500; font-size: var(--t-display); line-height: .9; letter-spacing: -.055em; }
+  .ghero-h .serif { letter-spacing: -.03em; }
+  .gfacts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; }
+  .gfacts div { display: flex; flex-direction: column; gap: 4px; padding-top: 12px; border-top: 1px solid var(--muted-on-ink); }
+  .gfacts dd { margin: 0; font-size: var(--t-body); font-weight: 500; }
+
+  .pieces { padding-top: var(--block-top); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: dense; gap: 12px; }
+  .piece { grid-column: span min(var(--span), 4); display: flex; flex-direction: column; gap: 12px; padding: 10px 10px 16px; border-radius: var(--r-card); background: var(--grey-238); }
+  @media (max-width: 1099px) { .pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); } .piece { grid-column: span min(var(--span), 2); } }
+  @media (max-width: 639px) { .pieces { grid-template-columns: minmax(0, 1fr); } .piece { grid-column: span 1; } }
+  .piece-img { position: relative; border-radius: var(--r-inner); overflow: hidden; display: flex; background: var(--white); }
+  .piece-t { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 0 8px; font-size: var(--t-body); font-weight: 500; }
+
+  .system { padding-top: var(--block-top); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 639px) { .system { grid-template-columns: minmax(0, 1fr); } }
+  .pal, .type { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: var(--panel-pad); border-radius: var(--r-surface); }
+  .pal { background: var(--ink); color: var(--white); }
+  .type { background: var(--grey-238); }
+  .pal-body { display: flex; flex-direction: column; gap: 12px; }
+  .pal-sw { display: flex; gap: 6px; height: clamp(96px, 12vw, 160px); }
+  .pal-sw div { border-radius: var(--r-inner); box-shadow: inset 0 0 0 1px var(--on-dark-line); }
+  .pal-cap { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .pal-cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pal-draft { align-self: flex-start; padding: 4px 10px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--orange); font-size: var(--t-label); }
+  .type-aa { display: flex; flex-direction: column; gap: 6px; }
+  .aa { font-size: var(--t-display); line-height: .85; letter-spacing: -.055em; }
+  .tf { font-size: var(--t-h4); line-height: 1; }
+  .formats { display: flex; flex-wrap: wrap; gap: 6px; }
+  .formats span { padding: 7px 12px; border-radius: var(--r-pill); background: var(--white); }
+
+  .process { padding-top: var(--block-top); display: flex; flex-direction: column; gap: 12px; }
+  .steps { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 1099px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  .step { display: flex; flex-direction: column; gap: 12px; padding: 10px 10px 16px; border-radius: var(--r-card); }
+  .step.grey { background: var(--grey-238); }
+  .step.peach { background: var(--peach); }
+  .step.ink { background: var(--ink); color: var(--white); }
+  .step-img { aspect-ratio: 1; border-radius: var(--r-inner); overflow: hidden; display: flex; background: var(--on-dark-glass); }
+  .step-t { display: flex; gap: 12px; align-items: baseline; padding: 0 8px; font-size: var(--t-body); font-weight: 500; }
+  .step-t .num { font-size: var(--t-number-s); }
+
+  .gnext { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; min-height: 360px; padding: 10px; border-radius: var(--r-surface); background: var(--peach); color: var(--ink); text-decoration: none; transition: box-shadow var(--d-fast) var(--ease); }
+  .gnext:hover { box-shadow: var(--shadow-lift); color: var(--ink); }
+  .gnext-img { flex: 1; min-height: 200px; border-radius: var(--r-inner); background: var(--grey-210) center / cover no-repeat; }
+  .gnext-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 6px 14px 10px; }
+  .gnext-l { display: flex; flex-direction: column; gap: 4px; }
+  .gnext-arr { font-size: 20px; }
+</style>
