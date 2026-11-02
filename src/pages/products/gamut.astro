@@ -7,6 +7,7 @@ import Heading from '../../components/atoms/Heading.astro';
 import Slot from '../../components/atoms/Slot.astro';
 import Ph from '../../components/atoms/Ph.astro';
 import Panel from '../../components/molecules/Panel.astro';
+import AppStatus from '../../components/molecules/AppStatus.astro';
 import SectionHead from '../../components/molecules/SectionHead.astro';
 import { url } from '../../lib/url';
 import { visible } from '../../lib/placeholder';
@@ -20,7 +21,7 @@ const nextSteps = next.filter(visible);
 
   <Panel as="section" tone="dark" class="g-hero">
     <div class="g-hero-text">
-      <div class="g-chips"><Chip tone="dark" size="s"><Dot tone="orange" size={7} />IN APP STORE REVIEW</Chip><Chip tone="dark" size="s">BUILT BY ME · IOS</Chip></div>
+      <div class="g-chips"><AppStatus app="Gamut" /><Chip tone="dark" size="s">BUILT BY ME · IOS</Chip></div>
       <h1 class="g-h">Gamut.</h1>
       <p class="serif mist g-slogan">Plan your palette, not just your posts.</p>
       <div class="g-did">{did.map((w) => <span class="chip chip-outline-dark g-did-chip">{w}</span>)}</div>
@@ -105,7 +106,7 @@ const nextSteps = next.filter(visible);
 
   <section id="next" class="g-sec grid-3">
     <Panel tone="soft" class="g-next-card g-status">
-      <Chip tone="white" size="s"><Dot tone="orange" size={7} />IN APP STORE REVIEW</Chip>
+      <AppStatus app="Gamut" tone="white" />
       {nextSteps.length > 0 && <div class="g-next-steps"><span class="label muted">NEXT</span>{nextSteps.map((s) => <span><Ph v={s} /></span>)}</div>}
     </Panel>
     <a class="panel tone-dark r-surface pad-panel g-next-card g-link" href={url('/works?section=mine')}>
@@ -211,7 +212,8 @@ const nextSteps = next.filter(visible);
   /* Status and next */
   .gamut :global(.g-next-card) { display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 300px; }
   .gamut :global(.g-status) { justify-content: flex-start; }
-  .gamut :global(.g-status .chip) { align-self: flex-start; padding: 8px 12px; }
+  .gamut :global(.g-status .app-status) { align-self: flex-start; }
+  .gamut :global(.g-status .chip) { padding: 8px 12px; }
   .g-next-steps { display: flex; flex-direction: column; gap: 8px; }
   .g-link { text-decoration: none; transition: transform var(--d-base) var(--ease); }
   .g-link:hover { transform: translateY(-4px); color: var(--white); }

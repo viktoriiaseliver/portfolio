@@ -1,0 +1,26 @@
+---
+// "Next case" row at the end of every case. Number + 10-mark bar only when the next case has a result.
+import Marks from '../atoms/Marks.astro';
+import { url } from '../../lib/url';
+export type Next = { href: string; cat: string; name: string; num?: string; pct?: number; what?: string };
+interface Props { next: Next; [attr: string]: unknown }
+const { next: n, ...rest } = Astro.props;
+---
+<a class="next" href={url(n.href)} {...rest}>
+  <span class="next-l"><span class="label muted">NEXT CASE · {n.cat}</span><span class="h5">{n.name}</span></span>
+  <span class="next-r">
+    {n.num && <span class="num next-n">{n.num}</span>}
+    {n.pct != null && <Marks total={10} on={Math.round(n.pct / 10)} height="24px" gap={4} class="next-ten" style="--on:var(--cobalt);--off:var(--cobalt-tint-strong);--off-o:.5" />}
+    <span class="muted next-w">{n.what ? `${n.what} →` : '→'}</span>
+  </span>
+</a>
+
+<style>
+  .next { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 20px 24px; border-radius: var(--r-card); background: var(--grey-238); color: var(--ink); text-decoration: none; transition: box-shadow var(--d-fast) var(--ease); }
+  .next:hover { box-shadow: var(--shadow-lift); color: var(--ink); }
+  .next-l { display: flex; flex-direction: column; gap: 4px; }
+  .next-r { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .next-n { font-size: var(--t-h4); letter-spacing: -.045em; }
+  .next-r :global(.next-ten) { width: 136px; }
+  .next-w { font-size: var(--t-small); }
+</style>
