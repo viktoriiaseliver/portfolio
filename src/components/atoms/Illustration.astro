@@ -1,0 +1,15 @@
+---
+// Frame for an illustration the owner draws (industry scenes, agents diagram, Stitch…).
+// With `src`: the image. Without: a captioned placeholder in `npm run dev`, nothing in production —
+// so an empty frame never ships.
+import Slot from './Slot.astro';
+import { SHOW_PLACEHOLDERS } from '../../lib/placeholder';
+interface Props { src?: string; label: string; alt?: string; ratio?: string; class?: string; [attr: string]: unknown }
+const { src, label, alt, ratio = '16 / 10', class: cls, ...rest } = Astro.props;
+const show = !!src || SHOW_PLACEHOLDERS;
+---
+{show && <div class:list={['illus', cls]} style={`aspect-ratio:${ratio}`} {...rest}><Slot label={`Illustration · ${label}`} src={src} alt={alt ?? label} /></div>}
+
+<style is:global>
+  .illus { display: flex; border-radius: var(--r-inner); overflow: hidden; }
+</style>
