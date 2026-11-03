@@ -17,8 +17,13 @@ export type Product = { ind: string; t: string; r: string; d: string; m: string;
 // Example: 'iwms': 'https://readymag.website/viktoriia.seliverstova/iwms/'
 export const OLD_CASES: Record<string, string> = {};
 
-// Case pages that exist. Add a slug here when its page is built (file in src/cases/).
-export const LIVE_CASES: string[] = ['construction-crm'];
+// Case pages that exist: every non-draft file in src/cases/ (in dev, drafts too). The case slug must match the card's slug.
+import type { Case } from '../cases/types';
+export const LIVE_CASES: string[] = Object.entries(import.meta.glob<{ default: Case }>('../cases/*.ts', { eager: true }))
+  .filter(([p]) => !p.endsWith('/types.ts'))
+  .map(([, m]) => m.default)
+  .filter((c) => !c.draft || import.meta.env.DEV)
+  .map((c) => c.slug);
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const P = (ind: string, t: string, r: string, d: string, m: string, tags: string, img = ''): Product =>
@@ -53,9 +58,9 @@ export const products: Product[] = [
 ];
 
 export const apps = [
-  { name: 'Gamut', slogan: 'Plan your palette, not just your posts.', status: 'IN APP STORE REVIEW', slot: 'app-gamut', ph: 'Gamut screen', page: '/products/gamut', d: "An Instagram feed planner that starts with colour, not photos. You add future posts as coloured tiles and see how they sit next to what's already published — so you know what to shoot next.", dec: ['Colour before content: plan the mood of the grid before the photos exist.', 'Private by design: import your profile with a screenshot. No login, no server, everything stays on the phone.', 'One tap turns the whole feed, real photos included, into its colours.'], did: ['Idea', 'product design', 'SwiftUI', 'App Store page'] },
-  { name: 'Togo', slogan: 'A dog diary for the whole family.', status: 'IN APP STORE REVIEW', slot: 'app-togo', ph: 'Togo screen', page: '', d: 'When did we walk, when did we feed, how did it go. 2 taps, and nobody has to ask in the evening. It started with my own dog, Stitch.', dec: ['One shared diary for the family, with invites and roles.', '“Does the dog need to go out?” answers honestly: with less than 4 days of data it says “not sure yet”.', 'Health tools are a mode, not a tab: they appear only when the dog is on treatment.'], did: ['Idea', 'product design', 'SwiftUI', 'widgets', 'family sharing'] },
-  { name: 'Timer', slogan: 'Know when to leave, not just when it starts.', status: 'IN APP STORE REVIEW', slot: 'app-timer', ph: 'Timer screen', page: '', d: 'A countdown to your next event that tells you when to walk out the door, right on the home screen.', dec: ['It counts down to leaving time, not to the event itself.', 'Travel time includes parking.', 'Widgets first: most of the time you never open the app.'], did: ['Idea', 'product design', 'SwiftUI', 'widgets'] }
+  { name: 'Gamut', slogan: 'Plan your palette, not just your posts.', slot: 'app-gamut', ph: 'Gamut screen', page: '/products/gamut', d: "An Instagram feed planner that starts with colour, not photos. You add future posts as coloured tiles and see how they sit next to what's already published — so you know what to shoot next.", dec: ['Colour before content: plan the mood of the grid before the photos exist.', 'Private by design: import your profile with a screenshot. No login, no server, everything stays on the phone.', 'One tap turns the whole feed, real photos included, into its colours.'], did: ['Idea', 'product design', 'SwiftUI', 'App Store page'] },
+  { name: 'Togo', slogan: 'A dog diary for the whole family.', slot: 'app-togo', ph: 'Togo screen', page: '', d: 'When did we walk, when did we feed, how did it go. 2 taps, and nobody has to ask in the evening. It started with my own dog, Stitch.', dec: ['One shared diary for the family, with invites and roles.', '“Does the dog need to go out?” answers honestly: with less than 4 days of data it says “not sure yet”.', 'Health tools are a mode, not a tab: they appear only when the dog is on treatment.'], did: ['Idea', 'product design', 'SwiftUI', 'widgets', 'family sharing'] },
+  { name: 'Timer', slogan: 'Know when to leave, not just when it starts.', slot: 'app-timer', ph: 'Timer screen', page: '', d: 'A countdown to your next event that tells you when to walk out the door, right on the home screen.', dec: ['It counts down to leaving time, not to the event itself.', 'Travel time includes parking.', 'Widgets first: most of the time you never open the app.'], did: ['Idea', 'product design', 'SwiftUI', 'widgets'] }
 ];
 
 export const stack = ['Figma', 'SwiftUI', 'Claude Code', 'Cursor', 'App Store Connect', '4 languages'];

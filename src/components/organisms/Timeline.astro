@@ -1,5 +1,6 @@
 ---
 import { roles, TIMELINE_START } from '../../data/timeline';
+import { allInReview } from '../../data/apps';
 
 const spanN = Math.max(1, new Date().getFullYear() + 1 - TIMELINE_START);
 const axis = Array.from({ length: spanN }, (_, i) => TIMELINE_START + i);
@@ -28,7 +29,7 @@ const first = rows[0];
       <span class="muted tl-small">Building now</span>
       <div class="tl-apps">
         <span class="tl-app" title="Gamut">G</span><span class="tl-app" title="Togo">T</span><span class="tl-app" title="Timer">Ti</span>
-        <span class="label-s muted tl-apps-l">GAMUT · TOGO · TIMER<br />IN APP STORE REVIEW</span>
+        <span class="label-s muted tl-apps-l">GAMUT · TOGO · TIMER{allInReview && <><br />IN APP STORE REVIEW</>}</span>
       </div>
     </div>
     <div class="tl-detail" aria-live="polite">

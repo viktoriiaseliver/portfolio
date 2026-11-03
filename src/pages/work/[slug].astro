@@ -3,6 +3,8 @@ import type { Case } from '../../cases/types';
 import CaseOpen from '../../layouts/CaseOpen.astro';
 import CaseNda from '../../layouts/CaseNda.astro';
 import CaseGraphic from '../../layouts/CaseGraphic.astro';
+import CaseStandard from '../../layouts/CaseStandard.astro';
+import CaseShort from '../../layouts/CaseShort.astro';
 
 // Every file in src/cases/ is a case page; drafts are built only in `npm run dev`.
 export function getStaticPaths() {
@@ -19,3 +21,5 @@ const { c } = Astro.props as { c: Case };
 {c.layout === 'open' && <CaseOpen c={c} />}
 {c.layout === 'nda' && <CaseNda c={c} />}
 {c.layout === 'graphic' && <CaseGraphic c={c} />}
+{c.layout === 'standard' && <CaseStandard c={c} />}
+{c.layout === 'short' && <CaseShort c={c} />}

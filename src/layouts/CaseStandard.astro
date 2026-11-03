@@ -1,0 +1,84 @@
+---
+// Level B case: header with cover → task → 2–3 one-sentence decisions → result → next.
+import Base from './Base.astro';
+import Contact from '../components/organisms/Contact.astro';
+import CaseHero from '../components/organisms/CaseHero.astro';
+import NextCase from '../components/organisms/NextCase.astro';
+import Chip from '../components/atoms/Chip.astro';
+import Slot from '../components/atoms/Slot.astro';
+import Ph from '../components/atoms/Ph.astro';
+import Heading from '../components/atoms/Heading.astro';
+import Panel from '../components/molecules/Panel.astro';
+import { bg } from '../lib/url';
+import { visible } from '../lib/placeholder';
+import type { StandardCase } from '../cases/types';
+
+interface Props { c: StandardCase }
+const { c } = Astro.props;
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
+const decisions = c.decisions.filter((d) => visible(d.t));
+const numbers = (c.numbers ?? []).filter((x) => visible(x.n) && visible(x.what));
+---
+<Base title={`${c.title.a}${c.title.b} — Viktoriia Seliverstova`} description={c.lead} nav={nav} progress>
+<main class="page caseb">
+  <CaseHero industry={c.industry} title={c.title} lead={c.lead} facts={c.facts}>
+    <div slot="badge" class="b-tags">{c.tags.map((t) => <Chip tone="dark" size="s">{t}</Chip>)}</div>
+    <div slot="visual" class="b-cover" style={c.cover ? `background-image:${bg(c.cover)}` : undefined}>
+      {!c.cover && <Slot label="Cover" />}
+      {c.result && <div class="b-result"><span class="num">{c.result.n}</span><span>{c.result.what}</span></div>}
+    </div>
+  </CaseHero>
+
+  {visible(c.task) && (
+    <section class="block b-task">
+      <span class="label accent">THE TASK</span>
+      <p class="h5 b-task-p"><Ph v={c.task} /></p>
+    </section>
+  )}
+
+  {decisions.length > 0 && (
+    <section class="block stack">
+      <Heading size="h3" a={decisions.length === 2 ? 'Two ' : 'Three '} b="decisions." class="b-dec-h" />
+      <div class:list={[decisions.length === 2 ? 'grid-2' : 'grid-3']}>
+        {decisions.map((d, i) => (
+          <Panel tone="soft" radius="card" pad="none" class="b-dec">
+            {(d.image || d.ph) && <div class="b-dec-img"><Slot label={d.ph ?? ''} src={d.image} /></div>}
+            <div class="b-dec-t"><span class="num accent">0{i + 1}</span><span class="b-dec-s"><Ph v={d.t} /></span></div>
+          </Panel>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {(c.result || numbers.length > 0) && (
+    <Panel as="section" tone="dark" class="block-m b-res">
+      <span class="label on-ink-muted">RESULT</span>
+      {c.result && <div class="b-res-big"><span class="num b-res-n">{c.result.n}</span><span class="h4 mist">{c.result.what}</span></div>}
+      {numbers.length > 0 && <div class="b-res-more">{numbers.map((x) => <div><span class="num num-l"><Ph v={x.n} /></span><span class="mist"><Ph v={x.what} /></span></div>)}</div>}
+    </Panel>
+  )}
+
+  <NextCase next={c.next} />
+  <Contact />
+</main>
+</Base>
+
+<style>
+  .b-cover { position: relative; display: flex; min-height: clamp(320px, 64vh, 640px); border-radius: var(--r-surface); overflow: hidden; background: var(--grey-210) center / cover no-repeat; }
+  .b-result { position: absolute; left: 10px; bottom: 10px; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: var(--r-inner); background: var(--glass-dark-bg); backdrop-filter: var(--glass-dark-filter); -webkit-backdrop-filter: var(--glass-dark-filter); box-shadow: var(--glass-dark-shadow); color: var(--white); font-size: var(--t-small); }
+  .b-result .num { font-size: var(--t-h5); line-height: 1; letter-spacing: -.03em; }
+  .b-task { display: flex; flex-direction: column; gap: 16px; max-width: 980px; padding-left: 4px; }
+  .b-task-p { line-height: 1.25; }
+  .b-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .caseb :global(.b-dec) { display: flex; flex-direction: column; gap: 16px; padding: 10px 10px 22px; }
+  .b-dec-img { aspect-ratio: 4 / 3; border-radius: var(--r-inner); overflow: hidden; display: flex; }
+  .b-dec-t { display: flex; flex-direction: column; gap: 10px; padding: 0 12px; }
+  .b-dec-s { font-size: var(--t-ui-l); font-weight: 500; line-height: 1.25; letter-spacing: -.01em; }
+  .caseb :global(.block-m) { margin-top: var(--block-top); }
+  .caseb :global(.b-res) { display: flex; flex-direction: column; gap: 24px; }
+  .b-res-big { display: flex; align-items: flex-end; gap: 12px 32px; flex-wrap: wrap; }
+  .b-res-n { font-size: var(--t-hero); line-height: .85; letter-spacing: -.055em; }
+  .b-res-more { display: flex; gap: 24px 48px; flex-wrap: wrap; border-top: 1px solid var(--on-dark-line); padding-top: 20px; }
+  .b-res-more > div { display: flex; flex-direction: column; gap: 6px; }
+  .caseb :global(.next) { margin-top: var(--block-top); }
+</style>

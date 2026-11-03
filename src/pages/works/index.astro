@@ -10,6 +10,7 @@ import Heading from '../../components/atoms/Heading.astro';
 import Phone from '../../components/atoms/Phone.astro';
 import Segmented from '../../components/atoms/Segmented.astro';
 import Panel from '../../components/molecules/Panel.astro';
+import AppStatus from '../../components/molecules/AppStatus.astro';
 import { url, bg } from '../../lib/url';
 import { industries, products, apps, stack, ai, graphicTypes, graphics, visualProducts, sections, LIVE_CASES, OLD_CASES } from '../../data/work';
 
@@ -175,7 +176,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
         <div class="s-phone appcard-ph"><Phone label={a.ph} /></div>
         <div class="s-apptext appcard-t">
           <div class="appcard-head">
-            <Chip tone="dark" size="s" class="tag-status"><Dot tone="orange" size={7} />{a.status}</Chip>
+            <AppStatus app={a.name} class="tag-status" />
             <h3 class="display big-h">{a.name}</h3>
             <span class="serif slogan mist">{a.slogan}</span>
             <p class="body mist">{a.d}</p>
@@ -490,7 +491,7 @@ const viewItems = (views: string[][]) => views.map(([k, l]) => ({ label: l, attr
   .gchip[aria-pressed='true'] .gchip-n { background: var(--on-dark-line); }
   .gchip i { width: 18px; display: inline-flex; justify-content: center; font-size: var(--t-body); line-height: 1; opacity: .7; }
   .gtile { display: flex; flex-direction: column; gap: 12px; padding: 8px 8px 16px; border-radius: var(--r-card); background: var(--grey-238); }
-  .gtile-img { aspect-ratio: 4 / 5; border-radius: var(--r-inner); overflow: hidden; display: flex; }
+  .gtile-img { aspect-ratio: 1; border-radius: var(--r-inner); overflow: hidden; display: flex; }
   .gtile-t { display: flex; flex-direction: column; gap: 4px; padding: 0 10px; }
   .gtile-name { font-size: var(--t-ui-l); font-weight: 500; line-height: 1.2; letter-spacing: -.01em; }
   .gtile-l { font-size: var(--t-small); line-height: 1.35; }
