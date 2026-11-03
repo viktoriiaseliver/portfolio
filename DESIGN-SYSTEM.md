@@ -33,11 +33,13 @@ Atomic: **tokens → atoms → molecules → organisms → pages**. Live referen
 
 ## Molecules — `src/components/molecules/`
 
-`Panel` (tone × radius × padding), `SectionHead`, `Facts`, `Status`, `StatHead`, `FactCard`.
+`Panel` (tone × radius × padding), `SectionHead`, `Facts`, `Status`, `StatHead`, `FactCard`, `Note` (warm / soft / brand aside).
 
 ## Organisms — `src/components/organisms/`
 
-`Nav` (hide on scroll, phone menu, reading progress, Short/Full), `Contact`, `Timeline` (one data source), `CaseHero`.
+`Nav` (hide on scroll, phone menu, reading progress, Short/Full), `Contact`, `Timeline` (one data source), `CaseHero`,
+`BeforeAfter` (drag / arrow keys to compare two screens), `ExplodedView` (layers pulled apart on view, static under reduced motion).
+In a flagship case file they are the optional `compare`, `exploded` and per-decision `note` fields.
 Page-specific organisms (Work filters, About stage, case diagram…) live in their page or layout file.
 
 ## Rules

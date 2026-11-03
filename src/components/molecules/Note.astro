@@ -1,0 +1,18 @@
+---
+// Note: a short aside next to a visual — a caveat, a lesson, a fact worth a second look.
+interface Props { label: string; tone?: 'warm' | 'soft' | 'brand'; class?: string; [attr: string]: unknown }
+const { label, tone = 'warm', class: cls, ...rest } = Astro.props;
+---
+<aside class:list={['note', `note-${tone}`, cls]} {...rest}>
+  <span class="label">{label}</span>
+  <div class="note-body"><slot /></div>
+</aside>
+
+<style is:global>
+  .note { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; border-radius: var(--r-card); max-width: 62ch; }
+  .note-warm { background: var(--peach); color: var(--ink); }
+  .note-soft { background: var(--grey-238); color: var(--ink); }
+  .note-brand { background: var(--cobalt); color: var(--white); }
+  .note-brand .label { color: var(--mist); }
+  .note-body { font-family: var(--font-editorial); font-style: italic; font-size: var(--t-h5); line-height: 1.2; }
+</style>

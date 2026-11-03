@@ -1,0 +1,38 @@
+---
+// Before / after slider: drag (or arrow keys) to reveal the old screen over the new one.
+// The control is a native range input stretched over the image, so it works with mouse, touch and keyboard.
+import Slot from '../atoms/Slot.astro';
+interface Props { before: { ph: string; image?: string }; after: { ph: string; image?: string }; label: string; ratio?: string; start?: number; class?: string }
+const { before, after, label, ratio = '16 / 10', start = 50, class: cls } = Astro.props;
+---
+<div class:list={['ba-slider', cls]} style={`aspect-ratio:${ratio};--pos:${start}%`} data-ba-slider>
+  <div class="ba-layer"><Slot label={after.ph} src={after.image} /></div>
+  <div class="ba-layer ba-before"><Slot label={before.ph} src={before.image} /></div>
+  <span class="label chip chip-glass ba-tag left" aria-hidden="true">BEFORE</span>
+  <span class="label chip chip-glass ba-tag right" aria-hidden="true">AFTER</span>
+  <span class="ba-handle" aria-hidden="true"><i>‹ ›</i></span>
+  <input type="range" min="0" max="100" value={start} aria-label={label} aria-valuetext={`${start}% before`} />
+</div>
+
+<style>
+  .ba-slider { position: relative; overflow: hidden; border-radius: var(--r-card); background: var(--grey-210); touch-action: pan-y; }
+  .ba-layer { position: absolute; inset: 0; display: flex; }
+  .ba-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  .ba-tag { position: absolute; top: 12px; padding: 8px 12px; pointer-events: none; }
+  .ba-tag.left { left: 12px; }
+  .ba-tag.right { right: 12px; }
+  .ba-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--white); box-shadow: 0 0 0 1px var(--shadow-ink); pointer-events: none; }
+  .ba-handle i { position: absolute; top: 50%; left: 50%; width: var(--control-min); height: var(--control-min); margin: -22px 0 0 -22px; border-radius: var(--r-dot); display: flex; align-items: center; justify-content: center; background: var(--white); color: var(--ink); font-size: var(--t-small); font-weight: 500; box-shadow: var(--shadow-lift); }
+  .ba-slider input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+  .ba-slider:has(input:focus-visible) .ba-handle i { outline: 2px solid var(--focus); outline-offset: 3px; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ba-slider]').forEach((el) => {
+    const input = el.querySelector('input')!;
+    input.addEventListener('input', () => {
+      el.style.setProperty('--pos', input.value + '%');
+      input.setAttribute('aria-valuetext', `${input.value}% before`);
+    });
+  });
+</script>
