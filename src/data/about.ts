@@ -46,5 +46,5 @@ export const lookingFor = {
   label: "05 · WHAT I'M LOOKING FOR",
   a: 'Senior product designer or product design lead roles, where design shapes the product and not only the screens. ',
   b: "Complex B2B, fintech, AI products and design systems are where I'm strongest.",
-  terms: ['Remote', 'Full-time or contract', 'Authorised to work in the EU']
+  terms: ['Remote', 'Full-time or contract']
 };

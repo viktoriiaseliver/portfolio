@@ -40,7 +40,7 @@ export const products: Product[] = [
   P('pay', 'P2P Payments', '', 'Deposits and withdrawals designed around trust', 'Team lead · PokerMatch · 2023', 'Web · Payments'),
   P('pay', 'Bonus System', 'Activation in 2 steps instead of 5', 'Bonus cards and activation on desktop and mobile', 'Team lead · PokerMatch · 2023', 'Web · Mobile · Design system'),
   P('pay', 'Game Landing Pages', '2 markets, 18 breakpoints', 'Paid-traffic landing pages for Aviator, JetX and Poker Land', 'Team lead · PokerMatch · 2023', 'Web · Landing · Localisation'),
-  P('ecom', 'OOKA Design System', '87% component reuse across 3 markets', 'One design system and store for a connected device in the US, Germany and the UAE', 'Product designer · OOKA Technologies · 2022–2023', 'Web · Design system · WCAG 2.1 AA', '/assets/work/17.jpg'),
+  P('ecom', 'OOKA Design System', '87% component reuse across 3 markets', 'One design system and store for a connected device in the US, Germany and the UAE', 'Senior UX/UI Designer · OOKA Technologies · 2022–2023', 'Web · Design system · WCAG 2.1 AA', '/assets/work/17.jpg'),
   P('ecom', 'Pre-order Diary', '', 'Pre-order store for a book release, paid before print', 'Designer · Freelance · 2021–2022', 'Web · Checkout'),
   P('ecom', 'Traditional Products Store', '', 'Online store for a family selling traditional products', 'Sole designer · Freelance · 2021–2022', 'Web · Checkout'),
   P('hosp', 'SwiftServe', 'Concept to launch in 4 weeks', 'Delivery and pick-up for 100+ restaurants during lockdown', 'Senior designer · Techstack · 2020', 'Web · MVP · Checkout'),
