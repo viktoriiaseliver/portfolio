@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/organisms/Contact.astro';
+import Chip from '../components/atoms/Chip.astro';
+import Dot from '../components/atoms/Dot.astro';
+import Heading from '../components/atoms/Heading.astro';
+import Button from '../components/atoms/Button.astro';
+import Illustration from '../components/atoms/Illustration.astro';
+import Panel from '../components/molecules/Panel.astro';
+import { url } from '../lib/url';
+import { ai } from '../data/work';
+import { aiTools } from '../data/about';
+import { published, video, intro, principle } from '../data/ai';
+import { agentsDiagram } from '../data/illustrations';
+
+const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All work' }, { href: '/about', label: 'About' }];
+---
+<Base title="How I work with AI — Viktoriia Seliverstova" description={intro} nav={nav}>
+  {!published && <meta slot="head" name="robots" content="noindex" />}
+  <main class="page aip">
+    <Panel as="section" tone="brand" class="ai-hero">
+      <Chip tone="dark" size="s" class="ai-chip"><Dot tone="green" size={7} />IN DAILY USE</Chip>
+      <Heading as="h1" size="display" a="How I work " b="with AI" bTone="mist" />
+      <p class="lead mist ai-intro">{intro}</p>
+      <Illustration src={video.src} label={video.label} ratio="16 / 9" class="ai-video" />
+    </Panel>
+
+    <section class="block stack">
+      <span class="label muted">AGENTS DO</span>
+      <div class="grid-4">
+        {ai.map((x, i) => (
+          <Panel tone="soft" radius="card" pad="card" class="ai-task">
+            <span class="num accent">0{i + 1}</span>
+            <span class="h5">{x.t}</span>
+            <p class="body muted">{x.d}</p>
+          </Panel>
+        ))}
+      </div>
+    </section>
+
+    <Illustration src={agentsDiagram.src} label={agentsDiagram.label} ratio="21 / 9" class="ai-diagram" />
+
+    <Panel as="section" tone="dark" class="ai-band">
+      <Heading as="p" size="h3" a={principle.a} b={principle.b} bTone="mist" />
+      <div class="ai-kit"><span class="label mist">AI IN THE KIT</span><div class="ai-tools">{aiTools.map((t) => <Chip tone="dark" ring>{t}</Chip>)}</div></div>
+    </Panel>
+
+    <section class="block ai-links">
+      <Button href={url('/products/gamut')} variant="ink" arrow>Gamut</Button>
+      <Button href={url('/works?section=mine')} variant="outline" size="lg">My products</Button>
+    </section>
+
+    <Contact showAbout />
+  </main>
+</Base>
+
+<style>
+  .aip :global(.ai-hero) { display: flex; flex-direction: column; gap: 24px; }
+  .aip :global(.ai-chip) { align-self: flex-start; padding: 8px 12px; }
+  .ai-intro { max-width: 52ch; }
+  .aip :global(.ai-video) { margin-top: 16px; }
+  .aip :global(.ai-task) { display: flex; flex-direction: column; gap: 12px; }
+  .aip :global(.ai-diagram) { margin-top: var(--block-top); }
+  .aip :global(.ai-band) { margin-top: var(--block-top); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 40px; align-items: center; }
+  @media (max-width: 639px) { .aip :global(.ai-band) { grid-template-columns: minmax(0, 1fr); } }
+  .ai-kit { display: flex; flex-direction: column; gap: 12px; }
+  .ai-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ai-links { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>

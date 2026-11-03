@@ -13,6 +13,7 @@ import CaseHero from '../components/organisms/CaseHero.astro';
 import BeforeAfter from '../components/organisms/BeforeAfter.astro';
 import ExplodedView from '../components/organisms/ExplodedView.astro';
 import Note from '../components/molecules/Note.astro';
+import NextCase from '../components/organisms/NextCase.astro';
 import Ph from '../components/atoms/Ph.astro';
 import { url, bg } from '../lib/url';
 import { filled, visible, SHOW_PLACEHOLDERS } from '../lib/placeholder';
@@ -38,7 +39,6 @@ const chapters = [
 const BEFORE = [[18, 24], [82, 24], [18, 80], [82, 80]], AFTER = [[14, 56], [38, 56], [62, 56], [86, 56]];
 const NODES = [['Web app 1', 'app'], ['Web app 2', 'app'], ['Web app 3', 'app'], ['Mobile app', 'phone']];
 const losses = [[34, 38], [66, 66], [64, 37]];
-const nextOn = Math.round(c.next.pct / 10);
 const R = c.result;
 const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
 ---
@@ -162,10 +162,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
         </div>
         {extra.length > 0 && <div class="res-extra">{extra.map((x) => <div><span class="num"><Ph v={x.n} /></span><span class="mist"><Ph v={x.what} /></span></div>)}</div>}
         {R.lesson && visible(R.lesson.why) && <div class="lesson" data-full><span class="label">WHAT I'D DO DIFFERENTLY</span><p class="serif">{R.lesson.text} <Ph v={R.lesson.why} /></p></div>}
-        <a class="next" href={url(c.next.href)}>
-          <span class="next-l"><span class="label muted">NEXT CASE · {c.next.cat}</span><span class="h5">{c.next.name}</span></span>
-          <span class="next-r"><span class="num next-n">{c.next.num}</span><Marks total={10} on={nextOn} height="24px" gap={4} class="next-ten" style="--on:var(--cobalt);--off:var(--cobalt-tint-strong);--off-o:.5" /><span class="muted next-w">{c.next.what} →</span></span>
-        </a>
+        <NextCase next={c.next} />
       </div>
     </div>
   </section>
@@ -317,13 +314,6 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   .res-extra .mist { font-size: var(--t-small); }
   .lesson { display: flex; flex-direction: column; gap: 12px; padding: 22px 24px; border-radius: var(--r-card); background: var(--peach); }
   .lesson p { font-size: var(--t-h5); line-height: 1.2; }
-  .next { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 20px 24px; border-radius: var(--r-card); background: var(--grey-238); color: var(--ink); text-decoration: none; transition: box-shadow var(--d-fast) var(--ease); }
-  .next:hover { box-shadow: var(--shadow-lift); color: var(--ink); }
-  .next-l { display: flex; flex-direction: column; gap: 4px; }
-  .next-r { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .next-n { font-size: var(--t-h4); letter-spacing: -.045em; }
-  .next-r :global(.next-ten) { width: 136px; }
-  .next-w { font-size: var(--t-small); }
 </style>
 
 <script>

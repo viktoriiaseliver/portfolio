@@ -1,0 +1,15 @@
+---
+// App status: "In App Store review" chip until the app has an App Store link, then "Download on the App Store".
+import Chip from '../atoms/Chip.astro';
+import Dot from '../atoms/Dot.astro';
+import Button from '../atoms/Button.astro';
+import { appStore } from '../../data/apps';
+interface Props { app: string; tone?: 'dark' | 'white' | 'plain'; class?: string; [attr: string]: unknown }
+const { app, tone = 'dark', class: cls, ...rest } = Astro.props;
+const href = appStore[app];
+---
+{href
+  ? <Button href={href} target="_blank" rel="noopener" variant={tone === 'dark' ? 'white' : 'ink'} size="sm" class:list={['app-status', cls]} {...rest}>Download on the App Store</Button>
+  : tone === 'plain'
+    ? <span class:list={['label-s', 'muted', 'app-status', cls]} {...rest}>IN APP STORE REVIEW</span>
+    : <Chip tone={tone} size="s" class:list={['app-status', cls]} {...rest}><Dot tone="orange" size={7} />IN APP STORE REVIEW</Chip>}

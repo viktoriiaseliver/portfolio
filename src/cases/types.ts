@@ -1,4 +1,5 @@
-// Content schema for case pages. One file per case in src/cases/; `layout` picks the page template.
+// Content schema for case pages. One file per case in src/cases/; `layout` picks the page template:
+// open (level A flagship), standard (B), short (C), nda, graphic.
 // Text in [brackets] is a placeholder: hidden in production, marked in `npm run dev`.
 
 type Fact = { k: string; v: string };
@@ -66,4 +67,36 @@ export type GraphicCase = {
   next: Next & { img: string };
 };
 
-export type Case = OpenCase | NdaCase | GraphicCase;
+// Level B — standard case, 1–2 min: header → passport → task → 2–3 one-sentence decisions → result → next.
+export type StandardCase = {
+  layout: 'standard';
+  slug: string;
+  draft?: boolean;
+  industry: string;
+  title: Title;
+  lead: string;             // the card's one-line task
+  facts: Fact[];            // ROLE, COMPANY, YEAR, PLATFORMS
+  cover?: string;
+  result?: { n: string; what: string };   // shown only with a real number
+  task: string;             // one paragraph
+  decisions: { t: string; ph?: string; image?: string }[];
+  numbers?: { n: string; what: string }[];
+  tags: string[];
+  next: Next & { num?: string; pct?: number; what?: string };
+};
+
+// Level C — short case, 20–30 s: header, passport, 2–3 sentences, 4–6 screens with captions.
+export type ShortCase = {
+  layout: 'short';
+  slug: string;
+  draft?: boolean;
+  industry: string;
+  title: Title;
+  facts: Fact[];
+  text: string[];           // 2–3 sentences
+  screens: { caption: string; ph: string; image?: string }[];
+  tags: string[];
+  next: Next & { num?: string; pct?: number; what?: string };
+};
+
+export type Case = OpenCase | NdaCase | GraphicCase | StandardCase | ShortCase;

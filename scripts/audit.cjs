@@ -3,7 +3,7 @@
 // WCAG contrast of every text node against its real background, tap targets < 44px.
 const { chromium } = require('playwright');
 const BASE = process.argv[2] || 'http://localhost:4321/portfolio/';
-const PAGES = ['', 'works', 'about', 'work/construction-crm', 'products/gamut', '404', 'system'];
+const PAGES = ['', 'works', 'about', 'work/construction-crm', 'products/gamut', 'ai', '404', 'system'];
 const WIDTHS = [320, 390, 639, 640, 768, 1099, 1100, 1440];
 
 function probe() {

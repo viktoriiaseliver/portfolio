@@ -9,6 +9,7 @@ import Marks from '../components/atoms/Marks.astro';
 import Phone from '../components/atoms/Phone.astro';
 import Panel from '../components/molecules/Panel.astro';
 import Status from '../components/molecules/Status.astro';
+import AppStatus from '../components/molecules/AppStatus.astro';
 import FactCard from '../components/molecules/FactCard.astro';
 import SectionHead from '../components/molecules/SectionHead.astro';
 import { url, bg } from '../lib/url';
@@ -129,7 +130,7 @@ const grid = Array.from({ length: 100 }, (_, i) => i < 87);
         <Panel tone="soft" class="app">
           <Phone label={a.ph} class="app-phone" />
           <div class="app-text">
-            <div class="app-title"><span class="h5">{a.name}</span><span class="label-s muted">IN APP STORE REVIEW</span></div>
+            <div class="app-title"><span class="h5">{a.name}</span><AppStatus app={a.name} tone="plain" /></div>
             <span class="muted app-what">{a.what}</span>
           </div>
         </Panel>
