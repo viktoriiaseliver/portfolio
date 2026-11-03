@@ -25,13 +25,15 @@ const nav = [{ href: '/#work', label: 'Proof' }, { href: '/works', label: 'All w
 
 // Optional chapters appear once their copy is written (or in dev as drafts).
 const showResearch = c.insights.some((i) => visible(i.quote));
-const showExplored = visible(c.explored.alternative) && visible(c.explored.reason);
+const showExplored = visible(c.explored.t) && visible(c.explored.text);
+const hasJourney = c.stations.length > 0;
+const screens = c.screens ?? [];
 const contextOk = c.problem.context.every(filled) || SHOW_PLACEHOLDERS;
 const chapters = [
   ['problem', 'Problem', false],
   ...(showResearch ? [['research', 'Research', true]] : []),
   ['decisions', 'Decisions', false],
-  ['journey', 'In use', false],
+  ...(hasJourney || screens.length ? [['journey', 'In use', false]] : []),
   ...(showExplored ? [['explored', 'Explored', true]] : []),
   ['result', 'Result', false]
 ] as [string, string, boolean][];
@@ -48,7 +50,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   <CaseHero industry={c.industry} title={c.title} lead={c.lead} facts={c.facts}>
     <span slot="badge" class="label on-ink-muted">{c.kicker}</span>
     <div slot="visual" class="chero-cover" style={`background-image:${bg(c.cover)}`}>
-      <div class="chero-chips">{c.chips.map((r) => <div class="gchip-dark"><div class="num gchip-n">{r.num}</div><div class="gchip-w">{r.what}</div></div>)}</div>
+      <div class:list={['chero-chips', { n3: c.chips.length === 3 }]}>{c.chips.map((r) => <div class="gchip-dark"><div class="num gchip-n">{r.num}</div><div class="gchip-w">{r.what}</div></div>)}</div>
     </div>
   </CaseHero>
 
@@ -59,7 +61,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
     <FactCard n={c.workflow.n} unit={c.workflow.what}>
       <div class="q-foot"><div class="q-flow"><div class="q-apps"><i></i><i></i><i></i><i class="ph-m"></i></div><span class="muted">→</span><i class="q-one"></i></div><span class="label-s muted" style="letter-spacing:0">{c.workflow.caption}</span></div>
     </FactCard>
-    <FactCard n={c.roles.length} unit="roles, one order">
+    <FactCard n={c.roles.length} unit={c.rolesWhat ?? 'roles, one order'}>
       <div class="q-roles">{c.roles.map((r) => <Chip tone="white"><i class="role-ic"></i>{r}</Chip>)}</div>
     </FactCard>
     <FactCard title="My zone">
@@ -101,8 +103,9 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
       {showResearch && (
         <div id="research" class="chap" data-chapter data-full>
           <span class="label chap-k"><span data-chap-n="research">02</span> · RESEARCH</span>
-          <Heading size="h3" a="What I " b="found." />
-          <div class="ins">{c.insights.filter((i) => visible(i.quote)).map((i) => <div class="ins-c"><span class="num ins-n">{i.n}</span><div class="ins-t"><span class="serif ins-q muted">“<Ph v={i.quote} />”</span><span class="label-s muted"><Ph v={i.src} /></span></div></div>)}</div>
+          <Heading size="h3" a="What I " b="learned." />
+          {c.researchIntro && <p class="lead chap-p">{c.researchIntro}</p>}
+          <div class="ins">{c.insights.filter((i) => visible(i.quote)).map((i) => <div class="ins-c"><span class="num ins-n">{i.n}</span><div class="ins-t">{i.src ? <><span class="serif ins-q muted">“<Ph v={i.quote} />”</span><span class="label-s muted"><Ph v={i.src} /></span></> : <span class="ins-s"><Ph v={i.quote} /></span>}</div></div>)}</div>
         </div>
       )}
 
@@ -113,6 +116,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
           return (
             <article class="dec">
               <div class="dec-head"><span class="num dec-n">{String(i + 1).padStart(2, '0')}</span><h3 class="dec-t">{d.t}</h3></div>
+              {d.text && <p class="lead muted dec-p">{d.text}</p>}
               <div class="dec-shot"><Slot label={d.ph} src={d.image} />{d.pins.map(([x, y], j) => <span class="pin" style={`left:${x}%;top:${y}%`}>{j + 1}</span>)}</div>
               {d.note && visible(d.note.text) && <Note label={d.note.label}><Ph v={d.note.text} /></Note>}
               {notes.length > 0 && <div class="dec-notes" data-full style={`--cols:${notes.length}`}>{notes.map(([k, v]) => <div><span class="label muted">{k}</span><span class="dec-v"><Ph v={v} /></span></div>)}</div>}
@@ -135,6 +139,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
         </div>
       )}
 
+      {hasJourney && (
       <div id="journey" class="chap journey" data-chapter data-journey>
         <div class="j-head">
           <div class="j-title"><span class="label mist"><span data-chap-n="journey">04</span> · IN USE</span><Heading size="h3" a="The path of " b="one order." /></div>
@@ -146,11 +151,21 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
           <span class="j-end" hidden data-j-end><span class="num j-end-n">{R.sign}{R.n} {R.unit}</span><span class="j-end-w">{R.b}</span></span>
         </div>
       </div>
+      )}
+
+      {!hasJourney && screens.length > 0 && (
+        <div id="journey" class="chap" data-chapter>
+          <span class="label chap-k"><span data-chap-n="journey">04</span> · IN USE</span>
+          <div class:list={['shots', { 'shots-2': screens.length % 2 === 0 }]}>
+            {screens.map((x) => <figure class="shot"><div class="shot-img"><Slot label={x.ph} src={x.image} /></div><figcaption class="shot-c">{x.caption}</figcaption></figure>)}
+          </div>
+        </div>
+      )}
 
       {showExplored && (
         <div id="explored" class="chap expl" data-chapter data-full>
           <div class="expl-img"><div class="expl-grey"><Slot label="Explored alternative" src={c.explored.image} /></div><span class="expl-strike"></span></div>
-          <div class="expl-t"><span class="label muted">EXPLORED, NOT SHIPPED</span><p class="h5">I also explored <Ph v={c.explored.alternative} />. It tested worse because <Ph v={c.explored.reason} />.</p></div>
+          <div class="expl-t"><span class="label muted">EXPLORED, NOT SHIPPED</span><div class="expl-copy"><p class="h5">{c.explored.t}</p><p class="body muted">{c.explored.text}</p></div></div>
         </div>
       )}
 
@@ -160,8 +175,9 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
           <div class="res-big"><span class="num res-n" aria-label={`${R.n} ${R.unit}`}>{R.sign}<span data-counter>0</span><span class="res-unit"> {R.unit}</span></span><span class="res-l">{R.a}<br /><span class="serif mist">{R.b}</span></span></div>
           <div class="res-mins" aria-hidden="true" style={`--n:${R.n}`}>{Array.from({ length: R.n }, () => <i></i>)}</div>
         </div>
-        {extra.length > 0 && <div class="res-extra">{extra.map((x) => <div><span class="num"><Ph v={x.n} /></span><span class="mist"><Ph v={x.what} /></span></div>)}</div>}
-        {R.lesson && visible(R.lesson.why) && <div class="lesson" data-full><span class="label">WHAT I'D DO DIFFERENTLY</span><p class="serif">{R.lesson.text} <Ph v={R.lesson.why} /></p></div>}
+        {R.text && <p class="lead chap-p">{R.text}</p>}
+        {extra.length > 0 && <div class:list={['res-extra', { 'res-3': extra.length % 3 === 0 }]}>{extra.map((x) => <div><span class="num"><Ph v={x.n} /></span><span class="mist"><Ph v={x.what} /></span></div>)}</div>}
+        {R.lesson && visible(R.lesson) && <Note label="WHAT I'D DO DIFFERENTLY" class="lesson" data-full><Ph v={R.lesson} /></Note>}
         <NextCase next={c.next} />
       </div>
     </div>
@@ -178,6 +194,8 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   /* Hero */
   .chero-cover { position: relative; min-height: clamp(320px, 64vh, 640px); border-radius: var(--r-surface); overflow: hidden; background: var(--grey-210) center / cover no-repeat; }
   .chero-chips { position: absolute; left: 10px; right: 10px; bottom: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .chero-chips.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 1099px) { .chero-chips.n3 { grid-template-columns: minmax(0, 1fr); } }
   .gchip-dark { padding: 14px 16px; border-radius: var(--r-inner); background: var(--glass-dark-bg); backdrop-filter: var(--glass-dark-filter); -webkit-backdrop-filter: var(--glass-dark-filter); box-shadow: var(--glass-dark-shadow); color: var(--white); }
   .gchip-n { font-size: var(--t-h5); line-height: 1; letter-spacing: -.03em; }
   .gchip-w { font-size: var(--t-small); margin-top: 4px; opacity: .9; }
@@ -235,6 +253,7 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   .dia-order { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); padding: 12px 18px; border-radius: var(--r-inner); background: var(--cobalt); color: var(--white); font-size: var(--t-body); font-weight: 500; white-space: nowrap; box-shadow: 0 10px 28px var(--cobalt-tint-strong); transition: top var(--d-morph) var(--ease); }
   .dia-legend { position: absolute; right: 18px; bottom: 16px; display: inline-flex; align-items: center; gap: 6px; }
   .dia-legend i { width: 8px; height: 8px; border-radius: var(--r-dot); background: var(--orange); }
+  @media (max-width: 639px) { .dia-legend { right: auto; bottom: auto; left: 50%; top: 14px; transform: translateX(-50%); white-space: nowrap; } }
   .dia.after .dia-links, .dia.after .loss { opacity: 0; }
   .dia.after .dia-line { width: 72%; }
   .dia.after .node { left: var(--ax); top: var(--ay); }
@@ -312,8 +331,20 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
   .res-extra > div { display: flex; flex-direction: column; gap: 6px; padding: 20px 22px; border-radius: var(--r-card); background: var(--cobalt); color: var(--white); }
   .res-extra .num { font-size: var(--t-h4); line-height: 1; }
   .res-extra .mist { font-size: var(--t-small); }
-  .lesson { display: flex; flex-direction: column; gap: 12px; padding: 22px 24px; border-radius: var(--r-card); background: var(--peach); }
-  .lesson p { font-size: var(--t-h5); line-height: 1.2; }
+  .res :global(.lesson) { max-width: none; }
+  .chap-p { max-width: 62ch; }
+  .dec-p { max-width: 62ch; }
+  .ins-s { font-size: var(--t-h5); line-height: 1.2; font-weight: 500; letter-spacing: -.01em; }
+  .expl-copy { display: flex; flex-direction: column; gap: 12px; }
+  .shots { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .shots.shots-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 639px) { .shots.shots-2 { grid-template-columns: minmax(0, 1fr); } }
+  .shot { margin: 0; display: flex; flex-direction: column; gap: 12px; padding: 10px 10px 16px; border-radius: var(--r-card); background: var(--grey-238); }
+  .shot-img { aspect-ratio: 16 / 10; border-radius: var(--r-inner); overflow: hidden; display: flex; background: var(--white); }
+  .shot-c { padding: 0 8px; font-size: var(--t-body); font-weight: 500; }
+  .res-extra.res-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 1099px) { .res-extra.res-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .res-extra.res-3 { grid-template-columns: minmax(0, 1fr); } }
 </style>
 
 <script>
@@ -353,13 +384,14 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
     after = v;
     dia.classList.toggle('after', v);
     baBtns.forEach((b) => b.setAttribute('aria-selected', String((b.dataset.ba === '1') === v)));
-    dia.querySelector('[data-order]')!.textContent = v ? 'One order timeline' : '1 order';
+    dia.querySelector('[data-order]')!.textContent = v ? 'One system' : '1 order';
     dia.querySelector('[data-legend]')!.textContent = v ? 'ONE SHARED VIEW' : 'LOST CONTEXT';
-    dia.setAttribute('aria-label', v ? 'After: one order timeline connects three web apps and a mobile app' : 'Before: one order spread across three web apps and a mobile app, with lost context between them');
+    dia.setAttribute('aria-label', v ? 'After: one system connects three web apps and a mobile app' : 'Before: one order spread across three web apps and a mobile app, with lost context between them');
   };
   baBtns.forEach((b) => b.addEventListener('click', () => { touched = true; setAfter(b.dataset.ba === '1'); }));
 
   // Journey: four stops, Play/Pause, prev/next, auto-advance while in view.
+  const hasJourney = !!document.querySelector('[data-journey]');
   const stations = [...document.querySelectorAll<HTMLButtonElement>('[data-station]')];
   const shots = [...document.querySelectorAll<HTMLElement>('[data-shot]')];
   const playBtn = document.querySelector<HTMLButtonElement>('[data-play]')!;
@@ -377,16 +409,18 @@ const extra = (R.extra ?? []).filter((x) => visible(x.n) && visible(x.what));
     nextBtn.setAttribute('aria-disabled', String(s === last));
   };
   const setPlaying = (p: boolean) => { playing = p; playBtn.textContent = p ? 'Pause' : 'Play'; };
-  stations.forEach((b, i) => b.addEventListener('click', () => { setPlaying(false); setStep(i); }));
-  prevBtn.addEventListener('click', () => { setPlaying(false); setStep(Math.max(0, step - 1)); });
-  nextBtn.addEventListener('click', () => { setPlaying(false); setStep(Math.min(last, step + 1)); });
-  playBtn.addEventListener('click', () => setPlaying(!playing));
-  setStep(0);
-  setPlaying(playing);
+  if (hasJourney) {
+    stations.forEach((b, i) => b.addEventListener('click', () => { setPlaying(false); setStep(i); }));
+    prevBtn.addEventListener('click', () => { setPlaying(false); setStep(Math.max(0, step - 1)); });
+    nextBtn.addEventListener('click', () => { setPlaying(false); setStep(Math.min(last, step + 1)); });
+    playBtn.addEventListener('click', () => setPlaying(!playing));
+    setStep(0);
+    setPlaying(playing);
+  }
 
   if (!reduce) setInterval(() => {
     if (active === 'problem' && !touched) setAfter(!after);
-    if (active === 'journey' && playing) setStep(step >= last ? 0 : step + 1);
+    if (hasJourney && active === 'journey' && playing) setStep(step >= last ? 0 : step + 1);
   }, 2600);
 
   // Result: counter 0 → N over 1.4s, minute blocks fill along.

@@ -30,7 +30,7 @@ const P = (ind: string, t: string, r: string, d: string, m: string, tags: string
   ({ ind, t, r, d, m, tags: tags.split(' · '), img, slug: slugify(t) });
 
 export const products: Product[] = [
-  P('ops', 'Construction CRM', '8 min faster per order', 'Rental, sales, delivery and Bluetooth equipment tracking in 3 web apps and a mobile app', 'Lead designer · Stockguard, via Develit AB · 2024', 'Web · Mobile · AI features', '/assets/work/05.jpg'),
+  P('ops', 'Construction CRM', '8 min faster per order', 'Rental, sales, delivery and Bluetooth equipment tracking in 3 web apps and a mobile app', 'Lead UX/UI designer · Stockguard, via Develit AB · 2024', 'Web · Mobile · AI features', '/assets/work/05.jpg'),
   P('ops', 'Traffic Management System', '15 → 3 min per violation', 'Mobile app for traffic officers, from vehicle check to fine payment', 'Senior designer · Develit AB · 2024', 'Mobile · Field use', '/assets/work/19.jpg'),
   P('ops', 'IWMS', '40% less time on core tasks', 'Warehouse inventory, orders and shipments for office and floor staff', 'Lead designer · Develit AB · 2024', 'Web · Mobile · WCAG 2.1 AA', '/assets/work/01.jpg'),
   P('ops', 'Fleet Management', '35% faster routine tasks', 'Maritime fleet operations under international rules, with AI assistance', 'Lead designer · Develit AB · 2024', 'Web · AI features · Accessibility'),
