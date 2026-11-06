@@ -1,0 +1,10 @@
+# Cloudflare Pages response headers.
+#
+# Keeps the site out of search results while the link still works for anyone it is sent to.
+# This is the half that the `noindex` meta tag cannot do: the header also covers the CV PDF
+# and any other non-HTML file, which have nowhere to carry a meta tag.
+#
+# Paired with HIDE_FROM_SEARCH in src/data/site.ts. That flag is NOT generated from here —
+# when the site should become findable, flip both, or neither. Checked by scripts/no-index.cjs.
+/*
+  X-Robots-Tag: noindex, nofollow
