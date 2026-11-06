@@ -583,6 +583,26 @@ Extracted from the final design files, Oct 2026. Copy is final and must be kept 
 - NEXT CASE · {{ c.next.cat }}
 - {{ c.next.what }} →
 
+### Result figures — owner-approved, Nov 2026
+
+Not part of the Oct 2026 extraction, and deliberately kept separate from it: the
+design file above carries `[number 2]` and `[number 3]`, so only three figures
+were ever drawn. These six replaced them in `src/cases/construction-crm.ts`
+(PR #9, "owner-approved case text") and are listed here because the rule is to
+take numbers from this file word for word — and five of the six had no entry at
+all until now.
+
+- 15% — more daily users on the client portal
+- 8 min — faster per order
+- 4.2/5 — mobile app rating from warehouse staff and drivers
+- 22% — fewer navigation support tickets
+- 10% — more accurate inventory tracking
+- 30% — more use of AI demand forecasting after its redesign
+
+Still unwritten: `howMeasured` for this case. The design has a "how measured ·
+[how and when]" line, the field is optional and unset, so the page shows six
+figures with no statement of how or when they were taken.
+
 ### Component props / placeholders
 - placeholder: Explored alternative
 

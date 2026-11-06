@@ -15,4 +15,4 @@ Read design/HANDOFF.md first. References are in design/reference/*.dc.html (read
 - Case studies are content files rendered by 3 layouts (open, nda, graphic). Adding a case = adding a content file.
 - Respect prefers-reduced-motion everywhere.
 - Build pages from the design system (DESIGN-SYSTEM.md): atoms, molecules, organisms in src/components/, classes in src/styles/atoms.css and layout.css.
-- Before pushing UI changes run scripts/audit.cjs and scripts/states.cjs against `astro preview`; both must come back clean.
+- Before pushing UI changes run scripts/audit.cjs and scripts/states.cjs against `astro preview`; both must come back clean. They exit non-zero on findings, so rc is the verdict. `npm ci` installs playwright but not its browser — run `npx playwright install chromium` once per machine, or the scripts die on launch.
