@@ -2,7 +2,7 @@
 // Checks every page at 320/390/768/1100/1440: horizontal overflow, text < 12px,
 // WCAG contrast of every text node against its real background, tap targets < 44px.
 const { chromium } = require('playwright');
-const BASE = process.argv[2] || 'http://localhost:4321/portfolio/';
+const BASE = process.argv[2] || 'http://localhost:4321/';
 const PAGES = ['', 'works', 'about', 'work/construction-crm', 'products/gamut', 'ai', '404', 'system'];
 const WIDTHS = [320, 390, 639, 640, 768, 1099, 1100, 1440];
 

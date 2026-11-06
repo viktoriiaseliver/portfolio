@@ -6,7 +6,7 @@ Personal site of a Senior Product Designer. Built with [Astro](https://astro.bui
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/portfolio/  (BASE_PATH=/ npm run dev for the root)
+npm run dev      # http://localhost:4321/
 npm run build    # static site in dist/
 ```
 
@@ -39,19 +39,18 @@ Text in `[brackets]` is a placeholder still to be written. The built site hides 
 
 Atomic tokens → atoms → molecules → organisms. Reference: `DESIGN-SYSTEM.md` and the live page `/system`.
 
-## Deploy
+## Deploy (Cloudflare Pages, vseliver.com)
 
-Pushing to `main` publishes the site to GitHub Pages (`.github/workflows/deploy.yml`).
-One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+The site is built and hosted by Cloudflare Pages; every push to `main` publishes it, and every PR gets a preview link.
 
-### Custom domain (seliver.design)
+One-time setup in Cloudflare (Workers & Pages → Create → Pages → Connect to Git):
+1. Repository `viktoriiaseliver/portfolio`, production branch `main`.
+2. Framework preset **Astro**; build command `npm run build`; output directory `dist`. Node comes from `.node-version` (22).
+3. No environment variables needed: `astro.config.mjs` already builds for `https://vseliver.com` at the root.
+4. Custom domains → add `vseliver.com` (and `www.vseliver.com`, redirected to the apex). The domain is registered at Cloudflare, so DNS is set automatically.
+5. Email Routing → `hello@vseliver.com` → the owner's Gmail.
 
-1. At the domain registrar add DNS records for GitHub Pages: four `A` records for `@` → 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153, and `CNAME` `www` → `viktoriiaseliver.github.io`.
-2. Add a file `public/CNAME` containing `seliver.design`.
-3. In `.github/workflows/deploy.yml` set `SITE_URL: https://seliver.design` and `BASE_PATH: /`.
-4. Settings → Pages → Custom domain: `seliver.design`, then tick **Enforce HTTPS** once the certificate is issued.
-
-`robots.txt` and the sitemap are generated with the right URLs; robots.txt only takes effect at the domain root, i.e. after step 3.
+`robots.txt`, the sitemap, canonical and OG URLs all come from `site` in `astro.config.mjs`.
 
 ## Launch
 
