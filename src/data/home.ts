@@ -5,11 +5,12 @@ export const hero = {
   lead: 'I take products from research to release, and I stay until they work in real use.'
 };
 export const people = [
-  { c: 'In gloves', who: 'Warehouse and site teams' },
-  { c: 'On the road', who: 'Traffic officers' },
-  { c: 'Weak internet at sea', who: 'Ship crews' },
-  { c: 'Mid-lockdown', who: 'Restaurant staff' }
+  { c: 'In gloves', who: 'Warehouse and site teams', n: '−40%', r: 'time on core tasks', href: '/works' },
+  { c: 'On the road', who: 'Traffic officers', n: '15 → 3 min', r: 'per violation', href: '/works' },
+  { c: 'Weak internet at sea', who: 'Ship crews', n: '35%', r: 'faster routine tasks', href: '/works' },
+  { c: 'Mid-lockdown', who: 'Restaurant staff', n: '4 weeks', r: 'from concept to launch', href: '/works' }
 ];
+export const creds = ['9 years', 'Led a team of 4 designers', '7 industries', 'Last role: the only designer on an AI meeting assistant'];
 export const industriesShort = ['Operations & government', 'Payments & iGaming', 'E-commerce', 'Hospitality', 'Healthcare', 'HR tech', 'Media & web'];
 export const langs = [{ n: 'English', w: '100%', lv: 'C2' }, { n: 'French', w: '50%', lv: 'B1' }, { n: 'Ukrainian', w: '100%', lv: 'NATIVE' }];
 export const weeks = [{ t: 'W1 CONCEPT', o: .25 }, { t: 'W2', o: .45 }, { t: 'W3', o: .7 }, { t: 'W4 LAUNCH', o: 1 }];
