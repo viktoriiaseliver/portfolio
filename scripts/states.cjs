@@ -1,6 +1,6 @@
 // Interaction + motion checks: node scripts/states.cjs [baseUrl]
 const { chromium } = require('playwright');
-const BASE = process.argv[2] || 'http://localhost:4321/portfolio/';
+const BASE = process.argv[2] || 'http://localhost:4321/';
 const fs = require('fs');
 const probe = new Function('return (' + fs.readFileSync(__dirname + '/audit.cjs', 'utf8').match(/function probe\(\) \{[\s\S]*?\n\}/)[0] + ')()');
 const out = [];
