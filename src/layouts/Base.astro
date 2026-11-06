@@ -8,6 +8,7 @@ import sans500 from '@fontsource/instrument-sans/files/instrument-sans-latin-500
 import sans400 from '@fontsource/instrument-sans/files/instrument-sans-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import Nav from '../components/organisms/Nav.astro';
+import { HIDE_FROM_SEARCH } from '../data/site';
 
 interface Props {
   title: string;
@@ -28,6 +29,7 @@ const ogImage = new URL(`${base}/og/${og}`, Astro.site).href;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  {HIDE_FROM_SEARCH && <meta name="robots" content="noindex, nofollow" />}
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta property="og:title" content={title} />
@@ -42,7 +44,7 @@ const ogImage = new URL(`${base}/og/${og}`, Astro.site).href;
   <link rel="canonical" href={canonical} />
   <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
   <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
-  <link rel="sitemap" href={`${base}/sitemap.xml`} />
+  {!HIDE_FROM_SEARCH && <link rel="sitemap" href={`${base}/sitemap.xml`} />}
   <meta name="theme-color" content="#181d28" />
   <slot name="head" />
   <link rel="preload" href={sans500} as="font" type="font/woff2" crossorigin />
