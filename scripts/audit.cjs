@@ -71,6 +71,11 @@ function probe() {
     }
     await p.close();
   }
-  for (const k of ['overflow', 'errors', 'small', 'contrast', 'targets']) { const v = [...agg[k]]; console.log(`\n## ${k} (${v.length})`); v.slice(0, 80).forEach((x) => console.log('  ' + x)); }
+  let found = 0;
+  for (const k of ['overflow', 'errors', 'small', 'contrast', 'targets']) { const v = [...agg[k]]; found += v.length; console.log(`\n## ${k} (${v.length})`); v.slice(0, 80).forEach((x) => console.log('  ' + x)); }
   await b.close();
+  // The exit code has to carry the verdict: CLAUDE.md asks for a clean run before
+  // pushing, and anything reading only rc used to get a green on a broken page.
+  console.log(found ? `\nFAIL: ${found} finding(s)` : '\nclean');
+  process.exitCode = found ? 1 : 0;
 })();
